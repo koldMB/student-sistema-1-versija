@@ -113,7 +113,7 @@ void skaičiavimai(studentas* stud, int n)
 
 
         int *nd_kopija = new int[s.nd_sk];
-        for(int j = 0; j < s.nd_sk; ++j) nd_kopija[j] = s.nd[j];
+        std::copy(s.nd, s.nd + s.nd_sk, nd_kopija);
         sort(nd_kopija, nd_kopija + s.nd_sk);
         if (s.nd_sk > 0) {
             if (s.nd_sk % 2 == 0) {
