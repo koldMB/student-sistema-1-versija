@@ -1,15 +1,22 @@
+//implimentacija su vektoriais
+
 #include <iostream>
 #include <vector>
 #include <fstream>
 #include <string>
-#include <iomanip>
 #include <algorithm>
+#include <iomanip>
+#include <cctype>
 
-using std::string;
-using std::vector;
+
 using std::cout;
 using std::cin;
+using std::vector;
+using std::string;
 using std::setw;
+using std::sort;
+using std::isdigit;
+using std::stoi;
 using std::left;
 
 struct studentas {
@@ -29,10 +36,10 @@ bool isInteger(const string& s);
 
 int main() {
     studentas temp;
+    int MaxPav = 0, MaxVard = 0;
     vector<studentas> stud;
     skaitymas(stud);
     skaičiavimai(stud);
-    int MaxPav = 0, MaxVard = 0;
     raidės(MaxPav, MaxVard, stud);
     išvestis(stud, MaxPav, MaxVard);
     return 0;
@@ -43,7 +50,13 @@ void skaitymas(vector<studentas> &stud)
     studentas temp;
     cout << "Įveskite kiek studentų duomenų norite įvesti: ";
     int n;
-    cin >> n;
+    string n_str;
+    cin >> n_str;
+    while(!isInteger(n_str) || stoi(n_str) <= 0) {
+        cout << "Klaidinga įvestis. Bandykite dar kartą: ";
+        cin >> n_str;
+    }
+    n = stoi(n_str);
     for(int i = 0; i < n; i++) {
         cout << "Įveskite " << i + 1 << " studento vardą: ";
         cin >> temp.vardas;
@@ -51,14 +64,32 @@ void skaitymas(vector<studentas> &stud)
         cin >> temp.pavarde;
         int nd_sk;
         cout << "Įveskite namų darbų skaičių: ";
-        cin >> nd_sk;
+        string nd_sk_str;
+        cin >> nd_sk_str;
+        while(!isInteger(nd_sk_str) || stoi(nd_sk_str) <= 0) {
+            cout << "Klaidinga įvestis. Bandykite dar kartą: ";
+            cin >> nd_sk_str;
+        }
+        nd_sk = stoi(nd_sk_str);
         temp.nd.resize(nd_sk);
         for(int j = 0; j < nd_sk; j++) {
             cout << "Įveskite " << j + 1 << " namų darbų įvertinimą: ";
-            cin >> temp.nd[j];
+            string nd_str;
+            cin >> nd_str;
+            while(!isInteger(nd_str) || stoi(nd_str) < 0) {
+                cout << "Klaidinga įvestis. Bandykite dar kartą: ";
+                cin >> nd_str;
+            }
+            temp.nd[j] = stoi(nd_str);
         }
         cout << "Įveskite egzamino įvertinimą: ";
-        cin >> temp.egz;
+        string egz_str;
+        cin >> egz_str;
+        while(!isInteger(egz_str) || stoi(egz_str) < 0) {
+            cout << "Klaidinga įvestis. Bandykite dar kartą: ";
+            cin >> egz_str;
+        }
+        temp.egz = stoi(egz_str);
         stud.push_back(temp);
     }
 }
