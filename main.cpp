@@ -5,7 +5,12 @@
 #include <iomanip>
 #include <algorithm>
 
-using namespace std;
+using std::string;
+using std::vector;
+using std::cout;
+using std::cin;
+using std::setw;
+using std::left;
 
 struct studentas {
     string vardas;
@@ -17,12 +22,17 @@ struct studentas {
 };
 
 void skaitymas(vector<studentas> &stud);
+void skaičiavimai(vector<studentas> &stud);
+void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard);
 
 
 int main() {
     studentas temp;
     vector<studentas> stud;
     skaitymas(stud);
+    skaičiavimai(stud);
+    int MaxPav = 0, MaxVard = 0;
+    išvestis(stud, MaxPav, MaxVard);
     return 0;
 }
 
@@ -67,5 +77,20 @@ void skaičiavimai(vector<studentas> &stud)
         } else {
             s.mediana = nd_kopija[nd_kopija.size()/2];
         }
+    }
+}
+
+void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
+{
+    MaxVard = std::max(MaxVard, 12);
+    MaxPav  = std::max(MaxPav, 12);
+
+    cout << left << setw(MaxVard + 2) << "Vardas" << setw(MaxPav + 2) << "Pavardė"
+            << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
+    cout << string(MaxVard + MaxPav + 44, '-') << "\n";
+    for(const auto &s : stud) {
+        cout << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde
+                << setw(20) << std::fixed << std::setprecision(2) << (0.4 * s.vidurkis + 0.6 * s.egz)
+                << setw(20) << std::fixed << std::setprecision(2) << (0.4 * s.mediana + 0.6 * s.egz) << "\n";
     }
 }
