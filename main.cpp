@@ -24,7 +24,7 @@ struct studentas {
 void skaitymas(vector<studentas> &stud);
 void skaičiavimai(vector<studentas> &stud);
 void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard);
-
+void raidės(int &MaxPav, int &MaxVard, vector <studentas> &stud);
 
 int main() {
     studentas temp;
@@ -32,6 +32,7 @@ int main() {
     skaitymas(stud);
     skaičiavimai(stud);
     int MaxPav = 0, MaxVard = 0;
+    raidės(MaxPav, MaxVard, stud);
     išvestis(stud, MaxPav, MaxVard);
     return 0;
 }
@@ -93,4 +94,19 @@ void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
                 << setw(20) << std::fixed << std::setprecision(2) << (0.4 * s.vidurkis + 0.6 * s.egz)
                 << setw(20) << std::fixed << std::setprecision(2) << (0.4 * s.mediana + 0.6 * s.egz) << "\n";
     }
+}
+
+void raidės(int &MaxPav, int &MaxVard, vector <studentas> &stud)
+{
+    MaxPav = 0;
+    MaxVard = 0;
+    for(const auto &s : stud) {
+        if(s.pavarde.length() > MaxPav) {
+            MaxPav = s.pavarde.length();
+        }
+        if(s.vardas.length() > MaxVard) {
+            MaxVard = s.vardas.length();
+        }
+    }
+    
 }
