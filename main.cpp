@@ -50,3 +50,22 @@ void skaitymas(vector<studentas> &stud)
         stud.push_back(temp);
     }
 }
+
+void skaičiavimai(vector<studentas> &stud)
+{
+    for(auto &s : stud) {
+        double suma = 0;
+        for(const auto &nd_ivar : s.nd) {
+            suma += nd_ivar;
+        }
+        s.vidurkis = suma / s.nd.size();
+
+        vector<int> nd_kopija = s.nd;
+        sort(nd_kopija.begin(), nd_kopija.end());
+        if(nd_kopija.size() % 2 == 0) {
+            s.mediana = (nd_kopija[nd_kopija.size()/2 - 1] + nd_kopija[nd_kopija.size()/2]) / 2.0;
+        } else {
+            s.mediana = nd_kopija[nd_kopija.size()/2];
+        }
+    }
+}
