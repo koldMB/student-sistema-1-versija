@@ -25,6 +25,7 @@ void skaitymas(vector<studentas> &stud);
 void skaičiavimai(vector<studentas> &stud);
 void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard);
 void raidės(int &MaxPav, int &MaxVard, vector <studentas> &stud);
+bool isInteger(const string& s);
 
 int main() {
     studentas temp;
@@ -109,4 +110,17 @@ void raidės(int &MaxPav, int &MaxVard, vector <studentas> &stud)
         }
     }
     
+}
+
+bool isInteger(const string& s)
+{
+    if (s.empty()) return false;
+
+    int start = (s[0] == '-' || s[0] == '+') ? 1 : 0;
+
+    for (int i = start; i < s.size(); i++)
+        if (!isdigit(s[i]))
+            return false;
+
+    return start < s.size();
 }
