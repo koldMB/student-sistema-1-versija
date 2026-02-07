@@ -6,6 +6,7 @@
 #include <string>
 #include <algorithm>
 #include <random>
+#include <chrono>
 #include <iomanip>
 #include <cctype>
 #include <cstdlib>
@@ -34,7 +35,9 @@ void skaičiavimai(vector<studentas> &stud);
 void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard);
 void raidės(int &MaxPav, int &MaxVard, vector <studentas> &stud);
 bool isInteger(const string& s);
-void skaitymas(vector<studentas> &stud, bool genPaz = false, int n = 0, int nd_sk = 0, bool genVardPav = false, int vardPavSk = 0);
+void skaitymas(vector<studentas> &stud); // paprastas vedimas ranka
+void skaitymas(vector<studentas> &stud, int n, int nd_sk); // generuoja n studentų duomenis su nd_sk namų darbų pažymiais
+void skaitymas(vector<studentas> &stud, int n, int nd_sk, int vardPavSk); // generuoja n studentų duomenis su nd_sk namų darbų pažymiais ir vardais/pavardėmis iš vardPavSk dydžio sąrašo
 
 
 int main() {
@@ -43,7 +46,7 @@ int main() {
     vector<studentas> stud;
     int pasirinkimas;
     do{
-        cout << "1. Įvesti duomenis ranka\n";
+        cout << "1. Įvesti duomenis ranka\n"; 
         cout << "2. Generuoti pažymius\n";
         cout << "3. Generuoti vardus ir pavardes bei pažymius\n";
         cout << "4. Darbo pabaiga\n";
@@ -57,10 +60,16 @@ int main() {
         pasirinkimas = stoi(pasirinkimas_str);
         switch (pasirinkimas) 
         {
-            case 1:
-                skaitymas(stud, false, 0, 0, false, 0);
+            case 1: // veikia
+                {
+                    skaitymas(stud);
+                    skaičiavimai(stud);
+                    raidės(MaxPav, MaxVard, stud);
+                    išvestis(stud, MaxPav, MaxVard);
+                    stud.clear();
+                }
             break;
-            case 2:
+            case 2: //veikia
                 {
                     int n, nd_sk;
                     cout << "Įveskite kiek studentų duomenų norite generuoti: ";
@@ -79,12 +88,16 @@ int main() {
                         cin >> nd_sk_str;
                     }
                     nd_sk = stoi(nd_sk_str);
-                    skaitymas(stud, true, n, nd_sk, false, 0);
+                    skaitymas(stud, n, nd_sk);
+                    skaičiavimai(stud);
+                    raidės(MaxPav, MaxVard, stud);
+                    išvestis(stud, MaxPav, MaxVard);
+                    stud.clear();
                 }
             break;
             case 3:
                 {
-                    int n, nd_sk, VardPavSk;
+                    int n, nd_sk;
                     cout << "Įveskite kiek studentų duomenų norite generuoti: ";
                     string n_str;
                     cin >> n_str;
@@ -101,144 +114,134 @@ int main() {
                         cin >> nd_sk_str;
                     }
                     nd_sk = stoi(nd_sk_str);
-                    cout << "Įveskite vardų ir pavardžių sąrašo dydį: ";
-                    string VardPavSk_str;
-                    cin >> VardPavSk_str;
-                    while(!isInteger(VardPavSk_str) || stoi(VardPavSk_str) <= 0) {
-                        cout << "Klaidinga įvestis. Bandykite dar kartą: ";
-                        cin >> VardPavSk_str;
-                    }
-                    VardPavSk = stoi(VardPavSk_str);
-                    skaitymas(stud, true, n, nd_sk, true, VardPavSk);
+                    skaitymas(stud, n, nd_sk, n); // antras n perduodamas jei bus vardu sarašas
+                    skaičiavimai(stud);
+                    raidės(MaxPav, MaxVard, stud);
+                    išvestis(stud, MaxPav, MaxVard);
+                    stud.clear();
                 }
             break;
-            case 4:
+            case 4: //veikia
                 {
                 exit(0);
                 }
             break;
         }
     }while(true);
-    skaitymas(stud, false, 0, 0, false, 0);
-    skaičiavimai(stud);
-    raidės(MaxPav, MaxVard, stud);
-    išvestis(stud, MaxPav, MaxVard);
+
     return 0;
+} 
+
+void skaitymas(vector<studentas> &stud)
+{
+    studentas temp;
+    cout << "Įveskite kiek studentų duomenų norite įvesti: ";
+    string n_str;
+    cin >> n_str;
+    while(!isInteger(n_str) || stoi(n_str) <= 0) {
+        cout << "Klaidinga įvestis. Bandykite dar kartą: ";
+        cin >> n_str;
+    }
+    int n = stoi(n_str);
+    for(int i = 0; i < n; i++) {
+        cout << "Įveskite " << i + 1 << " studento vardą: ";
+        cin >> temp.vardas;
+        cout << "Įveskite " << i + 1 << " studento pavardę: ";
+        cin >> temp.pavarde;
+        int nd_count;
+        cout << "Įveskite namų darbų skaičių: ";
+        string nd_sk_str;
+        cin >> nd_sk_str;
+        while(!isInteger(nd_sk_str) || stoi(nd_sk_str) <= 0) {
+            cout << "Klaidinga įvestis. Bandykite dar kartą: ";
+            cin >> nd_sk_str;
+        }
+        nd_count = stoi(nd_sk_str);
+        temp.nd.resize(nd_count);
+
+        for(int j = 0; j < nd_count; j++) {
+            cout << "Įveskite " << j + 1 << " namų darbų įvertinimą: ";
+            string nd_str;
+            cin >> nd_str;
+            while(!isInteger(nd_str) || stoi(nd_str) < 0 || stoi(nd_str) > 10 || stoi(nd_str) < 0) {
+                cout << "Klaidinga įvestis. Bandykite dar kartą: ";
+                cin >> nd_str;
+            }
+            temp.nd[j] = stoi(nd_str);
+        }
+        cout << "Įveskite egzamino įvertinimą: ";
+        string egz_str;
+        cin >> egz_str;
+        while(!isInteger(egz_str) || stoi(egz_str) < 0) {
+            cout << "Klaidinga įvestis. Bandykite dar kartą: ";
+            cin >> egz_str;
+        }
+        temp.egz = stoi(egz_str);
+        stud.push_back(temp);
+    }
 }
 
-void skaitymas(vector<studentas> &stud, bool genPaz, int n, int nd_sk, bool genVardPav, int VardPavSk)
+void skaitymas(vector<studentas> &stud, int n, int nd_sk)
 {
-    // Jei generavimas neįjungtas, naudojame rankinį įvedimą
-    if(!genPaz) {
-        studentas temp;
-        cout << "Įveskite kiek studentų duomenų norite įvesti: ";
-        string n_str;
-        cin >> n_str;
-        while(!isInteger(n_str) || stoi(n_str) <= 0) {
-            cout << "Klaidinga įvestis. Bandykite dar kartą: ";
-            cin >> n_str;
-        }
-        n = stoi(n_str);
-        for(int i = 0; i < n; i++) {
-            cout << "Įveskite " << i + 1 << " studento vardą: ";
-            cin >> temp.vardas;
-            cout << "Įveskite " << i + 1 << " studento pavardę: ";
-            cin >> temp.pavarde;
-            int nd_count;
-            cout << "Įveskite namų darbų skaičių: ";
-            string nd_sk_str;
-            cin >> nd_sk_str;
-            while(!isInteger(nd_sk_str) || stoi(nd_sk_str) <= 0) {
-                cout << "Klaidinga įvestis. Bandykite dar kartą: ";
-                cin >> nd_sk_str;
-            }
-            nd_count = stoi(nd_sk_str);
-            temp.nd.resize(nd_count);
-
-            for(int j = 0; j < nd_count; j++) {
-                cout << "Įveskite " << j + 1 << " namų darbų įvertinimą: ";
-                string nd_str;
-                cin >> nd_str;
-                while(!isInteger(nd_str) || stoi(nd_str) < 0) {
-                    cout << "Klaidinga įvestis. Bandykite dar kartą: ";
-                    cin >> nd_str;
-                }
-                temp.nd[j] = stoi(nd_str);
-            }
-            cout << "Įveskite egzamino įvertinimą: ";
-            string egz_str;
-            cin >> egz_str;
-            while(!isInteger(egz_str) || stoi(egz_str) < 0) {
-                cout << "Klaidinga įvestis. Bandykite dar kartą: ";
-                cin >> egz_str;
-            }
-            temp.egz = stoi(egz_str);
-            stud.push_back(temp);
-        }
+    if (n <= 0 || nd_sk <= 0) 
+    {
+        cout << "Neteisingi parametrai generavimui. Patikrinkite įvestį.\n";
         return;
     }
-
-    // Generavimo atvejis
-    if (n <= 0 || nd_sk <= 0) return; // saugumas
-
+    // std::random_device is a uniformly-distributed integer random number generator that produces non-deterministic random numbers. 
     std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> gradeDist(1, 10);
-    std::uniform_int_distribution<> letterDist(0, 25);
-    int maxNameLen = std::max(3, VardPavSk);
-    std::uniform_int_distribution<> nameLenDist(3, maxNameLen);
-
-    vector<string> vardai;
-    vector<string> pavardes;
-    if (genVardPav) {
-        vardai.reserve(VardPavSk);
-        pavardes.reserve(VardPavSk);
-        for (int i = 0; i < VardPavSk; ++i) {
-            int lenV = nameLenDist(gen);
-            string v; v.reserve(lenV);
-            v.push_back(char('A' + letterDist(gen)));
-            for (int k = 1; k < lenV; ++k) v.push_back(char('a' + letterDist(gen)));
-            vardai.push_back(v);
-
-            int lenP = nameLenDist(gen);
-            string p; p.reserve(lenP);
-            p.push_back(char('A' + letterDist(gen)));
-            for (int k = 1; k < lenP; ++k) p.push_back(char('a' + letterDist(gen)));
-            pavardes.push_back(p);
-        }
-    }
-
-    stud.clear();
-    stud.reserve(n);
-    std::uniform_int_distribution<> poolIdx(0, std::max(0, VardPavSk - 1));
+    /*
+    static std::chrono::time_point<std::chrono::high_resolution_clock> now() noexcept;
+	Returns a time point representing the current point in time. 
+    */
+    auto seed = std::seed_seq{rd(), static_cast<unsigned int>(std::chrono::high_resolution_clock::now().time_since_epoch().count())};
+    // A Mersenne Twister pseudo-random generator of 64-bit numbers with a state size of 19937 bits.
+    std::mt19937_64 gen(seed);
+    /*
+    Produces random integer values i, uniformly distributed on the closed interval [a, b], that is, distributed according to the discrete probability function
+    */
+    std::uniform_int_distribution<> dist(1, 10);
 
     for (int i = 0; i < n; ++i) {
         studentas temp;
-
-        // Vardas / pavardė
-        if (genVardPav) {
-            int idx = poolIdx(gen);
-            temp.vardas = vardai[idx];
-            temp.pavarde = pavardes[idx];
-        } else {
-            cout << "Įveskite " << i + 1 << " studento vardą: ";
-            cin >> temp.vardas;
-            cout << "Įveskite " << i + 1 << " studento pavardę: ";
-            cin >> temp.pavarde;
-        }
-
-        // Namų darbai
+        cout << "Įveskite " << i + 1 << " studento vardą: ";
+        cin >> temp.vardas;
+        cout << "Įveskite " << i + 1 << " studento pavardę: ";
+        cin >> temp.pavarde;
         temp.nd.resize(nd_sk);
-        for (int j = 0; j < nd_sk; ++j) temp.nd[j] = gradeDist(gen);
-
-        // Egzaminas
-        temp.egz = gradeDist(gen);
-
-        stud.push_back(std::move(temp));
+        for (int j = 0; j < nd_sk; ++j) {
+            temp.nd[j] = dist(gen);
+        }
+        temp.egz = dist(gen);
+        stud.push_back(temp);
     }
 }
 
-void skaičiavimai(vector<studentas> &stud)
+void skaitymas(vector<studentas> &stud, int n, int nd_sk, int VardPavSk)
+{
+    if (n <= 0 || nd_sk <= 0 || VardPavSk <= 0) 
+    {
+        cout << "Neteisingi parametrai generavimui. Patikrinkite įvestį.\n";
+        return;
+    }
+
+    std::random_device rd;
+    auto seed = std::seed_seq{rd(), static_cast<unsigned int>(std::chrono::high_resolution_clock::now().time_since_epoch().count())};
+    std::mt19937_64 gen(seed);
+    std::uniform_int_distribution<> score_dist(1, 10);
+
+    for (int i = 0; i < n; ++i) {
+        studentas temp;
+        temp.vardas = "Vardas" + std::to_string(i + 1);
+        temp.pavarde = "Pavarde" + std::to_string(i + 1);
+        temp.nd.resize(nd_sk);
+        for (int j = 0; j < nd_sk; ++j) temp.nd[j] = score_dist(gen);
+        temp.egz = score_dist(gen);
+        stud.push_back(temp);
+    }
+}
+
+void skaičiavimai(vector<studentas> &stud) // apskaičiuoja vidurkius ir medianas kiekvienam studentui
 {
     for(auto &s : stud) {
         double suma = 0;
@@ -266,9 +269,7 @@ void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
             << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     cout << string(MaxVard + MaxPav + 44, '-') << "\n";
     for(const auto &s : stud) {
-        cout << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde
-                << setw(20) << std::fixed << std::setprecision(2) << (0.4 * s.vidurkis + 0.6 * s.egz)
-                << setw(20) << std::fixed << std::setprecision(2) << (0.4 * s.mediana + 0.6 * s.egz) << "\n";
+        cout << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde << setw(20) << std::fixed << std::setprecision(2) << (0.4 * s.vidurkis + 0.6 * s.egz) << setw(20) << std::fixed << std::setprecision(2) << (0.4 * s.mediana + 0.6 * s.egz) << "\n";
     }
 }
 
