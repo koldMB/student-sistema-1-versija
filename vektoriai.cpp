@@ -28,9 +28,8 @@ struct studentas {
     string pavarde = "Pavardenis";
     vector<int> nd = {};
     int egz = 0;
-    double vidurkis = 0;
-    double mediana = 0;
-    double galutinis = 0;
+    double GalVidurkis = 0;
+    double GalMediana = 0;
 };
 
 void skaičiavimai(vector<studentas> &stud); // apskaičiuoja vidurkius ir medianas kiekvienam studentui
@@ -75,7 +74,7 @@ int main() {
                     skaičiavimai(stud);
                     raidės(MaxPav, MaxVard, stud);
                     rikiavimas(stud);
-                    TermArFailas(stud, MaxPav, MaxVard);
+                    išvestis(stud, MaxPav, MaxVard);
                     stud.clear();
                 }
             break;
@@ -94,7 +93,7 @@ int main() {
                     skaičiavimai(stud);
                     raidės(MaxPav, MaxVard, stud);
                     rikiavimas(stud);
-                    TermArFailas(stud, MaxPav, MaxVard);
+                    išvestis(stud, MaxPav, MaxVard);
                     stud.clear();
                 }
             break;
@@ -121,14 +120,14 @@ int main() {
                     skaičiavimai(stud);
                     raidės(MaxPav, MaxVard, stud);
                     rikiavimas(stud);
-                    TermArFailas(stud, MaxPav, MaxVard);
+                    išvestis(stud, MaxPav, MaxVard);
                     stud.clear();
                 }
             break;
             case 4:
                 {
                     string filename;
-                    cout << "Įveskite txt failo pavadinimą (su .txt): ";
+                    cout << "Įveskite txt failo pavadinimą: ";
                     cin >> filename;
                     FailoNuskaitymas(stud, filename);
                     if(stud.empty()) {
@@ -138,7 +137,7 @@ int main() {
                     skaičiavimai(stud);
                     raidės(MaxPav, MaxVard, stud);
                     rikiavimas(stud);
-                    TermArFailas(stud, MaxPav, MaxVard);
+                    išvestis(stud, MaxPav, MaxVard);
                     stud.clear();
                 }
                 break;
@@ -281,8 +280,8 @@ void skaičiavimai(vector<studentas> &stud) // apskaičiuoja vidurkius ir median
 {
     for(auto &s : stud) {
         if(s.nd.empty()) {
-            s.vidurkis = 0;
-            s.mediana = 0;
+            s.GalVidurkis = 0;
+            s.GalMediana = 0;
             continue;
         }
         
@@ -290,17 +289,17 @@ void skaičiavimai(vector<studentas> &stud) // apskaičiuoja vidurkius ir median
         for(const auto &nd_ivar : s.nd) {
             suma += nd_ivar;
         }
-        s.vidurkis = suma / s.nd.size();
+        s.GalVidurkis = suma / s.nd.size();
 
+        s.GalVidurkis = s.GalVidurkis * 0.4 + s.egz * 0.6; 
         vector<int> nd_kopija = s.nd;
         std::sort(nd_kopija.begin(), nd_kopija.end());
         if(nd_kopija.size() % 2 == 0) {
-            s.mediana = (nd_kopija[nd_kopija.size()/2 - 1] + nd_kopija[nd_kopija.size()/2]) / 2.0;
+            s.GalMediana = (nd_kopija[nd_kopija.size()/2 - 1] + nd_kopija[nd_kopija.size()/2]) / 2.0;
         } else {
-            s.mediana = nd_kopija[nd_kopija.size()/2];
+            s.GalMediana = nd_kopija[nd_kopija.size()/2];
         }
-
-        s.galutinis = 0.4 * s.vidurkis + 0.6 * s.egz;
+        s.GalMediana = s.GalMediana * 0.4 + s.egz * 0.6;
     }
 }
 
@@ -313,7 +312,7 @@ void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
             << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     cout << string(MaxVard + MaxPav + 44, '-') << "\n";
     for(auto &s : stud) {
-        cout << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde << setw(20) << std::fixed << std::setprecision(2) << s.vidurkis << setw(20) << std::fixed << std::setprecision(2) << s.mediana << "\n";
+        cout << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
     }
 }
 
@@ -405,11 +404,11 @@ bool VardoRikiavimas(const studentas &a, const studentas &b) {
 }
 
 bool MedianaRikiavimas(const studentas &a, const studentas &b) {
-    return a.mediana > b.mediana;
+    return a.GalMediana > b.GalMediana;
 }
 
 bool VidurkisRikiavimas(const studentas &a, const studentas &b) {
-    return a.vidurkis > b.vidurkis;
+    return a.GalVidurkis > b.GalVidurkis;
 }
 
 bool PavardeRikiavimas(const studentas &a, const studentas &b) {
@@ -454,8 +453,8 @@ void FailoIšvedimas(const vector<studentas> &stud, const string& filename, int 
     f << string(MaxVard + MaxPav + 44, '-') << "\n";
     for(const auto &s : stud) {
         f << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde 
-          << setw(20) << std::fixed << std::setprecision(2) << s.vidurkis 
-          << setw(20) << std::fixed << std::setprecision(2) << s.mediana << "\n";
+          << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis 
+          << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
     }
     f.close();
 }
