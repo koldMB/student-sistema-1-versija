@@ -26,10 +26,11 @@ using std::left;
 struct studentas {
     string vardas = "Vardenis";
     string pavarde = "Pavardenis";
-    vector<int> nd = {0};
+    vector<int> nd = {};
     int egz = 0;
     double vidurkis = 0;
     double mediana = 0;
+    double galutinis = 0;
 };
 
 void skaičiavimai(vector<studentas> &stud); // apskaičiuoja vidurkius ir medianas kiekvienam studentui
@@ -40,9 +41,9 @@ void skaitymas(vector<studentas> &stud); // paprastas vedimas ranka
 void skaitymas(vector<studentas> &stud, int &n, int nd_sk); // generuoja n studentų duomenis su nd_sk namų darbų pažymiais
 void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int vardPavSk); // generuoja n studentų duomenis su nd_sk namų darbų pažymiais ir vardais/pavardėmis iš vardPavSk dydžio sąrašo
 void FailoNuskaitymas(vector<studentas> &stud, const string& filename); // skaito duomenis iš failo
-bool VarPavRikiavimas(studentas &a, studentas &b); // rikiuoja pagal pavardę, jei pavardės vienodos - pagal vardą
-bool MedianaRikiavimas(studentas &a, studentas &b); // rikiuoja pagal mediana nuo didžiausio iki mažiausio
-bool VidurkisRikiavimas(studentas &a, studentas &b); // rikiuoja pagal vidurkis nuo didžiausio iki mažiausio
+bool VardoRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal pavardę, jei pavardės vienodos - pagal vardą
+bool MedianaRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal mediana nuo didžiausio iki mažiausio
+bool VidurkisRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal vidurkis nuo didžiausio iki mažiausio
 void rikiavimas(vector<studentas> &stud); // leidžia vartotojui pasirinkti rikiavimo kriterijų
 void FailoIšvedimas(const vector<studentas> &stud, const string& filename, int &MaxPav, int &MaxVard); // išveda lentelę su studentų duomenimis į failą
 void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard); // leidžia vartotojui pasirinkti ar išvesti duomenis į terminalą ar į failą
@@ -279,6 +280,12 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int VardPavSk)
 void skaičiavimai(vector<studentas> &stud) // apskaičiuoja vidurkius ir medianas kiekvienam studentui
 {
     for(auto &s : stud) {
+        if(s.nd.empty()) {
+            s.vidurkis = 0;
+            s.mediana = 0;
+            continue;
+        }
+        
         double suma = 0;
         for(const auto &nd_ivar : s.nd) {
             suma += nd_ivar;
@@ -286,12 +293,14 @@ void skaičiavimai(vector<studentas> &stud) // apskaičiuoja vidurkius ir median
         s.vidurkis = suma / s.nd.size();
 
         vector<int> nd_kopija = s.nd;
-        sort(nd_kopija.begin(), nd_kopija.end());
+        std::sort(nd_kopija.begin(), nd_kopija.end());
         if(nd_kopija.size() % 2 == 0) {
             s.mediana = (nd_kopija[nd_kopija.size()/2 - 1] + nd_kopija[nd_kopija.size()/2]) / 2.0;
         } else {
             s.mediana = nd_kopija[nd_kopija.size()/2];
         }
+
+        s.galutinis = 0.4 * s.vidurkis + 0.6 * s.egz;
     }
 }
 
@@ -303,8 +312,8 @@ void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
     cout << left << setw(MaxVard + 2) << "Vardas" << setw(MaxPav + 2) << "Pavardė"
             << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     cout << string(MaxVard + MaxPav + 44, '-') << "\n";
-    for(const auto &s : stud) {
-        cout << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde << setw(20) << std::fixed << std::setprecision(2) << (0.4 * s.vidurkis + 0.6 * s.egz) << setw(20) << std::fixed << std::setprecision(2) << (0.4 * s.mediana + 0.6 * s.egz) << "\n";
+    for(auto &s : stud) {
+        cout << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde << setw(20) << std::fixed << std::setprecision(2) << s.vidurkis << setw(20) << std::fixed << std::setprecision(2) << s.mediana << "\n";
     }
 }
 
@@ -391,37 +400,42 @@ void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
     f.close();
 }
 
-bool VarPavRikiavimas(studentas &a, studentas &b) {
-    if (a.pavarde == b.pavarde) {
-        return a.vardas < b.vardas;
-    }
-    return a.pavarde < b.pavarde;
+bool VardoRikiavimas(const studentas &a, const studentas &b) {
+    return a.vardas < b.vardas;
 }
 
-bool MedianaRikiavimas(studentas &a, studentas &b) {
+bool MedianaRikiavimas(const studentas &a, const studentas &b) {
     return a.mediana > b.mediana;
 }
 
-bool VidurkisRikiavimas(studentas &a, studentas &b) {
+bool VidurkisRikiavimas(const studentas &a, const studentas &b) {
     return a.vidurkis > b.vidurkis;
+}
+
+bool PavardeRikiavimas(const studentas &a, const studentas &b) {
+    return a.pavarde < b.pavarde;
 }
 
 void rikiavimas(vector<studentas> &stud) {
     int kriterijus;
     cout << "Pasirinkite rikiavimo kriterijų:\n";
-    cout << "1. Rikiuoti pagal pavardę (jei pavardės vienodos - pagal vardą)\n";
-    cout << "2. Rikiuoti pagal medianą (nuo didžiausio iki mažiausio)\n";
-    cout << "3. Rikiuoti pagal vidurkį (nuo didžiausio iki mažiausio)\n";
+    cout << "1. Rikiuoti pagal varda \n";
+    cout << "2. Rikiuoti pagal pavardę \n";
+    cout << "3. Rikiuoti pagal medianą (nuo didžiausio iki mažiausio)\n";
+    cout << "4. Rikiuoti pagal vidurkį (nuo didžiausio iki mažiausio)\n";
     cout << "Įveskite pasirinkimą: ";
     cin >> kriterijus;
     switch(kriterijus) {
         case 1:
-            sort(stud.begin(), stud.end(), VarPavRikiavimas);
+            sort(stud.begin(), stud.end(), VardoRikiavimas);
             break;
         case 2:
-            sort(stud.begin(), stud.end(), MedianaRikiavimas);
+            sort(stud.begin(), stud.end(), PavardeRikiavimas);
             break;
         case 3:
+            sort(stud.begin(), stud.end(), MedianaRikiavimas);
+            break;
+        case 4:
             sort(stud.begin(), stud.end(), VidurkisRikiavimas);
             break;
         default:
@@ -440,8 +454,8 @@ void FailoIšvedimas(const vector<studentas> &stud, const string& filename, int 
     f << string(MaxVard + MaxPav + 44, '-') << "\n";
     for(const auto &s : stud) {
         f << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde 
-          << setw(20) << std::fixed << std::setprecision(2) << (0.4 * s.vidurkis + 0.6 * s.egz) 
-          << setw(20) << std::fixed << std::setprecision(2) << (0.4 * s.mediana + 0.6 * s.egz) << "\n";
+          << setw(20) << std::fixed << std::setprecision(2) << s.vidurkis 
+          << setw(20) << std::fixed << std::setprecision(2) << s.mediana << "\n";
     }
     f.close();
 }
