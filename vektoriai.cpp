@@ -11,7 +11,6 @@
 #include <cctype>
 #include <cstdlib>
 #include <sstream>
-#include
 
 
 using std::cout;
@@ -45,6 +44,9 @@ bool VarPavRikiavimas(studentas &a, studentas &b); // rikiuoja pagal pavardę, j
 bool MedianaRikiavimas(studentas &a, studentas &b); // rikiuoja pagal mediana nuo didžiausio iki mažiausio
 bool VidurkisRikiavimas(studentas &a, studentas &b); // rikiuoja pagal vidurkis nuo didžiausio iki mažiausio
 void rikiavimas(vector<studentas> &stud); // leidžia vartotojui pasirinkti rikiavimo kriterijų
+void FailoIšvedimas(const vector<studentas> &stud, const string& filename, int &MaxPav, int &MaxVard); // išveda lentelę su studentų duomenimis į failą
+void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard); // leidžia vartotojui pasirinkti ar išvesti duomenis į terminalą ar į failą
+
 int main() {
     studentas temp;
     int MaxPav = 0, MaxVard = 0;
@@ -427,3 +429,36 @@ void rikiavimas(vector<studentas> &stud) {
     }
 }
 
+void FailoIšvedimas(const vector<studentas> &stud, const string& filename, int &MaxPav, int &MaxVard) {
+    std::ofstream f(filename);
+    if (!f.is_open()) {
+        std::cerr << "Nepavyko atidaryti failo rašymui." << filename << "\n";
+        return;
+    }
+    f << left << setw(MaxVard + 2) << "Vardas" << setw(MaxPav + 2) << "Pavardė"
+      << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
+    f << string(MaxVard + MaxPav + 44, '-') << "\n";
+    for(const auto &s : stud) {
+        f << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde 
+          << setw(20) << std::fixed << std::setprecision(2) << (0.4 * s.vidurkis + 0.6 * s.egz) 
+          << setw(20) << std::fixed << std::setprecision(2) << (0.4 * s.mediana + 0.6 * s.egz) << "\n";
+    }
+    f.close();
+}
+
+void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard) {
+    int pasirinkimas;
+    cout << "Ar norite išvesti duomenis į failą? (1 - Taip, 2 - Ne): ";
+    cin >> pasirinkimas;
+    if (pasirinkimas == 1) {
+        string filename;
+        cout << "Įveskite txt failo pavadinimą (su .txt): ";
+        cin >> filename;
+        FailoIšvedimas(stud, filename, MaxPav, MaxVard);
+    } else if (pasirinkimas == 2) {
+        cout << "Duomenys bus išvesti į terminalą.\n";
+        išvestis(stud, MaxPav, MaxVard);
+    } else {
+        cout << "Neteisingas pasirinkimas. Duomenys nebus išvesti į failą.\n";
+    }
+}
