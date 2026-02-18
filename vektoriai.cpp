@@ -31,9 +31,9 @@ struct studentas {
     double mediana = 0;
 };
 
-void skaičiavimai(vector<studentas> &stud);
-void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard);
-void raidės(int &MaxPav, int &MaxVard, vector <studentas> &stud);
+void skaičiavimai(vector<studentas> &stud); // apskaičiuoja vidurkius ir medianas kiekvienam studentui
+void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard); // išveda lentelę su studentų duomenimis į terminalą
+void raidės(int &MaxPav, int &MaxVard, vector <studentas> &stud); // tikrina vardų ir pavardžių ilgius, kad lentelė būtų tvarkinga
 bool isInteger(const string& s);
 void skaitymas(vector<studentas> &stud); // paprastas vedimas ranka
 void skaitymas(vector<studentas> &stud, int &n, int nd_sk); // generuoja n studentų duomenis su nd_sk namų darbų pažymiais
@@ -328,32 +328,54 @@ bool isInteger(const string& s)
 void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
     std::ifstream f(filename);
     if (!f.is_open()) {
-        std::cerr << "Nepavyko atidaryti failo: " << filename << "\n";
+        std::cerr << "Nepavyko atidaryti failo." << filename << "\n";
         return;
     }
-    f.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-
-    int nd_sk;
-    cout << "Įveskite kiek namų darbų pažymių yra faile: ";
-    string nd_sk_str;
-    cin >> nd_sk_str;
-    while(!isInteger(nd_sk_str) || stoi(nd_sk_str) <= 0) {
-        cout << "Klaidinga įvestis. Bandykite dar kartą: ";
-        cin >> nd_sk_str;
-    }
-    nd_sk = stoi(nd_sk_str);
-
-    while(!f.eof())
-    {
-        studentas temp;
-        f >> temp.vardas >> temp.pavarde;
-        temp.nd.resize(nd_sk);
-        for(int i = 0; i < nd_sk; i++) {
-            f >> temp.nd[i];
+    
+    // Skip header line
+    f.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    
+    int nd_sk = -1; // pagal pirma eilute
+    string line;
+    
+    while (std::getline(f, line)) {
+        if (line.empty()) continue;
+        
+        // išskaido eilutę į žodžius
+        std::istringstream iss(line);
+        string token;
+        vector<string> tokens;
+        while (iss >> token) {
+            tokens.push_back(token);
         }
-        f >> temp.egz;
+        
+        // bent vienas namų darbas + egzaminas + vardas + pavardė
+        if (tokens.size() < 4) continue;
+        
+        // nustato namų darbų skaičių pagal pirmą eilutę
+        if (nd_sk == -1) {
+            nd_sk = tokens.size() - 3; // pirmi du žodžiai - vardas ir pavardė, paskutinis - egzaminas
+        }
+        
+        studentas temp;
+        temp.vardas = tokens[0];
+        temp.pavarde = tokens[1];
+        temp.nd.resize(nd_sk);
+        
+        // nuskaito namų darbų pažymius
+        for (int i = 0; i < nd_sk; i++) {
+            if (isInteger(tokens[2 + i])) {
+                temp.nd[i] = stoi(tokens[2 + i]);
+            }
+        }
+        
+        // nuskaito egzamino pažymį
+        if (isInteger(tokens[2 + nd_sk])) {
+            temp.egz = stoi(tokens[2 + nd_sk]);
+        }
+        
         stud.push_back(temp);
     }
-    f.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    
     f.close();
 }
