@@ -74,7 +74,7 @@ int main() {
                     skaičiavimai(stud);
                     raidės(MaxPav, MaxVard, stud);
                     rikiavimas(stud);
-                    išvestis(stud, MaxPav, MaxVard);
+                    TermArFailas(stud, MaxPav, MaxVard);
                     stud.clear();
                 }
             break;
@@ -93,7 +93,7 @@ int main() {
                     skaičiavimai(stud);
                     raidės(MaxPav, MaxVard, stud);
                     rikiavimas(stud);
-                    išvestis(stud, MaxPav, MaxVard);
+                    TermArFailas(stud, MaxPav, MaxVard);
                     stud.clear();
                 }
             break;
@@ -120,14 +120,14 @@ int main() {
                     skaičiavimai(stud);
                     raidės(MaxPav, MaxVard, stud);
                     rikiavimas(stud);
-                    išvestis(stud, MaxPav, MaxVard);
+                    TermArFailas(stud, MaxPav, MaxVard);
                     stud.clear();
                 }
             break;
             case 4:
                 {
                     string filename;
-                    cout << "Įveskite txt failo pavadinimą: ";
+                    cout << "Įveskite txt failo pavadinimą (su .txt): ";
                     cin >> filename;
                     FailoNuskaitymas(stud, filename);
                     if(stud.empty()) {
@@ -137,7 +137,7 @@ int main() {
                     skaičiavimai(stud);
                     raidės(MaxPav, MaxVard, stud);
                     rikiavimas(stud);
-                    išvestis(stud, MaxPav, MaxVard);
+                    TermArFailas(stud, MaxPav, MaxVard);
                     stud.clear();
                 }
                 break;
