@@ -38,7 +38,7 @@ bool isInteger(const string& s);
 void skaitymas(vector<studentas> &stud); // paprastas vedimas ranka
 void skaitymas(vector<studentas> &stud, int &n, int nd_sk); // generuoja n studentų duomenis su nd_sk namų darbų pažymiais
 void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int vardPavSk); // generuoja n studentų duomenis su nd_sk namų darbų pažymiais ir vardais/pavardėmis iš vardPavSk dydžio sąrašo
-
+void FailoNuskaitymas(vector<studentas> &stud, const string& filename); // skaito duomenis iš failo
 
 int main() {
     studentas temp;
@@ -49,11 +49,12 @@ int main() {
         cout << "1. Įvesti duomenis ranka\n"; 
         cout << "2. Generuoti pažymius\n";
         cout << "3. Generuoti vardus ir pavardes bei pažymius\n";
-        cout << "4. Darbo pabaiga\n";
+        cout << "4. Nuskaityti iš failo\n";
+        cout << "5. Darbo pabaiga\n";
         cout << "Pasirinkite veiksmą: ";
         string pasirinkimas_str;
         cin >> pasirinkimas_str;
-        while(!isInteger(pasirinkimas_str) || stoi(pasirinkimas_str) < 1 || stoi(pasirinkimas_str) > 4) {
+        while(!isInteger(pasirinkimas_str) || stoi(pasirinkimas_str) < 1 || stoi(pasirinkimas_str) > 5) {
             cout << "Klaidinga įvestis. Bandykite dar kartą: ";
             cin >> pasirinkimas_str;
         }
@@ -113,7 +114,23 @@ int main() {
                     stud.clear();
                 }
             break;
-            case 4: //veikia
+            case 4:
+                {
+                    string filename;
+                    cout << "Įveskite txt failo pavadinimą: ";
+                    cin >> filename;
+                    FailoNuskaitymas(stud, filename);
+                    if(stud.empty()) {
+                        cout << "Nėra duomenų išvesti.\n";
+                        break;
+                    }
+                    skaičiavimai(stud);
+                    raidės(MaxPav, MaxVard, stud);
+                    išvestis(stud, MaxPav, MaxVard);
+                    stud.clear();
+                }
+                break;
+            case 5: //veikia
                 {
                 exit(0);
                 }
@@ -306,4 +323,37 @@ bool isInteger(const string& s)
             return false;
 
     return (s.size() - start) > 0;
+}
+
+void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
+    std::ifstream f(filename);
+    if (!f.is_open()) {
+        std::cerr << "Nepavyko atidaryti failo: " << filename << "\n";
+        return;
+    }
+    f.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+
+    int nd_sk;
+    cout << "Įveskite kiek namų darbų pažymių yra faile: ";
+    string nd_sk_str;
+    cin >> nd_sk_str;
+    while(!isInteger(nd_sk_str) || stoi(nd_sk_str) <= 0) {
+        cout << "Klaidinga įvestis. Bandykite dar kartą: ";
+        cin >> nd_sk_str;
+    }
+    nd_sk = stoi(nd_sk_str);
+
+    while(!f.eof())
+    {
+        studentas temp;
+        f >> temp.vardas >> temp.pavarde;
+        temp.nd.resize(nd_sk);
+        for(int i = 0; i < nd_sk; i++) {
+            f >> temp.nd[i];
+        }
+        f >> temp.egz;
+        stud.push_back(temp);
+    }
+    f.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    f.close();
 }
