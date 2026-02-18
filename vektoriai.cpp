@@ -10,6 +10,8 @@
 #include <iomanip>
 #include <cctype>
 #include <cstdlib>
+#include <sstream>
+#include
 
 
 using std::cout;
@@ -39,7 +41,10 @@ void skaitymas(vector<studentas> &stud); // paprastas vedimas ranka
 void skaitymas(vector<studentas> &stud, int &n, int nd_sk); // generuoja n studentų duomenis su nd_sk namų darbų pažymiais
 void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int vardPavSk); // generuoja n studentų duomenis su nd_sk namų darbų pažymiais ir vardais/pavardėmis iš vardPavSk dydžio sąrašo
 void FailoNuskaitymas(vector<studentas> &stud, const string& filename); // skaito duomenis iš failo
-
+bool VarPavRikiavimas(studentas &a, studentas &b); // rikiuoja pagal pavardę, jei pavardės vienodos - pagal vardą
+bool MedianaRikiavimas(studentas &a, studentas &b); // rikiuoja pagal mediana nuo didžiausio iki mažiausio
+bool VidurkisRikiavimas(studentas &a, studentas &b); // rikiuoja pagal vidurkis nuo didžiausio iki mažiausio
+void rikiavimas(vector<studentas> &stud); // leidžia vartotojui pasirinkti rikiavimo kriterijų
 int main() {
     studentas temp;
     int MaxPav = 0, MaxVard = 0;
@@ -66,6 +71,7 @@ int main() {
                     skaitymas(stud);
                     skaičiavimai(stud);
                     raidės(MaxPav, MaxVard, stud);
+                    rikiavimas(stud);
                     išvestis(stud, MaxPav, MaxVard);
                     stud.clear();
                 }
@@ -84,6 +90,7 @@ int main() {
                     skaitymas(stud, n, nd_sk);
                     skaičiavimai(stud);
                     raidės(MaxPav, MaxVard, stud);
+                    rikiavimas(stud);
                     išvestis(stud, MaxPav, MaxVard);
                     stud.clear();
                 }
@@ -110,6 +117,7 @@ int main() {
                     skaitymas(stud, n, nd_sk, n); // antras n perduodamas jei bus vardu sarašas
                     skaičiavimai(stud);
                     raidės(MaxPav, MaxVard, stud);
+                    rikiavimas(stud);
                     išvestis(stud, MaxPav, MaxVard);
                     stud.clear();
                 }
@@ -126,6 +134,7 @@ int main() {
                     }
                     skaičiavimai(stud);
                     raidės(MaxPav, MaxVard, stud);
+                    rikiavimas(stud);
                     išvestis(stud, MaxPav, MaxVard);
                     stud.clear();
                 }
@@ -379,3 +388,42 @@ void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
     
     f.close();
 }
+
+bool VarPavRikiavimas(studentas &a, studentas &b) {
+    if (a.pavarde == b.pavarde) {
+        return a.vardas < b.vardas;
+    }
+    return a.pavarde < b.pavarde;
+}
+
+bool MedianaRikiavimas(studentas &a, studentas &b) {
+    return a.mediana > b.mediana;
+}
+
+bool VidurkisRikiavimas(studentas &a, studentas &b) {
+    return a.vidurkis > b.vidurkis;
+}
+
+void rikiavimas(vector<studentas> &stud) {
+    int kriterijus;
+    cout << "Pasirinkite rikiavimo kriterijų:\n";
+    cout << "1. Rikiuoti pagal pavardę (jei pavardės vienodos - pagal vardą)\n";
+    cout << "2. Rikiuoti pagal medianą (nuo didžiausio iki mažiausio)\n";
+    cout << "3. Rikiuoti pagal vidurkį (nuo didžiausio iki mažiausio)\n";
+    cout << "Įveskite pasirinkimą: ";
+    cin >> kriterijus;
+    switch(kriterijus) {
+        case 1:
+            sort(stud.begin(), stud.end(), VarPavRikiavimas);
+            break;
+        case 2:
+            sort(stud.begin(), stud.end(), MedianaRikiavimas);
+            break;
+        case 3:
+            sort(stud.begin(), stud.end(), VidurkisRikiavimas);
+            break;
+        default:
+            cout << "Neteisingas rikiavimo kriterijus.\n";
+    }
+}
+
