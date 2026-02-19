@@ -32,6 +32,21 @@ struct studentas {
     double GalMediana = 0;
 };
 
+class Laikas // laikmačio klasė, naudojama matuoti funkcijų vykdymo laiką
+{
+public:
+    void PradekLaikmati() {
+        start = std::chrono::high_resolution_clock::now();
+    }
+    void BaigkLaikmati() {
+        auto end = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+        cout << "Laikas: " << duration << " ms\n";
+    }
+private:
+    std::chrono::high_resolution_clock::time_point start;
+};
+
 void skaičiavimai(vector<studentas> &stud); // apskaičiuoja vidurkius ir medianas kiekvienam studentui
 void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard); // išveda lentelę su studentų duomenimis į terminalą
 void raidės(int &MaxPav, int &MaxVard, vector <studentas> &stud); // tikrina vardų ir pavardžių ilgius, kad lentelė būtų tvarkinga
@@ -49,6 +64,7 @@ void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard); // 
 
 int main() {
     studentas temp;
+    Laikas laikmatis;
     int MaxPav = 0, MaxVard = 0;
     vector<studentas> stud;
     int pasirinkimas;
@@ -140,7 +156,7 @@ int main() {
                     išvestis(stud, MaxPav, MaxVard);
                     stud.clear();
                 }
-                break;
+            break;
             case 5: //veikia
                 {
                 exit(0);
@@ -347,7 +363,7 @@ bool isInteger(const string& s)
 void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
     std::ifstream f(filename);
     if (!f.is_open()) {
-        std::cerr << "Nepavyko atidaryti failo." << filename << "\n";
+        std::cerr << "Nepavyko atidaryti failo. " << filename << "\n";
         return;
     }
     
@@ -463,15 +479,17 @@ void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard) {
     int pasirinkimas;
     cout << "Ar norite išvesti duomenis į failą? (1 - Taip, 2 - Ne): ";
     cin >> pasirinkimas;
+    while(pasirinkimas != 1 && pasirinkimas != 2) {
+        cout << "Klaidinga įvestis. Įveskite 1 arba 2: ";
+        cin >> pasirinkimas;
+    }
     if (pasirinkimas == 1) {
         string filename;
         cout << "Įveskite txt failo pavadinimą (su .txt): ";
         cin >> filename;
         FailoIšvedimas(stud, filename, MaxPav, MaxVard);
-    } else if (pasirinkimas == 2) {
+    } else {
         cout << "Duomenys bus išvesti į terminalą.\n";
         išvestis(stud, MaxPav, MaxVard);
-    } else {
-        cout << "Neteisingas pasirinkimas. Duomenys nebus išvesti į failą.\n";
     }
 }
