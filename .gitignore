@@ -34,3 +34,4 @@
 # Programuotojo įtraukti
 .vscode/tasks.json
 *.txt
+!kursiokai.txt

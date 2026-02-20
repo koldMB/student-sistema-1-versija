@@ -33,16 +33,18 @@ struct studentas {
     double GalMediana = 0;
 };
 
+double LaikasA[] = {0, 0, 0}; // masyvas laikams saugoti 0 - skaitymas, 1 - Rikiavimas pagal vidurkį, 2 - išvestis
+
 class Laikas // laikmačio klasė, naudojama matuoti funkcijų vykdymo laiką
 {
 public:
     void PradekLaikmati() {
         start = std::chrono::high_resolution_clock::now();
     }
-    int BaigkLaikmati() {
+    void BaiktiLaikmati(int pos) {
         auto end = std::chrono::high_resolution_clock::now();
-        long double duration = std::chrono::duration_cast<std::chrono::seconds>(end - start).count();
-        return duration;
+        float duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+        LaikasA[pos] += duration;
     }
 private:
     std::chrono::high_resolution_clock::time_point start;
@@ -156,6 +158,9 @@ int main() {
                     rikiavimas(stud);
                     TermArFailas(stud, MaxPav, MaxVard);
                     stud.clear();
+                    cout << "Skaitymas iš failo: " << LaikasA[0]/1000 << " sekundžių\n";
+                    cout << "Rikiavimas: " << LaikasA[1]/1000 << " sekundžių\n";
+                    cout << "Išvedimas: " << LaikasA[2]/1000 << " sekundžių\n";
                 }
             break;
             case 5:
@@ -227,7 +232,6 @@ void skaitymas(vector<studentas> &stud)
 
 void skaitymas(vector<studentas> &stud, int &n, int nd_sk)
 {
-    Laikas pazgen;
     if (n <= 0 || nd_sk <= 0) 
     {
         cout << "Neteisingi parametrai generavimui. Patikrinkite įvestį.\n";
@@ -268,13 +272,10 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk)
         i++;
     }
     n = stud.size();
-    cout << "Pažymių generavimas " << pazgen.BaigkLaikmati() << endl;
 }
 
 void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int VardPavSk)
 {
-    Laikas VardPaz;
-    VardPaz.PradekLaikmati();
     if (n <= 0 || nd_sk <= 0 || VardPavSk <= 0) 
     {
         cout << "Neteisingi parametrai generavimui. Patikrinkite įvestį.\n";
@@ -295,13 +296,11 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int VardPavSk)
         temp.egz = score_dist(gen);
         stud.push_back(temp);
     }
-    cout << "Vardai ir pažymiai generavimas " << VardPaz.BaigkLaikmati() << endl;
 }
 
 void skaičiavimai(vector<studentas> &stud) // apskaičiuoja vidurkius ir medianas kiekvienam studentui
 {
-    Laikas skaic;
-    skaic.PradekLaikmati();
+
     for(auto &s : stud) {
         if(s.nd.empty()) {
             s.GalVidurkis = 0;
@@ -325,13 +324,10 @@ void skaičiavimai(vector<studentas> &stud) // apskaičiuoja vidurkius ir median
         }
         s.GalMediana = s.GalMediana * 0.4 + s.egz * 0.6;
     }
-    std::cout << "Skaičiavimų laikas - " << skaic.BaigkLaikmati() << endl;
 }
 
 void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
 {
-    Laikas isvestis;
-    isvestis.PradekLaikmati();
     MaxVard = std::max(MaxVard, 12);
     MaxPav  = std::max(MaxPav, 12);
     
@@ -341,13 +337,10 @@ void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
     for(auto &s : stud) {
         cout << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
     }
-    cout << "Išvesties laikas " << isvestis.BaigkLaikmati() << endl;
 }
 
 void raidės(int &MaxPav, int &MaxVard, vector <studentas> &stud)
 {
-    Laikas raides;
-    raides.PradekLaikmati();
     MaxPav = 0;
     MaxVard = 0;
     for(const auto &s : stud) {
@@ -358,7 +351,6 @@ void raidės(int &MaxPav, int &MaxVard, vector <studentas> &stud)
             MaxVard = s.vardas.length();
         }
     }
-    cout << "Raidžių apskaičiavimo greitis " << raides.BaigkLaikmati() << endl;
 }
 
 bool isInteger(const string& s)
@@ -428,7 +420,7 @@ void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
         stud.push_back(temp);
     }
     f.close();
-    cout << "Failo skaitymo laikas " << FailSkait.BaigkLaikmati() << endl;
+    FailSkait.BaiktiLaikmati(0);
 }
 
 bool VardoRikiavimas(const studentas &a, const studentas &b) {
@@ -474,7 +466,7 @@ void rikiavimas(vector<studentas> &stud) {
         default:
             cout << "Neteisingas rikiavimo kriterijus.\n";
     }
-    cout << "Rikiavimo laikas " <<  RikLaik.BaigkLaikmati() << endl;
+    RikLaik.BaiktiLaikmati(1);
 }
 
 void FailoIšvedimas(const vector<studentas> &stud, const string& filename, int &MaxPav, int &MaxVard) {
@@ -494,7 +486,7 @@ void FailoIšvedimas(const vector<studentas> &stud, const string& filename, int 
           << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
     }
     f.close();
-    cout << "Failo isvedimo laikas " << FailIsvesk.BaigkLaikmati() << endl;
+    FailIsvesk.BaiktiLaikmati(2);
 }
 
 void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard) {
