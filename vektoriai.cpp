@@ -41,7 +41,7 @@ public:
     }
     int BaigkLaikmati() {
         auto end = std::chrono::high_resolution_clock::now();
-        unsigned long long duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+        long double duration = std::chrono::duration_cast<std::chrono::seconds>(end - start).count();
         return duration;
     }
 private:
@@ -334,7 +334,7 @@ void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
     isvestis.PradekLaikmati();
     MaxVard = std::max(MaxVard, 12);
     MaxPav  = std::max(MaxPav, 12);
-
+    
     cout << left << setw(MaxVard + 2) << "Vardas" << setw(MaxPav + 2) << "Pavardė"
             << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     cout << string(MaxVard + MaxPav + 44, '-') << "\n";
