@@ -62,7 +62,7 @@ void skaitymas(vector<studentas> &stud); // paprastas vedimas ranka
 void skaitymas(vector<studentas> &stud, int &n, int nd_sk); // generuoja n studentų duomenis su nd_sk namų darbų pažymiais
 void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int vardPavSk); // generuoja n studentų duomenis su nd_sk namų darbų pažymiais ir vardais/pavardėmis iš vardPavSk dydžio sąrašo
 void FailoNuskaitymas(vector<studentas> &stud, const string& filename); // skaito duomenis iš failo
-bool VardoRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal pavardę, jei pavardės vienodos - pagal vardą
+bool VardoRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal vardą abėcėlės tvarka
 bool MedianaRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal mediana nuo didžiausio iki mažiausio
 bool VidurkisRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal vidurkis nuo didžiausio iki mažiausio
 void rikiavimas(vector<studentas> &stud); // leidžia vartotojui pasirinkti rikiavimo kriterijų
@@ -73,8 +73,7 @@ int main() {
     // Keičiam console į UTF-8 kad galėtų teisingai rodyti lietuviškus simbolius ir juos skaityti
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
-    
-    studentas temp;
+
     Laikas laikmatis;
     int MaxPav = 0, MaxVard = 0;
     vector<studentas> stud;
@@ -88,7 +87,7 @@ int main() {
         cout << "Pasirinkite veiksmą: ";
         string pasirinkimas_str;
         cin >> pasirinkimas_str;
-        while(!isInteger(pasirinkimas_str) || stoi(pasirinkimas_str) < 1 || stoi(pasirinkimas_str) > 6) {
+        while(!isInteger(pasirinkimas_str) || stoi(pasirinkimas_str) < 1 || stoi(pasirinkimas_str) > 5) {
             cout << "Klaidinga įvestis. Bandykite dar kartą: ";
             cin >> pasirinkimas_str;
         }
@@ -107,7 +106,7 @@ int main() {
             break;
             case 2: //veikia
                 {
-                    int n, nd_sk;;
+                    int n, nd_sk;
                     cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
                     string nd_sk_str;
                     cin >> nd_sk_str;
@@ -240,7 +239,8 @@ void skaitymas(vector<studentas> &stud)
 
 void skaitymas(vector<studentas> &stud, int &n, int nd_sk)
 {
-    if (n <= 0 || nd_sk <= 0) 
+    n = 0;
+    if (nd_sk <= 0) 
     {
         cout << "Neteisingi parametrai generavimui. Patikrinkite įvestį.\n";
         return;
@@ -367,7 +367,7 @@ bool isInteger(const string& s)
 {
     if (s.empty()) return false;
 
-    int start = (s[0] == '-' || s[0] == '+') ? 1 : 0; //praleidzia +/- ženklus
+    int start = (s[0] == '-' || s[0] == '+') ? 1 : 0; //praleidžia +/- ženklus
 
     for (size_t i = start; i < s.size(); i++)
         if (!isdigit(s[i]))
@@ -452,13 +452,19 @@ bool PavardeRikiavimas(const studentas &a, const studentas &b) {
 void rikiavimas(vector<studentas> &stud) {
     Laikas RikLaik;
     int kriterijus;
+    std::string kriterijusStr;
     cout << "Pasirinkite rikiavimo kriterijų:\n";
     cout << "1. Rikiuoti pagal varda \n";
     cout << "2. Rikiuoti pagal pavardę \n";
     cout << "3. Rikiuoti pagal medianą (nuo didžiausio iki mažiausio)\n";
     cout << "4. Rikiuoti pagal vidurkį (nuo didžiausio iki mažiausio)\n";
     cout << "Įveskite pasirinkimą: ";
-    cin >> kriterijus;
+    cin >> kriterijusStr;
+    while (!isInteger(kriterijusStr)) {
+        cout << "Neteisinga įvestis. Prašome įvesti sveiką skaičių (1-4): ";
+        cin >> kriterijusStr;
+    }
+    kriterijus = stoi(kriterijusStr);
     RikLaik.PradekLaikmati();
     switch(kriterijus) {
         case 1:
