@@ -31,6 +31,19 @@
 *.out
 *.app
 
+# Visual Studio build artifacts
+x64/
+x86/
+Debug/
+Release/
+*.tlog
+*.log
+*.idb
+*.pdb
+*.ilk
+*.lastbuildstate
+unsuccessfulbuild
+
 # Programuotojo įtraukti
 .vscode/tasks.json
 .vs/

@@ -11,6 +11,7 @@
 #include <cctype>
 #include <cstdlib>
 #include <sstream>
+#include <array>
 
 
 using std::cout;
@@ -43,16 +44,16 @@ public:
     }
     void BaiktiLaikmati(int pos) {
         auto end = std::chrono::high_resolution_clock::now();
-        float duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+        double duration = static_cast<double>(std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
         LaikasA[pos] += duration;
     }
 private:
     std::chrono::high_resolution_clock::time_point start;
 };
 
-void skaičiavimai(vector<studentas> &stud); // apskaičiuoja vidurkius ir medianas kiekvienam studentui
-void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard); // išveda lentelę su studentų duomenimis į terminalą
-void raidės(int &MaxPav, int &MaxVard, vector <studentas> &stud); // tikrina vardų ir pavardžių ilgius, kad lentelė būtų tvarkinga
+void skaiciavimai(vector<studentas> &stud); // apskaičiuoja vidurkius ir medianas kiekvienam studentui
+void isvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard); // išveda lentelę su studentų duomenimis į terminalą
+void raides(int &MaxPav, int &MaxVard, vector <studentas> &stud); // tikrina vardų ir pavardžių ilgius, kad lentelė būtų tvarkinga
 bool isInteger(const string& s);
 void skaitymas(vector<studentas> &stud); // paprastas vedimas ranka
 void skaitymas(vector<studentas> &stud, int &n, int nd_sk); // generuoja n studentų duomenis su nd_sk namų darbų pažymiais
@@ -62,7 +63,7 @@ bool VardoRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal 
 bool MedianaRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal mediana nuo didžiausio iki mažiausio
 bool VidurkisRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal vidurkis nuo didžiausio iki mažiausio
 void rikiavimas(vector<studentas> &stud); // leidžia vartotojui pasirinkti rikiavimo kriterijų
-void FailoIšvedimas(const vector<studentas> &stud, const string& filename, int &MaxPav, int &MaxVard); // išveda lentelę su studentų duomenimis į failą
+void FailoIsvedimas(const vector<studentas> &stud, const string& filename, int &MaxPav, int &MaxVard); // išveda lentelę su studentų duomenimis į failą
 void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard); // leidžia vartotojui pasirinkti ar išvesti duomenis į terminalą ar į failą
 
 int main() {
@@ -90,8 +91,8 @@ int main() {
             case 1: // veikia
                 {
                     skaitymas(stud);
-                    skaičiavimai(stud);
-                    raidės(MaxPav, MaxVard, stud);
+                    skaiciavimai(stud);
+                    raides(MaxPav, MaxVard, stud);
                     rikiavimas(stud);
                     TermArFailas(stud, MaxPav, MaxVard);
                     stud.clear();
@@ -109,8 +110,8 @@ int main() {
                     }
                     nd_sk = stoi(nd_sk_str);
                     skaitymas(stud, n, nd_sk);
-                    skaičiavimai(stud);
-                    raidės(MaxPav, MaxVard, stud);
+                    skaiciavimai(stud);
+                    raides(MaxPav, MaxVard, stud);
                     rikiavimas(stud);
                     TermArFailas(stud, MaxPav, MaxVard);
                     stud.clear();
@@ -136,8 +137,8 @@ int main() {
                     }
                     nd_sk = stoi(nd_sk_str);
                     skaitymas(stud, n, nd_sk, n); // antras n perduodamas jei bus vardu sarašas
-                    skaičiavimai(stud);
-                    raidės(MaxPav, MaxVard, stud);
+                    skaiciavimai(stud);
+                    raides(MaxPav, MaxVard, stud);
                     rikiavimas(stud);
                     TermArFailas(stud, MaxPav, MaxVard);
                     stud.clear();
@@ -153,8 +154,8 @@ int main() {
                         cout << "Nėra duomenų išvesti.\n";
                         break;
                     }
-                    skaičiavimai(stud);
-                    raidės(MaxPav, MaxVard, stud);
+                    skaiciavimai(stud);
+                    raides(MaxPav, MaxVard, stud);
                     rikiavimas(stud);
                     TermArFailas(stud, MaxPav, MaxVard);
                     stud.clear();
@@ -243,7 +244,8 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk)
     static std::chrono::time_point<std::chrono::high_resolution_clock> now() noexcept;
 	Returns a time point representing the current point in time. 
     */
-    auto seed = std::seed_seq{rd(), static_cast<unsigned int>(std::chrono::high_resolution_clock::now().time_since_epoch().count())};
+    std::array<unsigned int, 2> seed_data = {rd(), static_cast<unsigned int>(std::chrono::high_resolution_clock::now().time_since_epoch().count())};
+    std::seed_seq seed(seed_data.begin(), seed_data.end());
     // A Mersenne Twister pseudo-random generator of 64-bit numbers with a state size of 19937 bits.
     std::mt19937_64 gen(seed);
     /*
@@ -271,7 +273,7 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk)
         stud.push_back(temp);
         i++;
     }
-    n = stud.size();
+    n = static_cast<int>(stud.size());
 }
 
 void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int VardPavSk)
@@ -283,7 +285,8 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int VardPavSk)
     }
 
     std::random_device rd;
-    auto seed = std::seed_seq{rd(), static_cast<unsigned int>(std::chrono::high_resolution_clock::now().time_since_epoch().count())};
+    std::array<unsigned int, 2> seed_data = {rd(), static_cast<unsigned int>(std::chrono::high_resolution_clock::now().time_since_epoch().count())};
+    std::seed_seq seed(seed_data.begin(), seed_data.end());
     std::mt19937_64 gen(seed);
     std::uniform_int_distribution<> score_dist(1, 10);
 
@@ -298,7 +301,7 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int VardPavSk)
     }
 }
 
-void skaičiavimai(vector<studentas> &stud) // apskaičiuoja vidurkius ir medianas kiekvienam studentui
+void skaiciavimai(vector<studentas> &stud) // apskaičiuoja vidurkius ir medianas kiekvienam studentui
 {
 
     for(auto &s : stud) {
@@ -326,7 +329,7 @@ void skaičiavimai(vector<studentas> &stud) // apskaičiuoja vidurkius ir median
     }
 }
 
-void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
+void isvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
 {
     MaxVard = std::max(MaxVard, 12);
     MaxPav  = std::max(MaxPav, 12);
@@ -339,16 +342,16 @@ void išvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
     }
 }
 
-void raidės(int &MaxPav, int &MaxVard, vector <studentas> &stud)
+void raides(int &MaxPav, int &MaxVard, vector <studentas> &stud)
 {
     MaxPav = 0;
     MaxVard = 0;
     for(const auto &s : stud) {
-        if(s.pavarde.length() > MaxPav) {
-            MaxPav = s.pavarde.length();
+        if(static_cast<int>(s.pavarde.length()) > MaxPav) {
+            MaxPav = static_cast<int>(s.pavarde.length());
         }
-        if(s.vardas.length() > MaxVard) {
-            MaxVard = s.vardas.length();
+        if(static_cast<int>(s.vardas.length()) > MaxVard) {
+            MaxVard = static_cast<int>(s.vardas.length());
         }
     }
 }
@@ -359,7 +362,7 @@ bool isInteger(const string& s)
 
     int start = (s[0] == '-' || s[0] == '+') ? 1 : 0; //praleidzia +/- ženklus
 
-    for (int i = start; i < s.size(); i++)
+    for (size_t i = start; i < s.size(); i++)
         if (!isdigit(s[i]))
             return false;
 
@@ -397,7 +400,7 @@ void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
         
         // nustato namų darbų skaičių pagal pirmą eilutę
         if (nd_sk == -1) {
-            nd_sk = tokens.size() - 3; // pirmi du žodžiai - vardas ir pavardė, paskutinis - egzaminas
+            nd_sk = static_cast<int>(tokens.size()) - 3; // pirmi du žodžiai - vardas ir pavardė, paskutinis - egzaminas
         }
         
         studentas temp;
@@ -469,7 +472,7 @@ void rikiavimas(vector<studentas> &stud) {
     RikLaik.BaiktiLaikmati(1);
 }
 
-void FailoIšvedimas(const vector<studentas> &stud, const string& filename, int &MaxPav, int &MaxVard) {
+void FailoIsvedimas(const vector<studentas> &stud, const string& filename, int &MaxPav, int &MaxVard) {
     Laikas FailIsvesk;
     FailIsvesk.PradekLaikmati();
     std::ofstream f(filename);
@@ -501,9 +504,9 @@ void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard) {
         string filename;
         cout << "Įveskite txt failo pavadinimą (su .txt): ";
         cin >> filename;
-        FailoIšvedimas(stud, filename, MaxPav, MaxVard);
+        FailoIsvedimas(stud, filename, MaxPav, MaxVard);
     } else {
         cout << "Duomenys bus išvesti į terminalą.\n";
-        išvestis(stud, MaxPav, MaxVard);
+        isvestis(stud, MaxPav, MaxVard);
     }
 }
