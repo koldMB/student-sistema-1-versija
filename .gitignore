@@ -33,5 +33,7 @@
 
 # Programuotojo įtraukti
 .vscode/tasks.json
+.vs/
+*.vcxproj.user
 *.txt
 !kursiokai.txt
