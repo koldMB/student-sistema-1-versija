@@ -13,6 +13,9 @@
 #include <sstream>
 #include <array>
 
+#define NOMINMAX // kertasi su min ir max funkcijomis, todėl ignoruojama iš windows.h šiuos
+#include <windows.h>
+
 
 using std::cout;
 using std::cin;
@@ -67,6 +70,10 @@ void FailoIsvedimas(const vector<studentas> &stud, const string& filename, int &
 void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard); // leidžia vartotojui pasirinkti ar išvesti duomenis į terminalą ar į failą
 
 int main() {
+    // Keičiam console į UTF-8 kad galėtų teisingai rodyti lietuviškus simbolius ir juos skaityti
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
+    
     studentas temp;
     Laikas laikmatis;
     int MaxPav = 0, MaxVard = 0;
