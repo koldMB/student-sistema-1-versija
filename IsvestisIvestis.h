@@ -3,11 +3,10 @@
 
 #include <vector>
 #include <string>
+#include "Common.h"
 
 using std::string;
 using std::vector;
-
-struct studentas;
 
 void skaitymas(vector<studentas> &stud); // paprastas vedimas ranka
 void skaitymas(vector<studentas> &stud, int &n, int nd_sk); // generuoja n studentų duomenis su nd_sk namų darbų pažymiais
