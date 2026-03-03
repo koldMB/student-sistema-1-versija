@@ -119,7 +119,7 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk)
     n = static_cast<int>(stud.size());
 }
 
-void skaitymas(vector<studentas> &stud, const int n, const int nd_sk, const int VardPavSk)
+void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int VardPavSk)
 {
     if (n <= 0 || nd_sk <= 0 || VardPavSk <= 0)
     {
