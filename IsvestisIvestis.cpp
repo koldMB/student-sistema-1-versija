@@ -5,12 +5,18 @@
 #include <iostream>
 #include <random>
 #include <array>
+#include <iomanip>
+#include <fstream>
+
+#include "Laikas.h"
 
 using std::cout;
 using std::endl;
 using std::vector;
 using std::cin;
 using std::stoi;
+using std::left;
+using std::setw;
 
 void skaitymas(vector<studentas> &stud)
 {
@@ -113,7 +119,7 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk)
     n = static_cast<int>(stud.size());
 }
 
-void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int VardPavSk)
+void skaitymas(vector<studentas> &stud, const int n, const int nd_sk, const int VardPavSk)
 {
     if (n <= 0 || nd_sk <= 0 || VardPavSk <= 0)
     {
@@ -135,5 +141,58 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int VardPavSk)
         for (int j = 0; j < nd_sk; ++j) temp.nd[j] = score_dist(gen);
         temp.egz = score_dist(gen);
         stud.push_back(temp);
+    }
+}
+
+void isvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
+{
+    MaxVard = std::max(MaxVard, 12);
+    MaxPav  = std::max(MaxPav, 12);
+
+    cout << left << setw(MaxVard + 2) << "Vardas" << setw(MaxPav + 2) << "Pavardė"
+            << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
+    cout << string(MaxVard + MaxPav + 44, '-') << "\n";
+    for(auto &s : stud) {
+        cout << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
+    }
+}
+
+
+void FailoIsvedimas(const vector<studentas> &stud, const string& filename, int &MaxPav, int &MaxVard) {
+    Laikas FailIsvesk;
+    FailIsvesk.PradekLaikmati();
+    std::ofstream f(filename);
+    if (!f.is_open()) {
+        std::cerr << "Nepavyko atidaryti failo rašymui." << filename << "\n";
+        return;
+    }
+    f << left << setw(MaxVard + 2) << "Vardas" << setw(MaxPav + 2) << "Pavardė"
+      << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
+    f << string(MaxVard + MaxPav + 44, '-') << "\n";
+    for(const auto &s : stud) {
+        f << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde
+          << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis
+          << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
+    }
+    f.close();
+    FailIsvesk.BaiktiLaikmati(2);
+}
+
+void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard) {
+    int pasirinkimas;
+    cout << "Ar norite išvesti duomenis į failą? (1 - Taip, 2 - Ne): ";
+    cin >> pasirinkimas;
+    while(pasirinkimas != 1 && pasirinkimas != 2) {
+        cout << "Klaidinga įvestis. Įveskite 1 arba 2: ";
+        cin >> pasirinkimas;
+    }
+    if (pasirinkimas == 1) {
+        string filename;
+        cout << "Įveskite txt failo pavadinimą (su .txt): ";
+        cin >> filename;
+        FailoIsvedimas(stud, filename, MaxPav, MaxVard);
+    } else {
+        cout << "Duomenys bus išvesti į terminalą.\n";
+        isvestis(stud, MaxPav, MaxVard);
     }
 }
