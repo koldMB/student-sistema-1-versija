@@ -161,7 +161,7 @@ void isvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
 void FailoIsvedimas(const vector<studentas> &stud, const string& filename, int &MaxPav, int &MaxVard) {
     Laikas FailIsvesk;
     FailIsvesk.PradekLaikmati();
-    std::ofstream f(filename);
+    std::ofstream f(filename + ".txt");
     if (!f.is_open()) {
         std::cerr << "Nepavyko atidaryti failo rašymui." << filename << "\n";
         return;
@@ -188,7 +188,7 @@ void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard) {
     }
     if (pasirinkimas == 1) {
         string filename;
-        cout << "Įveskite txt failo pavadinimą (su .txt): ";
+        cout << "Įveskite txt failo pavadinimą: ";
         cin >> filename;
         FailoIsvedimas(stud, filename, MaxPav, MaxVard);
     } else {

@@ -21,6 +21,7 @@
 #include "Common.h"// keliouose failuose naudojamos priklausomybės
 #include "IsvestisIvestis.h" // Isvesties ir ivesties tvarkymo funkcijos
 #include "Skaiciavimai.h" // visos operacijos susijusios su skaiciavimais
+#include "klaiduValdymas.h" // Include for AllExceptionsHandler
 
 using std::cout;
 using std::cin;
@@ -36,8 +37,14 @@ using std::endl;
 
 int main() {
     // Keičiam console į UTF-8 kad galėtų teisingai rodyti lietuviškus simbolius ir juos skaityti
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
+    try{
+        SetConsoleCP(CP_UTF8);
+        SetConsoleOutputCP(CP_UTF8);
+    }
+    catch(const std::exception& e) {
+        std::cerr << "Klaida keičiant console į UTF-8: " << e.what() << std::endl;
+        return 1;
+    }
 
     Laikas laikmatis;
     int MaxPav = 0, MaxVard = 0;
@@ -52,7 +59,11 @@ int main() {
         cout << "Pasirinkite veiksmą: ";
         string pasirinkimas_str;
         cin >> pasirinkimas_str;
-        while(!isInteger(pasirinkimas_str) || stoi(pasirinkimas_str) < 1 || stoi(pasirinkimas_str) > 5) {
+        try {
+            if (!isInteger(pasirinkimas_str) || stoi(pasirinkimas_str) < 1 || stoi(pasirinkimas_str) > 5) {
+                AllExceptionsHandler::ThrowRuntimeError();
+            }
+        } catch (const std::runtime_error& e) {
             cout << "Klaidinga įvestis. Bandykite dar kartą: ";
             cin >> pasirinkimas_str;
         }
@@ -75,7 +86,11 @@ int main() {
                     cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
                     string nd_sk_str;
                     cin >> nd_sk_str;
-                    while(!isInteger(nd_sk_str) || stoi(nd_sk_str) <= 0) {
+                    try {
+                        if (!isInteger(nd_sk_str) || stoi(nd_sk_str) <= 0) {
+                            AllExceptionsHandler::ThrowRuntimeError();
+                        }
+                    } catch (const std::runtime_error& e) {
                         cout << "Klaidinga įvestis. Bandykite dar kartą: ";
                         cin >> nd_sk_str;
                     }
@@ -94,7 +109,11 @@ int main() {
                     cout << "Įveskite kiek studentų duomenų norite generuoti: ";
                     string n_str;
                     cin >> n_str;
-                    while(!isInteger(n_str) || stoi(n_str) <= 0) {
+                    try {
+                        if (!isInteger(n_str) || stoi(n_str) <= 0) {
+                            AllExceptionsHandler::ThrowRuntimeError();
+                        }
+                    } catch (const std::runtime_error& e) {
                         cout << "Klaidinga įvestis. Bandykite dar kartą: ";
                         cin >> n_str;
                     }
@@ -102,7 +121,11 @@ int main() {
                     cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
                     string nd_sk_str;
                     cin >> nd_sk_str;
-                    while(!isInteger(nd_sk_str) || stoi(nd_sk_str) <= 0) {
+                    try {
+                        if (!isInteger(nd_sk_str) || stoi(nd_sk_str) <= 0) {
+                            AllExceptionsHandler::ThrowRuntimeError();
+                        }
+                    } catch (const std::runtime_error& e) {
                         cout << "Klaidinga įvestis. Bandykite dar kartą: ";
                         cin >> nd_sk_str;
                     }
@@ -144,6 +167,6 @@ int main() {
     }while(true);
 
     return 0;
-} 
+}
 
 
