@@ -43,6 +43,10 @@
 - `PradekLaikmati()`: Pradeda laikmačio matavimą.
 - `BaiktiLaikmati(int pos)`: Baigia laikmačio matavimą ir išsaugo rezultatą.
 
+### Klaidų Valdymas
+- `AllExceptionsHandler::CatchAll(const std::function<void()>& func)`: Apgaubia funkciją ir apdoroja visas standartines išimtis su numatytomis žinutėmis.
+- `AllExceptionsHandler::ThrowRuntimeError()`: Išmeta `runtime_error` išimtį su numatytąja žinute.
+
 ## Naudojimas
 1. Paleiskite programą.
 2. Pasirinkite veiksmą iš meniu:
