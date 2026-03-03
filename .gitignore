@@ -50,3 +50,20 @@ unsuccessfulbuild
 *.vcxproj.user
 *.txt
 !kursiokai.txt
+
+# Ignruoja .idea failus
+.idea/
+
+# Allow specific .idea files to be committed
+!.idea/misc.xml
+!.idea/modules.xml
+!.idea/studentu-sistema.iml
+!.idea/vcs.xml
+
+# Ignore user-specific files
+.idea/workspace.xml
+.idea/editor.xml
+.idea/inspectionProfiles/
+
+# Allow specific inspection profiles if needed
+!.idea/inspectionProfiles/Project_Default.xml
