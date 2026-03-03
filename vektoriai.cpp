@@ -39,20 +39,7 @@ struct studentas {
 
 double LaikasA[] = {0, 0, 0}; // masyvas laikams saugoti 0 - skaitymas, 1 - Rikiavimas pagal vidurkį, 2 - išvestis
 
-class Laikas // laikmačio klasė, naudojama matuoti funkcijų vykdymo laiką
-{
-public:
-    void PradekLaikmati() {
-        start = std::chrono::high_resolution_clock::now();
-    }
-    void BaiktiLaikmati(int pos) {
-        auto end = std::chrono::high_resolution_clock::now();
-        double duration = static_cast<double>(std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
-        LaikasA[pos] += duration;
-    }
-private:
-    std::chrono::high_resolution_clock::time_point start;
-};
+#include "Laikas.h"
 
 void skaiciavimai(vector<studentas> &stud); // apskaičiuoja vidurkius ir medianas kiekvienam studentui
 void isvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard); // išveda lentelę su studentų duomenimis į terminalą
