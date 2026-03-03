@@ -1,4 +1,5 @@
 #include <string>
+#include "klaiduValdymas.h"
 
 using std::string;
 
