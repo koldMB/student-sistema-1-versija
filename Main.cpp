@@ -1,4 +1,6 @@
-//implimentacija su vektoriais
+#ifndef NOMINMAX
+#define NOMINMAX // kertasi su min ir max funkcijomis, todėl ignoruojama iš windows.h šiuos
+#endif
 
 #include <iostream>
 #include <vector>
@@ -13,9 +15,9 @@
 #include <sstream>
 #include <array>
 
-#define NOMINMAX // kertasi su min ir max funkcijomis, todėl ignoruojama iš windows.h šiuos
 #include <windows.h>
 
+#include "Laikas.h" // Laiko klasė skirta naudoti efektyvumo testams
 
 using std::cout;
 using std::cin;
@@ -37,24 +39,16 @@ struct studentas {
     double GalMediana = 0;
 };
 
-double LaikasA[] = {0, 0, 0}; // masyvas laikams saugoti 0 - skaitymas, 1 - Rikiavimas pagal vidurkį, 2 - išvestis
-
-#include "Laikas.h"
 
 void skaiciavimai(vector<studentas> &stud); // apskaičiuoja vidurkius ir medianas kiekvienam studentui
 void isvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard); // išveda lentelę su studentų duomenimis į terminalą
 void raides(int &MaxPav, int &MaxVard, vector <studentas> &stud); // tikrina vardų ir pavardžių ilgius, kad lentelė būtų tvarkinga
 bool isInteger(const string& s);
-void skaitymas(vector<studentas> &stud); // paprastas vedimas ranka
-void skaitymas(vector<studentas> &stud, int &n, int nd_sk); // generuoja n studentų duomenis su nd_sk namų darbų pažymiais
-void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int vardPavSk); // generuoja n studentų duomenis su nd_sk namų darbų pažymiais ir vardais/pavardėmis iš vardPavSk dydžio sąrašo
-void FailoNuskaitymas(vector<studentas> &stud, const string& filename); // skaito duomenis iš failo
+
 bool VardoRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal vardą abėcėlės tvarka
 bool MedianaRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal mediana nuo didžiausio iki mažiausio
 bool VidurkisRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal vidurkis nuo didžiausio iki mažiausio
 void rikiavimas(vector<studentas> &stud); // leidžia vartotojui pasirinkti rikiavimo kriterijų
-void FailoIsvedimas(const vector<studentas> &stud, const string& filename, int &MaxPav, int &MaxVard); // išveda lentelę su studentų duomenimis į failą
-void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard); // leidžia vartotojui pasirinkti ar išvesti duomenis į terminalą ar į failą
 
 int main() {
     // Keičiam console į UTF-8 kad galėtų teisingai rodyti lietuviškus simbolius ir juos skaityti

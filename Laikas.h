@@ -3,7 +3,7 @@
 
 #include <chrono>
 
-extern double LaikasA[]; // Declare the external array for time tracking
+extern double LaikasA[]; 
 
 class Laikas // laikmačio klasė, naudojama matuoti funkcijų vykdymo laiką
 {
