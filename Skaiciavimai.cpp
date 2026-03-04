@@ -8,6 +8,7 @@
 
 #include "Common.h"
 #include "Laikas.h"
+#include "klaiduValdymas.h"
 
 using std::vector;
 using std::cout;
@@ -83,11 +84,13 @@ void rikiavimas(vector<studentas> &stud) {
     cout << "4. Rikiuoti pagal vidurkį (nuo didžiausio iki mažiausio)\n";
     cout << "Įveskite pasirinkimą: ";
     cin >> kriterijusStr;
-    while (!isInteger(kriterijusStr)) {
+    auto kriterijus_opt = AllExceptionsHandler::TryStoI(kriterijusStr);
+    while (!kriterijus_opt.has_value()) {
         cout << "Neteisinga įvestis. Prašome įvesti sveiką skaičių (1-4): ";
         cin >> kriterijusStr;
+        kriterijus_opt = AllExceptionsHandler::TryStoI(kriterijusStr);
     }
-    const int kriterijus = stoi(kriterijusStr);
+    const int kriterijus = kriterijus_opt.value();
     RikLaik.PradekLaikmati();
     switch(kriterijus) {
         case 1:

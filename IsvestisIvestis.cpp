@@ -13,6 +13,7 @@
 
 
 using std::cout;
+using std::cerr;
 using std::endl;
 using std::vector;
 using std::cin;
@@ -39,12 +40,14 @@ void skaitymas(vector<studentas> &stud)
         string nd_sk_str;
         cin >> nd_sk_str;
         if(nd_sk_str == "\\0") return;
-        while(!isInteger(nd_sk_str) || stoi(nd_sk_str) <= 0) {
-            cout << "Klaidinga įvestis. Bandykite dar kartą: ";
+        auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+        while(!nd_sk_opt.has_value() || nd_sk_opt.value() <= 0) {
+            cerr << "Klaidinga įvestis. Bandykite dar kartą: ";
             cin >> nd_sk_str;
             if(nd_sk_str == "\\0") return;
+            nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
         }
-        const int nd_count = stoi(nd_sk_str);
+        const int nd_count = nd_sk_opt.value();
         temp.nd.resize(nd_count);
 
         for(int j = 0; j < nd_count; j++) {
@@ -55,12 +58,14 @@ void skaitymas(vector<studentas> &stud)
                 temp.nd.resize(j); // sumažina vektoriaus dydį iki įvestų pažymių skaičiaus
                 return;
             }
-            while(!isInteger(nd_str) || stoi(nd_str) < 0 || stoi(nd_str) > 10) {
-                cout << "Klaidinga įvestis. Bandykite dar kartą: ";
+            auto nd_opt = AllExceptionsHandler::TryStoI(nd_str);
+            while(!nd_opt.has_value() || nd_opt.value() < 0 || nd_opt.value() > 10) {
+                cerr << "Klaidinga įvestis. Bandykite dar kartą: ";
                 cin >> nd_str;
                 if(nd_str == "\\0") return;
+                nd_opt = AllExceptionsHandler::TryStoI(nd_str);
             }
-            temp.nd[j] = stoi(nd_str);
+            temp.nd[j] = nd_opt.value();
         }
         cout << "Įveskite egzamino įvertinimą: ";
         string egz_str;
@@ -69,7 +74,10 @@ void skaitymas(vector<studentas> &stud)
             temp.nd.clear();
             return;
         }
-        temp.egz = stoi(egz_str);
+        auto egz_opt = AllExceptionsHandler::TryStoI(egz_str);
+        if (egz_opt.has_value()) {
+            temp.egz = egz_opt.value();
+        }
         stud.push_back(temp);
         n++;
     }
@@ -192,7 +200,7 @@ void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard) {
     cout << "Ar norite išvesti duomenis į failą? (1 - Taip, 2 - Ne): ";
     cin >> pasirinkimas;
     while(pasirinkimas != 1 && pasirinkimas != 2) {
-        cout << "Klaidinga įvestis. Įveskite 1 arba 2: ";
+        cerr << "Klaidinga įvestis. Įveskite 1 arba 2: ";
         cin >> pasirinkimas;
     }
     if (pasirinkimas == 1) {
@@ -210,12 +218,13 @@ void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
     Laikas FailSkait;
     FailSkait.PradekLaikmati();
     
-    try {
-        std::ifstream f(filename+".txt");
-
-        if (!f.is_open()) {
-            throw std::runtime_error("Nepavyko atidaryti failo: " + filename + ".txt");
-        }
+    std::ifstream f(filename+".txt");
+    if (!f.is_open()) {
+        cerr << "Klaida: Nepavyko atidaryti failo \"" << filename << ".txt\". Patikrinkite, ar failas egzistuoja.\n";
+        return;
+    }
+    
+    AllExceptionsHandler::CatchAll([&]() {
 
         // Skip header line
         f.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -249,22 +258,21 @@ void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
 
             // nuskaito namų darbų pažymius
             for (int i = 0; i < nd_sk; i++) {
-                if (isInteger(tokens[2 + i])) {
-                    temp.nd[i] = stoi(tokens[2 + i]);
+                auto nd_opt = AllExceptionsHandler::TryStoI(tokens[2 + i]);
+                if (nd_opt.has_value()) {
+                    temp.nd[i] = nd_opt.value();
                 }
             }
 
             // nuskaito egzamino pažymį
-            if (isInteger(tokens[2 + nd_sk])) {
-                temp.egz = stoi(tokens[2 + nd_sk]);
+            auto egz_opt = AllExceptionsHandler::TryStoI(tokens[2 + nd_sk]);
+            if (egz_opt.has_value()) {
+                temp.egz = egz_opt.value();
             }
 
             stud.push_back(temp);
         }
         f.close();
         FailSkait.BaiktiLaikmati(0);
-    } catch (const std::exception& e) {
-        std::cerr << "Klaida nuskaitant failą: " << e.what() << "\n";
-        throw;
-    }
+    });
 }

@@ -32,6 +32,7 @@ using std::sort;
 using std::isdigit; //tikrina ar char yra skaitmuo
 using std::stoi; //string to int
 using std::left;
+using std::cerr;
 using std::endl;
 
 
@@ -42,7 +43,7 @@ int main() {
         SetConsoleOutputCP(CP_UTF8);
     }
     catch(const std::exception& e) {
-        std::cerr << "Klaida keičiant console į UTF-8: " << e.what() << std::endl;
+        cerr << "Klaida keičiant console į UTF-8: " << e.what() << std::endl;
         return -2;
     }
 
@@ -59,15 +60,13 @@ int main() {
         cout << "Pasirinkite veiksmą: ";
         string pasirinkimas_str;
         cin >> pasirinkimas_str;
-        try {
-            if (!isInteger(pasirinkimas_str) || stoi(pasirinkimas_str) < 1 || stoi(pasirinkimas_str) > 5) {
-                AllExceptionsHandler::ThrowRuntimeError();
-            }
-        } catch (const std::runtime_error& e) {
-            cout << "Klaidinga įvestis. Bandykite dar kartą: ";
+        auto pasirinkimas_opt = AllExceptionsHandler::TryStoI(pasirinkimas_str);
+        while (!pasirinkimas_opt.has_value() || pasirinkimas_opt.value() < 1 || pasirinkimas_opt.value() > 5) {
+            cerr << "Klaidinga įvestis. Bandykite dar kartą: ";
             cin >> pasirinkimas_str;
+            pasirinkimas_opt = AllExceptionsHandler::TryStoI(pasirinkimas_str);
         }
-        pasirinkimas = stoi(pasirinkimas_str);
+        pasirinkimas = pasirinkimas_opt.value();
         switch (pasirinkimas) 
         {
             case 1: // veikia
@@ -86,15 +85,13 @@ int main() {
                     cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
                     string nd_sk_str;
                     cin >> nd_sk_str;
-                    try {
-                        if (!isInteger(nd_sk_str) || stoi(nd_sk_str) <= 0) {
-                            AllExceptionsHandler::ThrowRuntimeError();
-                        }
-                    } catch (const std::runtime_error& e) {
-                        cout << "Klaidinga įvestis. Bandykite dar kartą: ";
+                    auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                    while (!nd_sk_opt.has_value() || nd_sk_opt.value() <= 0) {
+                        cerr << "Klaidinga įvestis. Bandykite dar kartą: ";
                         cin >> nd_sk_str;
+                        nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
                     }
-                    nd_sk = stoi(nd_sk_str);
+                    nd_sk = nd_sk_opt.value();
                     skaitymas(stud, n, nd_sk);
                     skaiciavimai(stud);
                     raides(MaxPav, MaxVard, stud);
@@ -109,27 +106,23 @@ int main() {
                     cout << "Įveskite kiek studentų duomenų norite generuoti: ";
                     string n_str;
                     cin >> n_str;
-                    try {
-                        if (!isInteger(n_str) || stoi(n_str) <= 0) {
-                            AllExceptionsHandler::ThrowRuntimeError();
-                        }
-                    } catch (const std::runtime_error& e) {
-                        cout << "Klaidinga įvestis. Bandykite dar kartą: ";
+                    auto n_opt = AllExceptionsHandler::TryStoI(n_str);
+                    while (!n_opt.has_value() || n_opt.value() <= 0) {
+                        cerr << "Klaidinga įvestis. Bandykite dar kartą: ";
                         cin >> n_str;
+                        n_opt = AllExceptionsHandler::TryStoI(n_str);
                     }
-                    n = stoi(n_str);
+                    n = n_opt.value();
                     cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
                     string nd_sk_str;
                     cin >> nd_sk_str;
-                    try {
-                        if (!isInteger(nd_sk_str) || stoi(nd_sk_str) <= 0) {
-                            AllExceptionsHandler::ThrowRuntimeError();
-                        }
-                    } catch (const std::runtime_error& e) {
-                        cout << "Klaidinga įvestis. Bandykite dar kartą: ";
+                    auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                    while (!nd_sk_opt.has_value() || nd_sk_opt.value() <= 0) {
+                        cerr << "Klaidinga įvestis. Bandykite dar kartą: ";
                         cin >> nd_sk_str;
+                        nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
                     }
-                    nd_sk = stoi(nd_sk_str);
+                    nd_sk = nd_sk_opt.value();
                     skaitymas(stud, n, nd_sk, n); // antras n perduodamas jei bus vardu sarašas
                     skaiciavimai(stud);
                     raides(MaxPav, MaxVard, stud);
@@ -145,7 +138,7 @@ int main() {
                     cin >> filename;
                     FailoNuskaitymas(stud, filename);
                     if(stud.empty()) {
-                        cout << "Nėra duomenų išvesti.\n";
+                        cerr << "Nėra duomenų išvesti.\n";
                         break;
                     }
                     skaiciavimai(stud);
