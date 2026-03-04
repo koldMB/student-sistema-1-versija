@@ -1,5 +1,8 @@
 #include "IsvestisIvestis.h"
 #include "Common.h"
+#include "klaiduValdymas.h"
+#include "Laikas.h"
+
 
 #include <chrono>
 #include <iostream>
@@ -8,7 +11,6 @@
 #include <iomanip>
 #include <fstream>
 
-#include "Laikas.h"
 
 using std::cout;
 using std::endl;
@@ -195,4 +197,62 @@ void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard) {
         cout << "Duomenys bus išvesti į terminalą.\n";
         isvestis(stud, MaxPav, MaxVard);
     }
+}
+
+void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
+    Laikas FailSkait;
+    FailSkait.PradekLaikmati();
+    std::ifstream f(filename);
+
+    if (!f.is_open()) {
+        std::cerr << "Nepavyko atidaryti failo. " << filename << "\n";
+        return;
+    }
+
+    // Skip header line
+    f.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    int nd_sk = -1; // pagal pirma eilute
+    string line;
+
+    while (std::getline(f, line)) {
+        if (line.empty()) continue;
+
+        // išskaido eilutę į žodžius
+        std::istringstream iss(line);
+        string token;
+        vector<string> tokens;
+        while (iss >> token) {
+            tokens.push_back(token);
+        }
+
+        // bent vienas namų darbas + egzaminas + vardas + pavardė
+        if (tokens.size() < 4) continue;
+
+        // nustato namų darbų skaičių pagal pirmą eilutę
+        if (nd_sk == -1) {
+            nd_sk = static_cast<int>(tokens.size()) - 3; // pirmi du žodžiai - vardas ir pavardė, paskutinis - egzaminas
+        }
+
+        studentas temp;
+        temp.vardas = tokens[0];
+        temp.pavarde = tokens[1];
+        temp.nd.resize(nd_sk);
+
+        // nuskaito namų darbų pažymius
+        for (int i = 0; i < nd_sk; i++) {
+            if (isInteger(tokens[2 + i])) {
+                temp.nd[i] = stoi(tokens[2 + i]);
+            }
+        }
+
+        // nuskaito egzamino pažymį
+        if (isInteger(tokens[2 + nd_sk])) {
+            temp.egz = stoi(tokens[2 + nd_sk]);
+        }
+
+        stud.push_back(temp);
+    }
+    f.close();
+    FailSkait.BaiktiLaikmati(0);
 }

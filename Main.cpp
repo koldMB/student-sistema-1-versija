@@ -43,7 +43,7 @@ int main() {
     }
     catch(const std::exception& e) {
         std::cerr << "Klaida keičiant console į UTF-8: " << e.what() << std::endl;
-        return 1;
+        return -2;
     }
 
     Laikas laikmatis;
