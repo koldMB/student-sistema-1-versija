@@ -151,12 +151,15 @@ void isvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
     MaxVard = std::max(MaxVard, 12);
     MaxPav  = std::max(MaxPav, 12);
 
-    cout << left << setw(MaxVard + 2) << "Vardas" << setw(MaxPav + 2) << "Pavardė"
+    std::ostringstream oss;
+
+    oss << left << setw(MaxVard + 2) << "Vardas" << setw(MaxPav + 2) << "Pavardė"
             << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
-    cout << string(MaxVard + MaxPav + 44, '-') << "\n";
+    oss << string(MaxVard + MaxPav + 44, '-') << "\n";
     for(auto &s : stud) {
-        cout << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
+        oss << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
     }
+    cout << oss.str();
 }
 
 
@@ -168,14 +171,18 @@ void FailoIsvedimas(const vector<studentas> &stud, const string& filename, int &
         std::cerr << "Nepavyko atidaryti failo rašymui." << filename << "\n";
         return;
     }
-    f << left << setw(MaxVard + 2) << "Vardas" << setw(MaxPav + 2) << "Pavardė"
-      << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
-    f << string(MaxVard + MaxPav + 44, '-') << "\n";
+    
+    std::ostringstream oss; // https://cplusplus.com/reference/sstream/ostringstream/
+    oss << left << setw(MaxVard + 2) << "Vardas" << setw(MaxPav + 2) << "Pavardė"
+        << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
+    oss << string(MaxVard + MaxPav + 44, '-') << "\n";
     for(const auto &s : stud) {
-        f << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde
-          << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis
-          << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
+        oss << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde
+            << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis
+            << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
     }
+    
+    f << oss.str();
     f.close();
     FailIsvesk.BaiktiLaikmati(2);
 }
@@ -202,57 +209,62 @@ void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard) {
 void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
     Laikas FailSkait;
     FailSkait.PradekLaikmati();
-    std::ifstream f(filename);
+    
+    try {
+        std::ifstream f(filename+".txt");
 
-    if (!f.is_open()) {
-        std::cerr << "Nepavyko atidaryti failo. " << filename << "\n";
-        return;
-    }
-
-    // Skip header line
-    f.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-    int nd_sk = -1; // pagal pirma eilute
-    string line;
-
-    while (std::getline(f, line)) {
-        if (line.empty()) continue;
-
-        // išskaido eilutę į žodžius
-        std::istringstream iss(line);
-        string token;
-        vector<string> tokens;
-        while (iss >> token) {
-            tokens.push_back(token);
+        if (!f.is_open()) {
+            throw std::runtime_error("Nepavyko atidaryti failo: " + filename + ".txt");
         }
 
-        // bent vienas namų darbas + egzaminas + vardas + pavardė
-        if (tokens.size() < 4) continue;
+        // Skip header line
+        f.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-        // nustato namų darbų skaičių pagal pirmą eilutę
-        if (nd_sk == -1) {
-            nd_sk = static_cast<int>(tokens.size()) - 3; // pirmi du žodžiai - vardas ir pavardė, paskutinis - egzaminas
-        }
+        int nd_sk = -1; // pagal pirma eilute
+        string line;
 
-        studentas temp;
-        temp.vardas = tokens[0];
-        temp.pavarde = tokens[1];
-        temp.nd.resize(nd_sk);
+        while (std::getline(f, line)) {
+            if (line.empty()) continue;
 
-        // nuskaito namų darbų pažymius
-        for (int i = 0; i < nd_sk; i++) {
-            if (isInteger(tokens[2 + i])) {
-                temp.nd[i] = stoi(tokens[2 + i]);
+            // išskaido eilutę į žodžius
+            std::istringstream iss(line);
+            string token;
+            vector<string> tokens;
+            while (iss >> token) {
+                tokens.push_back(token);
             }
-        }
 
-        // nuskaito egzamino pažymį
-        if (isInteger(tokens[2 + nd_sk])) {
-            temp.egz = stoi(tokens[2 + nd_sk]);
-        }
+            // bent vienas namų darbas + egzaminas + vardas + pavardė
+            if (tokens.size() < 4) continue;
 
-        stud.push_back(temp);
+            // nustato namų darbų skaičių pagal pirmą eilutę
+            if (nd_sk == -1) {
+                nd_sk = static_cast<int>(tokens.size()) - 3; // pirmi du žodžiai - vardas ir pavardė, paskutinis - egzaminas
+            }
+
+            studentas temp;
+            temp.vardas = tokens[0];
+            temp.pavarde = tokens[1];
+            temp.nd.resize(nd_sk);
+
+            // nuskaito namų darbų pažymius
+            for (int i = 0; i < nd_sk; i++) {
+                if (isInteger(tokens[2 + i])) {
+                    temp.nd[i] = stoi(tokens[2 + i]);
+                }
+            }
+
+            // nuskaito egzamino pažymį
+            if (isInteger(tokens[2 + nd_sk])) {
+                temp.egz = stoi(tokens[2 + nd_sk]);
+            }
+
+            stud.push_back(temp);
+        }
+        f.close();
+        FailSkait.BaiktiLaikmati(0);
+    } catch (const std::exception& e) {
+        std::cerr << "Klaida nuskaitant failą: " << e.what() << "\n";
+        throw;
     }
-    f.close();
-    FailSkait.BaiktiLaikmati(0);
 }
