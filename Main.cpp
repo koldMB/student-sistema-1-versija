@@ -34,9 +34,14 @@ using std::stoi; //string to int
 using std::left;
 using std::cerr;
 using std::endl;
+using std::flush;
 
 
 int main() {
+    // Užtikrina, kad cout ir cerr būtų sinchronizuoti
+    std::ios_base::sync_with_stdio(true);
+    std::cerr.tie(&std::cout);
+    
     // Keičiam console į UTF-8 kad galėtų teisingai rodyti lietuviškus simbolius ir juos skaityti
     try{
         SetConsoleCP(CP_UTF8);
@@ -57,12 +62,12 @@ int main() {
         cout << "3. Generuoti vardus ir pavardes bei pažymius\n";
         cout << "4. Nuskaityti iš failo\n";
         cout << "5. Darbo pabaiga\n";
-        cout << "Pasirinkite veiksmą: ";
+        cout << "Pasirinkite veiksmą: " << flush;
         string pasirinkimas_str;
         cin >> pasirinkimas_str;
         auto pasirinkimas_opt = AllExceptionsHandler::TryStoI(pasirinkimas_str);
         while (!pasirinkimas_opt.has_value() || pasirinkimas_opt.value() < 1 || pasirinkimas_opt.value() > 5) {
-            cerr << "Klaidinga įvestis. Bandykite dar kartą: ";
+            cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
             cin >> pasirinkimas_str;
             pasirinkimas_opt = AllExceptionsHandler::TryStoI(pasirinkimas_str);
         }
@@ -82,12 +87,12 @@ int main() {
             case 2: //veikia
                 {
                     int n, nd_sk;
-                    cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
+                    cout << "Įveskite kiek namų darbų pažymių norite generuoti: " << flush;
                     string nd_sk_str;
                     cin >> nd_sk_str;
                     auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
                     while (!nd_sk_opt.has_value() || nd_sk_opt.value() <= 0) {
-                        cerr << "Klaidinga įvestis. Bandykite dar kartą: ";
+                        cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
                         cin >> nd_sk_str;
                         nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
                     }
@@ -103,22 +108,22 @@ int main() {
             case 3:
                 {
                     int n, nd_sk;
-                    cout << "Įveskite kiek studentų duomenų norite generuoti: ";
+                    cout << "Įveskite kiek studentų duomenų norite generuoti: " << flush;
                     string n_str;
                     cin >> n_str;
                     auto n_opt = AllExceptionsHandler::TryStoI(n_str);
                     while (!n_opt.has_value() || n_opt.value() <= 0) {
-                        cerr << "Klaidinga įvestis. Bandykite dar kartą: ";
+                        cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
                         cin >> n_str;
                         n_opt = AllExceptionsHandler::TryStoI(n_str);
                     }
                     n = n_opt.value();
-                    cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
+                    cout << "Įveskite kiek namų darbų pažymių norite generuoti: " << flush;
                     string nd_sk_str;
                     cin >> nd_sk_str;
                     auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
                     while (!nd_sk_opt.has_value() || nd_sk_opt.value() <= 0) {
-                        cerr << "Klaidinga įvestis. Bandykite dar kartą: ";
+                        cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
                         cin >> nd_sk_str;
                         nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
                     }
@@ -134,7 +139,7 @@ int main() {
             case 4:
                 {
                     string filename;
-                    cout << "Įveskite txt failo pavadinimą: ";
+                    cout << "Įveskite txt failo pavadinimą: " << flush;
                     cin >> filename;
                     FailoNuskaitymas(stud, filename);
                     if(stud.empty()) {
