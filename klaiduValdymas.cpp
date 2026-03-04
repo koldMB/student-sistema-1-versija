@@ -1,3 +1,3 @@
 #include "klaiduValdymas.h"
 
-// Template implementations are in the header file
+// Template implimentacija header faile, čia papildomos funkcijos susijusios su klaidų valdymu ateičiai

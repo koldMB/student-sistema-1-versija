@@ -88,7 +88,7 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk)
     n = 0;
     if (nd_sk <= 0)
     {
-        cout << "Neteisingi parametrai generavimui. Patikrinkite įvestį.\n";
+        cerr << "Neteisingi parametrai generavimui. Patikrinkite įvestį.\n";
         return;
     }
     // std::random_device is a uniformly-distributed integer random number generator that produces non-deterministic random numbers.
@@ -133,7 +133,7 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int VardPavSk)
 {
     if (n <= 0 || nd_sk <= 0 || VardPavSk <= 0)
     {
-        cout << "Neteisingi parametrai generavimui. Patikrinkite įvestį.\n";
+        cerr << "Neteisingi parametrai generavimui. Patikrinkite įvestį.\n";
         return;
     }
 
@@ -159,7 +159,7 @@ void isvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
     MaxVard = std::max(MaxVard, 12);
     MaxPav  = std::max(MaxPav, 12);
 
-    std::ostringstream oss;
+    std::ostringstream oss; // https://cplusplus.com/reference/sstream/ostringstream/
 
     oss << left << setw(MaxVard + 2) << "Vardas" << setw(MaxPav + 2) << "Pavardė"
             << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
@@ -180,7 +180,7 @@ void FailoIsvedimas(const vector<studentas> &stud, const string& filename, int &
         return;
     }
     
-    std::ostringstream oss; // https://cplusplus.com/reference/sstream/ostringstream/
+    std::ostringstream oss; 
     oss << left << setw(MaxVard + 2) << "Vardas" << setw(MaxPav + 2) << "Pavardė"
         << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     oss << string(MaxVard + MaxPav + 44, '-') << "\n";

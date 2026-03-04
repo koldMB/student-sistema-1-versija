@@ -13,6 +13,7 @@
 using std::vector;
 using std::cout;
 using std::cin;
+using std::cerr;
 
 void skaiciavimai(vector<studentas> &stud) // apskaičiuoja vidurkius ir medianas kiekvienam studentui
 {
@@ -86,7 +87,7 @@ void rikiavimas(vector<studentas> &stud) {
     cin >> kriterijusStr;
     auto kriterijus_opt = AllExceptionsHandler::TryStoI(kriterijusStr);
     while (!kriterijus_opt.has_value()) {
-        cout << "Neteisinga įvestis. Prašome įvesti sveiką skaičių (1-4): ";
+        cerr << "Neteisinga įvestis. Prašome įvesti sveiką skaičių (1-4): ";
         cin >> kriterijusStr;
         kriterijus_opt = AllExceptionsHandler::TryStoI(kriterijusStr);
     }
@@ -106,7 +107,7 @@ void rikiavimas(vector<studentas> &stud) {
             sort(stud.begin(), stud.end(), VidurkisRikiavimas);
             break;
         default:
-            cout << "Neteisingas rikiavimo kriterijus.\n";
+            cerr << "Neteisingas rikiavimo kriterijus.\n";
     }
     RikLaik.BaiktiLaikmati(1);
 }
