@@ -21,6 +21,40 @@ using std::stoi;
 using std::left;
 using std::setw;
 
+// Skaičiuoja UTF-8 simbolių skaičių (display width), ne baitų
+size_t utf8_display_width(const string& str) {
+    size_t width = 0;
+    for (size_t i = 0; i < str.size(); ) {
+        unsigned char c = str[i];
+        if ((c & 0x80) == 0) {
+            // ASCII simbolis (1 baitas)
+            i += 1;
+        } else if ((c & 0xE0) == 0xC0) {
+            // 2 baitų UTF-8 simbolis
+            i += 2;
+        } else if ((c & 0xF0) == 0xE0) {
+            // 3 baitų UTF-8 simbolis
+            i += 3;
+        } else if ((c & 0xF8) == 0xF0) {
+            // 4 baitų UTF-8 simbolis
+            i += 4;
+        } else {
+            i += 1; // Netikėtas baitas
+        }
+        width++;
+    }
+    return width;
+}
+
+// Papildo eilutę tarpais iki nurodyto pločio (pagal display width)
+string pad_utf8(const string& str, size_t width) {
+    size_t display_width = utf8_display_width(str);
+    if (display_width >= width) {
+        return str;
+    }
+    return str + string(width - display_width, ' ');
+}
+
 void skaitymas(vector<studentas> &stud)
 {
     studentas temp;
@@ -161,11 +195,13 @@ void isvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
 
     std::ostringstream oss; // https://cplusplus.com/reference/sstream/ostringstream/
 
-    oss << left << setw(MaxVard + 2) << "Vardas" << setw(MaxPav + 2) << "Pavardė"
+    oss << pad_utf8("Vardas", MaxVard + 2) << pad_utf8("Pavardė", MaxPav + 2)
             << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     oss << string(MaxVard + MaxPav + 44, '-') << "\n";
     for(auto &s : stud) {
-        oss << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
+        oss << pad_utf8(s.vardas, MaxVard + 2) << pad_utf8(s.pavarde, MaxPav + 2)
+            << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis
+            << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
     }
     cout << oss.str();
 }
@@ -179,11 +215,11 @@ void FailoIsvedimas(const vector<studentas> &stud, const string& filename, int &
     }
     
     std::ostringstream oss; 
-    oss << left << setw(MaxVard + 2) << "Vardas" << setw(MaxPav + 2) << "Pavardė"
+    oss << pad_utf8("Vardas", MaxVard + 2) << pad_utf8("Pavardė", MaxPav + 2)
         << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     oss << string(MaxVard + MaxPav + 44, '-') << "\n";
     for(const auto &s : stud) {
-        oss << left << setw(MaxVard + 2) << s.vardas << setw(MaxPav + 2) << s.pavarde
+        oss << pad_utf8(s.vardas, MaxVard + 2) << pad_utf8(s.pavarde, MaxPav + 2)
             << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis
             << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
     }
@@ -278,6 +314,38 @@ void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
         }
         f.close();
     });
+}
+
+void IsvestiGeriBlogiFailus(const vector<studentas> &geri, const vector<studentas> &blogi, int MaxPav, int MaxVard) {
+    MaxVard = std::max(MaxVard, 12);
+    MaxPav = std::max(MaxPav, 12);
+
+    std::ofstream geri_failas("geru_studentu_sarasas.txt");
+    std::ofstream blogi_failas("blogu_studentu_sarasas.txt");
+    if (!geri_failas.is_open() || !blogi_failas.is_open()) {
+        cerr << "Klaida atidarant failus rašymui." << endl;
+        return;
+    }
+    // Geri studentai
+    geri_failas << pad_utf8("Vardas", MaxVard + 2) << pad_utf8("Pavardė", MaxPav + 2)
+        << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
+    geri_failas << string(MaxVard + MaxPav + 44, '-') << "\n";
+    for (const auto& s : geri) {
+        geri_failas << pad_utf8(s.vardas, MaxVard + 2) << pad_utf8(s.pavarde, MaxPav + 2)
+            << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis
+            << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
+    }
+    // Blogi studentai
+    blogi_failas << pad_utf8("Vardas", MaxVard + 2) << pad_utf8("Pavardė", MaxPav + 2)
+        << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
+    blogi_failas << string(MaxVard + MaxPav + 44, '-') << "\n";
+    for (const auto& s : blogi) {
+        blogi_failas << pad_utf8(s.vardas, MaxVard + 2) << pad_utf8(s.pavarde, MaxPav + 2)
+            << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis
+            << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
+    }
+    geri_failas.close();
+    blogi_failas.close();
 }
 
 string randomVardas(vector<studentas> &stud) {
