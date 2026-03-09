@@ -281,7 +281,7 @@ void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
 }
 
 string randomVardas(vector<studentas> &stud) {
-    static const std::array<string, 70> vardai = {
+    static const std::array<string, 67> vardai = {
         "Jonas", "Petras", "Andrius", "Tomas", "Matas",
         "Lukas", "Mantas", "Domas", "Karolis", "Rokas",
         "Paulius", "Justas", "Dovydas", "Martynas", "Edvinas",
@@ -294,7 +294,7 @@ string randomVardas(vector<studentas> &stud) {
         "Ainis", "Airidas", "Airingas", "Airis", "Airūnas", "Aistis", 
         "Aitvaras", "Aivaras", "Akselis", "Akvilas", "Akvilijus", "Akvilinas",
         "Alanas", "Alantas", "Albas", "Albertas", "Albertinas", "Albinas", 
-        "Albrechtas", "Albutas", "Aldas", "Aldevinas"
+        "Albrechtas"
     };
     std::random_device rd;
     std::array<unsigned int, 2> seed_data = {rd(), static_cast<unsigned int>(std::chrono::high_resolution_clock::now().time_since_epoch().count())};
