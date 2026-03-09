@@ -60,7 +60,7 @@ int main() {
         cout << "3. Generuoti vardus ir pavardes bei pažymius\n";
         cout << "4. Nuskaityti iš failo\n";
         cout << "5. Darbo pabaiga\n";
-        cout << "Pasirinkite veiksmą: " << flush;
+        cout << "Pasirinkite veiksmą: ";
         string pasirinkimas_str;
         cin >> pasirinkimas_str;
         auto pasirinkimas_opt = AllExceptionsHandler::TryStoI(pasirinkimas_str);
@@ -85,7 +85,7 @@ int main() {
             case 2: //veikia
                 {
                     int n, nd_sk;
-                    cout << "Įveskite kiek namų darbų pažymių norite generuoti: " << flush;
+                    cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
                     string nd_sk_str;
                     cin >> nd_sk_str;
                     auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
@@ -116,7 +116,7 @@ int main() {
                         n_opt = AllExceptionsHandler::TryStoI(n_str);
                     }
                     n = n_opt.value();
-                    cout << "Įveskite kiek namų darbų pažymių norite generuoti: " << flush;
+                    cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
                     string nd_sk_str;
                     cin >> nd_sk_str;
                     auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);

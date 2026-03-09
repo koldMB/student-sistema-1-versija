@@ -15,5 +15,7 @@ void FailoNuskaitymas(vector<studentas> &stud, const string& filename); // skait
 void FailoIsvedimas(const vector<studentas> &stud, const string& filename, int &MaxPav, int &MaxVard); // išveda lentelę su studentų duomenimis į failą
 void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard); // leidžia vartotojui pasirinkti ar išvesti duomenis į terminalą ar į failą
 void isvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard); // išveda lentelę su studentų duomenimis į terminalą
+string randomVardas(vector<studentas> &stud);
+string randomPavarde(vector<studentas> &stud);
 
 #endif //STUDENTU_SISTEMA_ISVESTISIVESTIS_H

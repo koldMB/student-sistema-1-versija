@@ -145,8 +145,8 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int VardPavSk)
 
     for (int i = 0; i < n; ++i) {
         studentas temp;
-        temp.vardas = "Vardas" + std::to_string(i + 1);
-        temp.pavarde = "Pavarde" + std::to_string(i + 1);
+        temp.vardas = randomVardas(stud);
+        temp.pavarde = randomPavarde(stud);
         temp.nd.resize(nd_sk);
         for (int j = 0; j < nd_sk; ++j) AllExceptionsHandler::TrySetAt(temp.nd, j, score_dist(gen));
         temp.egz = score_dist(gen);
@@ -278,4 +278,57 @@ void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
         }
         f.close();
     });
+}
+
+string randomVardas(vector<studentas> &stud) {
+    static const std::array<string, 70> vardai = {
+        "Jonas", "Petras", "Andrius", "Tomas", "Matas",
+        "Lukas", "Mantas", "Domas", "Karolis", "Rokas",
+        "Paulius", "Justas", "Dovydas", "Martynas", "Edvinas",
+        "Simonas", "Aurimas", "Deividas", "Rytis", "Giedrius",
+        "Abdonas", "Abrahimas", "Abraomas", "Achilas", "Adalbertas", 
+        "Adas", "Adauktas", "Adeodatas", "Adolfas", "Adolis", "Adomas",
+        "Adonis", "Adrianas", "Adrijanas", "Adrijonas", "Adrijus", 
+        "Agapitas", "Agatas", "Agatonas", "Agedas", "Agėjus", "Agilas",
+        "Agnijus", "Agnius", "Aidanas", "Aidas", "Aidis", "Aidonas", 
+        "Ainis", "Airidas", "Airingas", "Airis", "Airūnas", "Aistis", 
+        "Aitvaras", "Aivaras", "Akselis", "Akvilas", "Akvilijus", "Akvilinas",
+        "Alanas", "Alantas", "Albas", "Albertas", "Albertinas", "Albinas", 
+        "Albrechtas", "Albutas", "Aldas", "Aldevinas"
+    };
+    std::random_device rd;
+    std::array<unsigned int, 2> seed_data = {rd(), static_cast<unsigned int>(std::chrono::high_resolution_clock::now().time_since_epoch().count())};
+    std::seed_seq seed(seed_data.begin(), seed_data.end());
+    std::mt19937_64 gen(seed);
+    std::uniform_int_distribution<> dist(0, vardai.size() - 1);
+    return vardai[dist(gen)];
+}
+
+string randomPavarde(vector<studentas> &stud) {
+    static const std::array<string, 100> pavardes = {
+    "Kazlauskas", "Stankevičius", "Petrauskas", "Jankauskas", "Žukauskas",
+    "Butkus", "Balčiūnas", "Paulauskas", "Vasiliauskas", "Baranauskas", "Urbonas",
+    "Navickas", "Ramanauskas", "Savickas", "Rimkus", "Žilinskas", "Šimkus",
+    "Kavaliauskas", "Sakalauskas", "Ivanauskas", "Adomaitis", "Žemaitis", "Kairys",
+    "Kaminskas", "Mikalauskas", "Petkevičius", "Bagdonas", "Petraitis",
+    "Černauskas", "Vaitkevičius", "Mickevičius", "Urbanavičius", "Jurevičius",
+    "Marcinkevičius", "Pocius", "Paškevičius", "Rutkauskas", "Mackevičius",
+    "Juška", "Malinauskas", "Sinkevičius", "Radzevičius", "Sadauskas", "Kučinskas",
+    "Mažeika", "Vitkauskas", "Vaitkus", "Dambrauskas", "Naujokas", "Sabaliauskas",
+    "Mockus", "Bernotas", "Rakauskas", "Lukoševičius", "Norkus", "Butkevičius",
+    "Barkauskas", "Lukošius", "Kubilius", "Barauskas", "Rinkevičius", "Jonaitis",
+    "Krasauskas", "Vilkas", "Šukys", "Lukaševičius", "Markevičius", "Valaitis",
+    "Mačiulis", "Aleksandravičius", "Venckus", "Grigaliūnas", "Juškevičius",
+    "Baltrušaitis", "Morkūnas", "Tamošiūnas", "Adomavičius", "Stonkus", "Januškevičius",
+    "Lapinskas", "Šidlauskas", "Stankus", "Banys", "Bartkus", "Povilaitis", "Misiūnas",
+    "Rimkevičius", "Mickus", "Karpavičius", "Budrys", "Matulevičius", "Kazakevičius",
+    "Gudaitis", "Račkauskas", "Steponavičius", "Noreika", "Brazauskas", "Grigas",
+    "Vanagas", "Petravičius"
+    };
+    std::random_device rd;
+    std::array<unsigned int, 2> seed_data = {rd(), static_cast<unsigned int>(std::chrono::high_resolution_clock::now().time_since_epoch().count())};
+    std::seed_seq seed(seed_data.begin(), seed_data.end());
+    std::mt19937_64 gen(seed);
+    std::uniform_int_distribution<> dist(0, pavardes.size() - 1);
+    return pavardes[dist(gen)];
 }
