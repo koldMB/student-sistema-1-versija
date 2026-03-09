@@ -15,6 +15,7 @@ struct studentas {
     double GalMediana;
     double GalVidurkis;
     int egz;
+    bool Teig = false; // Galutinis balas. Jeigu >= 5 tai true, kitaip false
 };
 
 #endif // COMMON_H

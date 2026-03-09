@@ -59,12 +59,13 @@ int main() {
         cout << "2. Generuoti pažymius\n";
         cout << "3. Generuoti vardus ir pavardes bei pažymius\n";
         cout << "4. Nuskaityti iš failo\n";
-        cout << "5. Darbo pabaiga\n";
+        cout << "5. Generuoti failus\n";
+        cout << "6. Darbo pabaiga\n";
         cout << "Pasirinkite veiksmą: ";
         string pasirinkimas_str;
         cin >> pasirinkimas_str;
         auto pasirinkimas_opt = AllExceptionsHandler::TryStoI(pasirinkimas_str);
-        while (!pasirinkimas_opt.has_value() || pasirinkimas_opt.value() < 1 || pasirinkimas_opt.value() > 5) {
+        while (!pasirinkimas_opt.has_value() || pasirinkimas_opt.value() < 1 || pasirinkimas_opt.value() > 6) {
             cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
             cin >> pasirinkimas_str;
             pasirinkimas_opt = AllExceptionsHandler::TryStoI(pasirinkimas_str);
@@ -152,6 +153,8 @@ int main() {
                 }
             break;
             case 5:
+                
+            case 6:
                 {
                 exit(0);
                 }
