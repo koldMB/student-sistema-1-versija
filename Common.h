@@ -17,7 +17,7 @@ struct studentas {
     int egz;
 };
 
-void atrinkimas(const vector<studentas> &stud, vector<studentas> &atrinkti, vector<studentas> &neatrinkti, int MaxPav, int MaxVard);
+void atrinkimas(const vector<studentas> &stud, vector<studentas> &atrinkti, vector<studentas> &neatrinkti);
 
 
 #endif // COMMON_H

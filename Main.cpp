@@ -174,13 +174,25 @@ int main() {
                         cin >> nd_sk_str;
                         nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
                     }
-                    nd_sk = nd_sk_opt.value();
-                    skaitymas(stud, n, nd_sk, n);
+                    vector<studentas> geri,blogi;
                     skaiciavimai(stud);
                     raides(MaxPav, MaxVard, stud);
-                    rikiavimas(stud);
-                    TermArFailas(stud, MaxPav, MaxVard);
+                    atrinkimas(stud, geri, blogi);
+                    std::ofstream geri_failas("geru_studentu_sarasas.txt");
+                    std::ofstream blogi_failas("blogu_studentu_sarasas.txt");
+                    if (!geri_failas.is_open() || !blogi_failas.is_open()) {
+                        cerr << "Klaida atidarant failus rašymui." << std::endl;
+                        break;
+                    }
+                    for (const auto& s : geri) {
+                        geri_failas << s.vardas << " " << s.pavarde << " " << s.GalVidurkis << std::endl;
+                    }
+                    for (const auto& s : blogi) {
+                        blogi_failas << s.vardas << " " << s.pavarde << " " << s.GalVidurkis << std::endl;
+                    }
                     stud.clear();
+                    blogi.clear();
+                    geri.clear();
                 }
             break;
             case 6:
