@@ -153,7 +153,36 @@ int main() {
                 }
             break;
             case 5:
-                
+                {
+                    int n, nd_sk;
+                    cout << "Įveskite kiek studentų duomenų norite generuoti: " << flush;
+                    string n_str;
+                    cin >> n_str;
+                    auto n_opt = AllExceptionsHandler::TryStoI(n_str);
+                    while (!n_opt.has_value() || n_opt.value() <= 0) {
+                        cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+                        cin >> n_str;
+                        n_opt = AllExceptionsHandler::TryStoI(n_str);
+                    }
+                    n = n_opt.value();
+                    cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
+                    string nd_sk_str;
+                    cin >> nd_sk_str;
+                    auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                    while (!nd_sk_opt.has_value() || nd_sk_opt.value() <= 0) {
+                        cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+                        cin >> nd_sk_str;
+                        nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                    }
+                    nd_sk = nd_sk_opt.value();
+                    skaitymas(stud, n, nd_sk, n);
+                    skaiciavimai(stud);
+                    raides(MaxPav, MaxVard, stud);
+                    rikiavimas(stud);
+                    TermArFailas(stud, MaxPav, MaxVard);
+                    stud.clear();
+                }
+            break;
             case 6:
                 {
                 exit(0);

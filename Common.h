@@ -5,7 +5,7 @@
 #include <vector>
 
 using std::string;
-
+using std::vector;
 bool isInteger(const string& s);
 
 struct studentas {
@@ -15,7 +15,9 @@ struct studentas {
     double GalMediana;
     double GalVidurkis;
     int egz;
-    bool Teig = false; // Galutinis balas. Jeigu >= 5 tai true, kitaip false
 };
+
+void atrinkimas(const vector<studentas> &stud, vector<studentas> &atrinkti, vector<studentas> &neatrinkti, int MaxPav, int MaxVard);
+
 
 #endif // COMMON_H
