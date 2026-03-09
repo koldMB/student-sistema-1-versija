@@ -41,7 +41,7 @@
 
 ### Laiko Matavimas
 - `PradekLaikmati()`: Pradeda laikmačio matavimą.
-- `BaiktiLaikmati(int pos)`: Baigia laikmačio matavimą ir išsaugo rezultatą.
+- `BaigtiLaikmati(int pos)`: Baigia laikmačio matavimą ir išsaugo rezultatą.
 
 ### Klaidų Valdymas
 - `AllExceptionsHandler::CatchAll(const std::function<void()>& func)`: Apgaubia funkciją ir apdoroja visas standartines išimtis su numatytomis žinutėmis.

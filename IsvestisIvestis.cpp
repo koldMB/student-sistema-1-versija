@@ -120,7 +120,7 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk)
         temp.pavarde = laikinas;
         temp.nd.resize(nd_sk);
         for (int j = 0; j < nd_sk; ++j) {
-            temp.nd[j] = dist(gen);
+            AllExceptionsHandler::TrySetAt(temp.nd, j, dist(gen));
         }
         temp.egz = dist(gen);
         stud.push_back(temp);
@@ -148,7 +148,7 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int VardPavSk)
         temp.vardas = "Vardas" + std::to_string(i + 1);
         temp.pavarde = "Pavarde" + std::to_string(i + 1);
         temp.nd.resize(nd_sk);
-        for (int j = 0; j < nd_sk; ++j) temp.nd[j] = score_dist(gen);
+        for (int j = 0; j < nd_sk; ++j) AllExceptionsHandler::TrySetAt(temp.nd, j, score_dist(gen));
         temp.egz = score_dist(gen);
         stud.push_back(temp);
     }
@@ -172,8 +172,6 @@ void isvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
 
 
 void FailoIsvedimas(const vector<studentas> &stud, const string& filename, int &MaxPav, int &MaxVard) {
-    Laikas FailIsvesk;
-    FailIsvesk.PradekLaikmati();
     std::ofstream f(filename + ".txt");
     if (!f.is_open()) {
         std::cerr << "Nepavyko atidaryti failo rašymui." << filename << "\n";
@@ -192,7 +190,6 @@ void FailoIsvedimas(const vector<studentas> &stud, const string& filename, int &
     
     f << oss.str();
     f.close();
-    FailIsvesk.BaiktiLaikmati(2);
 }
 
 void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard) {
@@ -216,7 +213,6 @@ void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard) {
 
 void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
     Laikas FailSkait;
-    FailSkait.PradekLaikmati();
     
     std::ifstream f(filename+".txt");
     if (!f.is_open()) {
@@ -252,27 +248,34 @@ void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
             }
 
             studentas temp;
-            temp.vardas = tokens[0];
-            temp.pavarde = tokens[1];
+            auto vardas_opt = AllExceptionsHandler::TryAt(tokens, 0);
+            auto pavarde_opt = AllExceptionsHandler::TryAt(tokens, 1);
+            if (!vardas_opt.has_value() || !pavarde_opt.has_value()) continue;
+            temp.vardas = vardas_opt.value();
+            temp.pavarde = pavarde_opt.value();
             temp.nd.resize(nd_sk);
 
             // nuskaito namų darbų pažymius
             for (int i = 0; i < nd_sk; i++) {
-                auto nd_opt = AllExceptionsHandler::TryStoI(tokens[2 + i]);
+                auto token_opt = AllExceptionsHandler::TryAt(tokens, 2 + i);
+                if (!token_opt.has_value()) continue;
+                auto nd_opt = AllExceptionsHandler::TryStoI(token_opt.value());
                 if (nd_opt.has_value()) {
-                    temp.nd[i] = nd_opt.value();
+                    AllExceptionsHandler::TrySetAt(temp.nd, i, nd_opt.value());
                 }
             }
 
             // nuskaito egzamino pažymį
-            auto egz_opt = AllExceptionsHandler::TryStoI(tokens[2 + nd_sk]);
-            if (egz_opt.has_value()) {
-                temp.egz = egz_opt.value();
+            auto egz_token_opt = AllExceptionsHandler::TryAt(tokens, 2 + nd_sk);
+            if (egz_token_opt.has_value()) {
+                auto egz_opt = AllExceptionsHandler::TryStoI(egz_token_opt.value());
+                if (egz_opt.has_value()) {
+                    temp.egz = egz_opt.value();
+                }
             }
 
             stud.push_back(temp);
         }
         f.close();
-        FailSkait.BaiktiLaikmati(0);
     });
 }

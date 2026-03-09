@@ -17,7 +17,6 @@
 
 #include <windows.h>
 
-#include "Laikas.h" // Laiko klasė skirta naudoti efektyvumo testams
 #include "Common.h"// keliouose failuose naudojamos priklausomybės
 #include "IsvestisIvestis.h" // Isvesties ir ivesties tvarkymo funkcijos
 #include "Skaiciavimai.h" // visos operacijos susijusios su skaiciavimais
@@ -52,7 +51,6 @@ int main() {
         return -2;
     }
 
-    Laikas laikmatis;
     int MaxPav = 0, MaxVard = 0;
     vector<studentas> stud;
     int pasirinkimas;
@@ -151,9 +149,6 @@ int main() {
                     rikiavimas(stud);
                     TermArFailas(stud, MaxPav, MaxVard);
                     stud.clear();
-                    cout << "Skaitymas iš failo: " << LaikasA[0]/1000 << " sekundžių\n";
-                    cout << "Rikiavimas: " << LaikasA[1]/1000 << " sekundžių\n";
-                    cout << "Išvedimas: " << LaikasA[2]/1000 << " sekundžių\n";
                 }
             break;
             case 5:

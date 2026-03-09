@@ -7,7 +7,7 @@ void Laikas::PradekLaikmati() {
     start = std::chrono::high_resolution_clock::now();
 }
 
-void Laikas::BaiktiLaikmati(int pos) {
+void Laikas::BaigtiLaikmati(int pos) {
     auto end = std::chrono::high_resolution_clock::now();
     double duration = static_cast<double>(std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
     LaikasA[pos] += duration;

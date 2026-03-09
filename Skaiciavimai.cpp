@@ -7,7 +7,6 @@
 
 
 #include "Common.h"
-#include "Laikas.h"
 #include "klaiduValdymas.h"
 
 using std::vector;
@@ -35,9 +34,16 @@ void skaiciavimai(vector<studentas> &stud) // apskaičiuoja vidurkius ir mediana
         vector<int> nd_kopija = s.nd;
         std::sort(nd_kopija.begin(), nd_kopija.end());
         if(nd_kopija.size() % 2 == 0) {
-            s.GalMediana = (nd_kopija[nd_kopija.size()/2 - 1] + nd_kopija[nd_kopija.size()/2]) / 2.0;
+            auto mid1 = AllExceptionsHandler::TryAt(nd_kopija, nd_kopija.size()/2 - 1);
+            auto mid2 = AllExceptionsHandler::TryAt(nd_kopija, nd_kopija.size()/2);
+            if (mid1.has_value() && mid2.has_value()) {
+                s.GalMediana = (mid1.value() + mid2.value()) / 2.0;
+            }
         } else {
-            s.GalMediana = nd_kopija[nd_kopija.size()/2];
+            auto mid = AllExceptionsHandler::TryAt(nd_kopija, nd_kopija.size()/2);
+            if (mid.has_value()) {
+                s.GalMediana = mid.value();
+            }
         }
         s.GalMediana = s.GalMediana * 0.4 + s.egz * 0.6;
     }
@@ -76,23 +82,24 @@ bool PavardeRikiavimas(const studentas &a, const studentas &b) {
 }
 
 void rikiavimas(vector<studentas> &stud) {
-    Laikas RikLaik;
+
     std::string kriterijusStr;
     cout << "Pasirinkite rikiavimo kriterijų:\n";
     cout << "1. Rikiuoti pagal varda \n";
     cout << "2. Rikiuoti pagal pavardę \n";
     cout << "3. Rikiuoti pagal medianą (nuo didžiausio iki mažiausio)\n";
     cout << "4. Rikiuoti pagal vidurkį (nuo didžiausio iki mažiausio)\n";
+    cout << "5. Nerikiuoti\n";
     cout << "Įveskite pasirinkimą: ";
     cin >> kriterijusStr;
     auto kriterijus_opt = AllExceptionsHandler::TryStoI(kriterijusStr);
     while (!kriterijus_opt.has_value()) {
-        cerr << "Neteisinga įvestis. Prašome įvesti sveiką skaičių (1-4): ";
+        cerr << "Neteisinga įvestis. Prašome įvesti sveiką skaičių (1-5): ";
         cin >> kriterijusStr;
         kriterijus_opt = AllExceptionsHandler::TryStoI(kriterijusStr);
     }
     const int kriterijus = kriterijus_opt.value();
-    RikLaik.PradekLaikmati();
+
     switch(kriterijus) {
         case 1:
             sort(stud.begin(), stud.end(), VardoRikiavimas);
@@ -106,9 +113,10 @@ void rikiavimas(vector<studentas> &stud) {
         case 4:
             sort(stud.begin(), stud.end(), VidurkisRikiavimas);
             break;
+        case 5:
+            return;
         default:
             cerr << "Neteisingas rikiavimo kriterijus.\n";
     }
-    RikLaik.BaiktiLaikmati(1);
 }
 
