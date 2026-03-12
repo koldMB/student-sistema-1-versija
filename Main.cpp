@@ -21,6 +21,7 @@
 #include "IsvestisIvestis.h" // Isvesties ir ivesties tvarkymo funkcijos
 #include "Skaiciavimai.h" // visos operacijos susijusios su skaiciavimais
 #include "klaiduValdymas.h" // Include for AllExceptionsHandler
+#include "Laikas.h"
 
 using std::cout;
 using std::cin;
@@ -59,7 +60,7 @@ int main() {
         cout << "2. Generuoti pažymius\n";
         cout << "3. Generuoti vardus ir pavardes bei pažymius\n";
         cout << "4. Nuskaityti iš failo\n";
-        cout << "5. Generuoti failus\n";
+        cout << "5. Sukurti testinės bylos ir atlikti benchmarkus\n";
         cout << "6. Darbo pabaiga\n";
         cout << "Pasirinkite veiksmą: ";
         string pasirinkimas_str;
@@ -152,37 +153,14 @@ int main() {
                     stud.clear();
                 }
             break;
-            case 5:
-                {
-                    int n, nd_sk;
-                    cout << "Įveskite kiek studentų duomenų norite generuoti: " << flush;
-                    string n_str;
-                    cin >> n_str;
-                    auto n_opt = AllExceptionsHandler::TryStoI(n_str);
-                    while (!n_opt.has_value() || n_opt.value() <= 0) {
-                        cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
-                        cin >> n_str;
-                        n_opt = AllExceptionsHandler::TryStoI(n_str);
+            case 5: {
+                int sizes[5] = {1000, 10000, 100000, 1000000, 10000000};
+                for(int i = 0; i < 5; i++) {
+                    cout << i+1 << " testas\n\n";
+                    Bandymas1_FailuGeneravimas(sizes);
+                    Bandymas2_DuomenuApdorojimas(sizes);
+                    cout << endl << endl;
                     }
-                    n = n_opt.value();
-                    cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
-                    string nd_sk_str;
-                    cin >> nd_sk_str;
-                    auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
-                    while (!nd_sk_opt.has_value() || nd_sk_opt.value() <= 0) {
-                        cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
-                        cin >> nd_sk_str;
-                        nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
-                    }
-                    skaitymas(stud, n, nd_sk, n);
-                    vector<studentas> geri,blogi;
-                    skaiciavimai(stud);
-                    raides(MaxPav, MaxVard, stud);
-                    atrinkimas(stud, geri, blogi);
-                    IsvestiGeriBlogiFailus(geri, blogi, MaxPav, MaxVard);
-                    stud.clear();
-                    blogi.clear();
-                    geri.clear();
                 }
             break;
             case 6:
