@@ -400,3 +400,72 @@ string randomPavarde(vector<studentas> &stud) {
     std::uniform_int_distribution<> dist(0, pavardes.size() - 1);
     return pavardes[dist(gen)];
 }
+
+void IsvestiBlogusGerusFailus(const vector<studentas> &geri, const vector<studentas> &blogi, const string& basename, int MaxPav, int MaxVard) {
+    MaxVard = std::max(MaxVard, 12);
+    MaxPav = std::max(MaxPav, 12);
+
+    std::ofstream geri_failas(basename + "_geri.txt");
+    std::ofstream blogi_failas(basename + "_blogi.txt");
+    if (!geri_failas.is_open() || !blogi_failas.is_open()) {
+        cerr << "Klaida atidarant failus rašymui." << endl;
+        return;
+    }
+    // Geri studentai
+    geri_failas << pad_utf8("Vardas", MaxVard + 2) << pad_utf8("Pavardė", MaxPav + 2)
+        << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
+    geri_failas << string(MaxVard + MaxPav + 44, '-') << "\n";
+    for (const auto& s : geri) {
+        geri_failas << pad_utf8(s.vardas, MaxVard + 2) << pad_utf8(s.pavarde, MaxPav + 2)
+            << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis
+            << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
+    }
+    // Blogi studentai
+    blogi_failas << pad_utf8("Vardas", MaxVard + 2) << pad_utf8("Pavardė", MaxPav + 2)
+        << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
+    blogi_failas << string(MaxVard + MaxPav + 44, '-') << "\n";
+    for (const auto& s : blogi) {
+        blogi_failas << pad_utf8(s.vardas, MaxVard + 2) << pad_utf8(s.pavarde, MaxPav + 2)
+            << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis
+            << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
+    }
+    geri_failas.close();
+    blogi_failas.close();
+}
+
+void GeneruotiStudentuFaila(const string& filename, int student_count, int nd_sk) {
+    if (student_count <= 0 || nd_sk <= 0) {
+        cerr << "Neteisingi parametrai failui generuoti.\n";
+        return;
+    }
+
+    std::random_device rd;
+    std::array<unsigned int, 2> seed_data = {rd(), static_cast<unsigned int>(std::chrono::high_resolution_clock::now().time_since_epoch().count())};
+    std::seed_seq seed(seed_data.begin(), seed_data.end());
+    std::mt19937_64 gen(seed);
+    std::uniform_int_distribution<> score_dist(1, 10);
+
+    std::ofstream failas(filename + ".txt");
+    if (!failas.is_open()) {
+        cerr << "Nepavyko atidaryti failo rašymui: " << filename << ".txt\n";
+        return;
+    }
+
+    vector<studentas> dummy; // Viena kart naudojamas konteineris randomVardas ir randomPavarde funkcijoms
+    for (int i = 0; i < student_count; ++i) {
+        string vardas = randomVardas(dummy);
+        string pavarde = randomPavarde(dummy);
+        
+        failas << vardas << " " << pavarde << " ";
+        
+        // Generuoti namų darbų pažymius
+        for (int j = 0; j < nd_sk; ++j) {
+            failas << score_dist(gen) << " ";
+        }
+        
+        // Generuoti egzamino pažymį
+        failas << score_dist(gen) << "\n";
+    }
+
+    failas.close();
+}
