@@ -2,15 +2,17 @@
 #define LAIKAS_H
 
 #include <chrono>
+#include <vector>
 
-extern double LaikasA[]; 
+extern std::vector<double> LaikoVektorius;
 
-class Laikas // laikmačio klasė, naudojama matuoti funkcijų vykdymo laiką
+class Laikas
 {
 public:
     void PradekLaikmati();
-
-    void BaigtiLaikmati(int pos);
+    void BaigtiLaikmati();
+    void Reset();
+    void Isvesk();
 
 private:
     std::chrono::high_resolution_clock::time_point start;
