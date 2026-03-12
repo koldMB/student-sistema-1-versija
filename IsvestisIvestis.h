@@ -16,6 +16,8 @@ void FailoIsvedimas(const vector<studentas> &stud, const string& filename, int &
 void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard); // leidžia vartotojui pasirinkti ar išvesti duomenis į terminalą ar į failą
 void isvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard); // išveda lentelę su studentų duomenimis į terminalą
 void IsvestiGeriBlogiFailus(const vector<studentas> &geri, const vector<studentas> &blogi, int MaxPav, int MaxVard); // išveda gerus ir blogus studentus į atskirus failus
+void IsvestiBlogusGerusFailus(const vector<studentas> &geri, const vector<studentas> &blogi, const string& basename, int MaxPav, int MaxVard); // išveda gerus ir blogus studentus į atskirus failus su nurodyta bazė
+void GeneruotiStudentuFaila(const string& filename, int student_count, int nd_sk); // generuoja studentų failą su nurodytais parametrais
 string randomVardas(vector<studentas> &stud);
 string randomPavarde(vector<studentas> &stud);
 

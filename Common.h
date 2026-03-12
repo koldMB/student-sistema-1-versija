@@ -18,6 +18,9 @@ struct studentas {
 };
 
 void atrinkimas(const vector<studentas> &stud, vector<studentas> &atrinkti, vector<studentas> &neatrinkti);
+void atrinkimasAutomatiskas(const vector<studentas> &stud, vector<studentas> &geri, vector<studentas> &blogi);
+void Bandymas1_FailuGeneravimas(int sizes[5]);
+void Bandymas2_DuomenuApdorojimas(int sizes[5]);
 
 
 #endif // COMMON_H
