@@ -1,10 +1,18 @@
 #include <string>
 #include "klaiduValdymas.h"
 #include "Common.h"
+#include "IsvestisIvestis.h"
+#include "Skaiciavimai.h"
+#include "Laikas.h"
+#include <iostream>
+#include <iomanip>
 
 using std::string;
 using std::vector;
 using std::cout;
+using std::cerr;
+using std::endl;
+using std::flush;
 
 bool isInteger(const string& s)
 {
@@ -45,4 +53,105 @@ void atrinkimas(const vector<studentas> &stud, vector<studentas> &atrinkti, vect
             }
         }
     }
+}
+
+void atrinkimasAutomatiskas(const vector<studentas> &stud, vector<studentas> &geri, vector<studentas> &blogi) {
+    for (const auto& s : stud) {
+        if (s.GalMediana >= 5.0) {
+            geri.push_back(s);
+        } else {
+            blogi.push_back(s);
+        }
+    }
+}
+
+void Bandymas1_FailuGeneravimas(int sizes[5]) {
+
+    cout << "1 BANDYMAS: FAILŲ GENERAVIMAS\n";
+    
+    cout << std::left << std::setw(15) << "Studentai" 
+         << std::setw(20) << "Laikas (ms)" 
+         << std::setw(20) << "Failas" << "\n";
+    cout << string(55, '-') << "\n";
+
+    int nd_sk = 10;
+    Laikas timer;
+
+    for (int i = 0; i < 5; ++i) {
+        string filename = "studentai" + std::to_string(sizes[i]) + "_gen";
+        
+        timer.Reset();
+        timer.PradekLaikmati();
+        GeneruotiStudentuFaila(filename, sizes[i], nd_sk);
+        timer.BaigtiLaikmati();
+
+        cout << std::left << std::setw(15) << sizes[i] 
+             << std::setw(20) << std::fixed << std::setprecision(2) << LaikoVektorius.back()
+             << std::setw(20) << filename << "\n";
+    }
+    
+    cout << "\n";
+}
+
+void Bandymas2_DuomenuApdorojimas(int sizes[5]) {
+
+    cout << "2 BANDYMAS: DUOMENŲ APDOROJIMAS (Skaitymas, Rūšiavimas, Rašymas)\n";
+    cout << std::left << std::setw(15) << "Studentai" 
+         << std::setw(20) << "Skaitymas (ms)"
+         << std::setw(20) << "Rūšiavimas (ms)"
+         << std::setw(20) << "Rašymas (ms)"
+         << std::setw(20) << "Iš viso (ms)" << "\n";
+    cout << string(95, '-') << "\n";
+
+    for (int i = 0; i < 5; ++i) {
+        string filename = "studentai" + std::to_string(sizes[i]) + "_gen";
+        vector<studentas> stud;
+        int MaxPav = 0, MaxVard = 0;
+
+        Laikas timer;
+        timer.Reset();
+
+        // Laiko pradžia (iš viso)
+        timer.PradekLaikmati();
+        
+        // 1. Duomenų nuskaitymas
+        timer.PradekLaikmati();
+        FailoNuskaitymas(stud, filename);
+        timer.BaigtiLaikmati();
+        double reading_time = LaikoVektorius.back();
+
+        // 2. Skaiciavimai
+        skaiciavimai(stud);
+
+        // 3. Rūšiavimas
+        timer.PradekLaikmati();
+        vector<studentas> geri, blogi;
+        atrinkimasAutomatiskas(stud, geri, blogi);
+        timer.BaigtiLaikmati();
+        double sorting_time = LaikoVektorius.back();
+
+        // 4. Rašymas
+        timer.PradekLaikmati();
+        raides(MaxPav, MaxVard, stud);
+        IsvestiBlogusGerusFailus(geri, blogi, filename, MaxPav, MaxVard);
+        timer.BaigtiLaikmati();
+        double writing_time = LaikoVektorius.back();
+
+        // Laiko pabaiga
+        timer.BaigtiLaikmati();
+        double total_time = LaikoVektorius.back();
+
+        cout << std::left << std::setw(15) << sizes[i]
+             << std::setw(20) << std::fixed << std::setprecision(2) << reading_time
+             << std::setw(20) << std::fixed << std::setprecision(2) << sorting_time
+             << std::setw(20) << std::fixed << std::setprecision(2) << writing_time
+             << std::setw(20) << std::fixed << std::setprecision(2) << total_time << "\n";
+
+        // Išvalyti
+        stud.clear();
+        geri.clear();
+        blogi.clear();
+    }
+
+    cout << "\n";
 }
