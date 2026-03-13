@@ -120,3 +120,22 @@ void rikiavimas(vector<studentas> &stud) {
     }
 }
 
+void rikiavimas(vector<studentas> &stud, int krit) {
+    switch(krit) {
+        case 1:
+            sort(stud.begin(), stud.end(), VardoRikiavimas);
+            break;
+        case 2:
+            sort(stud.begin(), stud.end(), PavardeRikiavimas);
+            break;
+        case 3:
+            sort(stud.begin(), stud.end(), MedianaRikiavimas);
+            break;
+        case 4:
+            sort(stud.begin(), stud.end(), VidurkisRikiavimas);
+            break;
+        default:
+            cerr << "Neteisingas rikiavimo kriterijus. Programos refrence klaida\n";
+    }
+}
+

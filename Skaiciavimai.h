@@ -11,6 +11,6 @@ bool VardoRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal 
 bool MedianaRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal mediana nuo didžiausio iki mažiausio
 bool VidurkisRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal vidurkis nuo didžiausio iki mažiausio
 void rikiavimas(vector<studentas> &stud); // leidžia vartotojui pasirinkti rikiavimo kriterijų
-
+void rikiavimas(vector<studentas> &stud, int krit); // rikiavimas pagal programos perduota kriteriju
 
 #endif //STUDENTU_SISTEMA_SKAICIAVIMAI_H
