@@ -60,7 +60,7 @@ int main() {
         cout << "2. Generuoti pažymius\n";
         cout << "3. Generuoti vardus ir pavardes bei pažymius\n";
         cout << "4. Nuskaityti iš failo\n";
-        cout << "5. Sukurti testinės bylos ir atlikti benchmarkus\n";
+        cout << "5. Testavimas - failu kurimas ir ju apdorojimas (abudu atskirai)\n";
         cout << "6. Darbo pabaiga\n";
         cout << "Pasirinkite veiksmą: ";
         string pasirinkimas_str;
@@ -154,11 +154,22 @@ int main() {
                 }
             break;
             case 5: {
+                int pas;
+                cout << "Įveskite pagal ką rikiuoti\n1 - vidurkis\n2 - mediana\n";
+                string pas_str;
+                cin >> pas_str;
+                auto pas_opt = AllExceptionsHandler::TryStoI(pas_str);
+                while (!pas_opt.has_value() || pas_opt.value() < 1 || pas_opt.value() > 2) {
+                    cerr << "Neteisingas pasirinkimas, įveskite dar kartą: " << flush;
+                    cin >> pas_str;
+                    pas_opt = AllExceptionsHandler::TryStoI(pas_str);
+                }
+                pas = pas_opt.value();
                 int sizes[5] = {1000, 10000, 100000, 1000000, 10000000};
                 for(int i = 0; i < 5; i++) {
                     cout << i+1 << " testas\n\n";
                     Bandymas1_FailuGeneravimas(sizes);
-                    Bandymas2_DuomenuApdorojimas(sizes);
+                    Bandymas2_DuomenuApdorojimas(sizes, pas);
                     cout << endl << endl;
                     }
                 }

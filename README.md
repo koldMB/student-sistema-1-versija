@@ -1,7 +1,9 @@
 # Laiko efektyvumo testai v0.4
 
-![](04 versija screenshotai/Screenshot 2026-03-12 233618.png)
-![](04 versija screenshotai/Screenshot 2026-03-12 233700.png)
-![](04 versija screenshotai/Screenshot 2026-03-12 233711.png)
-![](04 versija screenshotai/Screenshot 2026-03-12 233721.png)
-![](04 versija screenshotai/Screenshot 2026-03-12 233731.png)
+![testas](04%20versija%20screenshotai/PirmasTestas.png)
+![testas](04%20versija%20screenshotai/AntrasTestas.png)
+![testas](04%20versija%20screenshotai/TreciasTestas.png)
+![testas](04%20versija%20screenshotai/KetvirtasTestas.png)
+![testas](04%20versija%20screenshotai/PenktasTestas.png)
+
+
