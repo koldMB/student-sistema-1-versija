@@ -168,7 +168,7 @@ int main() {
                 int sizes[5] = {1000, 10000, 100000, 1000000, 10000000};
                 for(int i = 0; i < 5; i++) {
                     cout << i+1 << " testas\n\n";
-                    Bandymas1_FailuGeneravimas(sizes);
+                    //Bandymas1_FailuGeneravimas(sizes);
                     Bandymas2_DuomenuApdorojimas(sizes, pas);
                     cout << endl << endl;
                     }
