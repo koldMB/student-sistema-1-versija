@@ -126,15 +126,15 @@ void Bandymas2_DuomenuApdorojimas(int sizes[5], const int pas) {
         timer.PradekLaikmati();
         vector<studentas> geri, blogi;
         atrinkimasAutomatiskas(stud, geri, blogi);
-        if (pas == 1) { // vidurkis
-            rikiavimas(blogi,4);
+        if (pas == 1) {
+            // vidurkis
+            rikiavimas(blogi, 4);
             rikiavimas(geri, 4);
-        }
-        else if (pas == 2) { // mediana
-            rikiavimas(blogi,3);
+        } else if (pas == 2) {
+            // mediana
+            rikiavimas(blogi, 3);
             rikiavimas(geri, 3);
-        }
-        else exit(-9);
+        } else exit(-9);
         timer.BaigtiLaikmati();
         double sorting_time = LaikoVektorius.back();
 
@@ -150,10 +150,10 @@ void Bandymas2_DuomenuApdorojimas(int sizes[5], const int pas) {
         double total_time = LaikoVektorius.back();
 
         cout << std::left << std::setw(15) << sizes[i]
-             << std::setw(20) << reading_time
-             << std::setw(20) << sorting_time
-             << std::setw(20) << writing_time
-             << std::setw(20) << reading_time+sorting_time+writing_time << "\n";
+                << std::setw(20) << reading_time
+                << std::setw(20) << sorting_time
+                << std::setw(20) << writing_time
+                << std::setw(20) << reading_time + sorting_time + writing_time << "\n";
 
         // Išvalyti
         stud.clear();
