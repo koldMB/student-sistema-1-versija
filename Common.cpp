@@ -85,16 +85,15 @@ void Bandymas1_FailuGeneravimas(int sizes[5]) {
         GeneruotiStudentuFaila(filename, sizes[i], nd_sk);
         timer.BaigtiLaikmati();
 
-        cout << std::left << std::setw(15) << sizes[i] 
-             << std::setw(20) << std::fixed << std::setprecision(2) << LaikoVektorius.back()
-             << std::setw(20) << filename << "\n";
+        cout << std::left << std::setw(15) << sizes[i]
+                << std::setw(20) << LaikoVektorius.back()
+                << std::setw(20) << filename << "\n";
     }
     
     cout << "\n";
 }
 
-void Bandymas2_DuomenuApdorojimas(int sizes[5]) {
-
+void Bandymas2_DuomenuApdorojimas(int sizes[5], const int pas) {
     cout << "2 BANDYMAS: DUOMENŲ APDOROJIMAS (Skaitymas, Rūšiavimas, Rašymas)\n";
     cout << std::left << std::setw(15) << "Studentai" 
          << std::setw(20) << "Skaitymas (ms)"
@@ -127,6 +126,15 @@ void Bandymas2_DuomenuApdorojimas(int sizes[5]) {
         timer.PradekLaikmati();
         vector<studentas> geri, blogi;
         atrinkimasAutomatiskas(stud, geri, blogi);
+        if (pas == 1) { // vidurkis
+            rikiavimas(blogi,4);
+            rikiavimas(geri, 4);
+        }
+        else if (pas == 2) { // mediana
+            rikiavimas(blogi,3);
+            rikiavimas(geri, 3);
+        }
+        else exit(-9);
         timer.BaigtiLaikmati();
         double sorting_time = LaikoVektorius.back();
 
@@ -142,10 +150,10 @@ void Bandymas2_DuomenuApdorojimas(int sizes[5]) {
         double total_time = LaikoVektorius.back();
 
         cout << std::left << std::setw(15) << sizes[i]
-             << std::setw(20) << std::fixed << std::setprecision(2) << reading_time
-             << std::setw(20) << std::fixed << std::setprecision(2) << sorting_time
-             << std::setw(20) << std::fixed << std::setprecision(2) << writing_time
-             << std::setw(20) << std::fixed << std::setprecision(2) << total_time << "\n";
+             << std::setw(20) << reading_time
+             << std::setw(20) << sorting_time
+             << std::setw(20) << writing_time
+             << std::setw(20) << reading_time+sorting_time+writing_time << "\n";
 
         // Išvalyti
         stud.clear();
