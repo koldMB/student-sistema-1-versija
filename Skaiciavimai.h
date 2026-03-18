@@ -2,6 +2,8 @@
 #define STUDENTU_SISTEMA_SKAICIAVIMAI_H
 
 #include "Common.h"
+#include <list>
+#include <deque>
 using std::vector;
 
 
@@ -12,5 +14,32 @@ bool MedianaRikiavimas(const studentas &a, const studentas &b); // rikiuoja paga
 bool VidurkisRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal vidurkis nuo didžiausio iki mažiausio
 void rikiavimas(vector<studentas> &stud); // leidžia vartotojui pasirinkti rikiavimo kriterijų
 void rikiavimas(vector<studentas> &stud, int krit); // rikiavimas pagal programos perduota kriteriju
+// templates studentui
+template<typename T>
+void skaiciavimai(T &stud) {
+    vector<studentas> temp(stud.begin(), stud.end());
+    skaiciavimai(temp);
+    stud.assign(temp.begin(), temp.end());
+}
+
+template<typename T>
+void raides(int &MaxPav, int &MaxVard, const T &stud) {
+    vector<studentas> temp(stud.begin(), stud.end());
+    raides(MaxPav, MaxVard, temp);
+}
+
+template<typename T>
+void rikiavimas(T &stud) {
+    vector<studentas> temp(stud.begin(), stud.end());
+    rikiavimas(temp);
+    stud.assign(temp.begin(), temp.end());
+}
+
+template<typename T>
+void rikiavimas(T &stud, int krit) {
+    vector<studentas> temp(stud.begin(), stud.end());
+    rikiavimas(temp, krit);
+    stud.assign(temp.begin(), temp.end());
+}
 
 #endif //STUDENTU_SISTEMA_SKAICIAVIMAI_H
