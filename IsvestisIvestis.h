@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <string>
+#include <list>
+#include <deque>
 #include "Common.h"
 
 using std::string;
@@ -20,5 +22,40 @@ void IsvestiBlogusGerusFailus(const vector<studentas> &geri, const vector<studen
 void GeneruotiStudentuFaila(const string& filename, int student_count, int nd_sk); // generuoja studentų failą su nurodytais parametrais
 string randomVardas(vector<studentas> &stud);
 string randomPavarde(vector<studentas> &stud);
+
+// Template overloads for list and deque
+template<typename T>
+void skaitymas(T &stud) {
+    vector<studentas> temp;
+    skaitymas(temp);
+    stud.assign(temp.begin(), temp.end());
+}
+
+template<typename T>
+void skaitymas(T &stud, int &n, int nd_sk) {
+    vector<studentas> temp;
+    skaitymas(temp, n, nd_sk);
+    stud.assign(temp.begin(), temp.end());
+}
+
+template<typename T>
+void skaitymas(T &stud, int &n, int nd_sk, int VardPavSk) {
+    vector<studentas> temp;
+    skaitymas(temp, n, nd_sk, VardPavSk);
+    stud.assign(temp.begin(), temp.end());
+}
+
+template<typename T>
+void FailoNuskaitymas(T &stud, const string& filename) {
+    vector<studentas> temp;
+    FailoNuskaitymas(temp, filename);
+    stud.assign(temp.begin(), temp.end());
+}
+
+template<typename T>
+void TermArFailas(const T &stud, int &MaxPav, int &MaxVard) {
+    vector<studentas> temp(stud.begin(), stud.end());
+    TermArFailas(temp, MaxPav, MaxVard);
+}
 
 #endif //STUDENTU_SISTEMA_ISVESTISIVESTIS_H
