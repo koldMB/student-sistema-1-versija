@@ -50,6 +50,7 @@ unsuccessfulbuild
 *.vcxproj.user
 *.txt
 !kursiokai.txt
+!CMakeLists.txt
 
 # Ignruoja .idea failus
 .idea/
