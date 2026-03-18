@@ -30,3 +30,41 @@
 *.exe
 *.out
 *.app
+
+# Visual Studio build artifacts
+x64/
+x86/
+Debug/
+Release/
+*.tlog
+*.log
+*.idb
+*.pdb
+*.ilk
+*.lastbuildstate
+unsuccessfulbuild
+
+# Programuotojo įtraukti
+.vscode/tasks.json
+.vs/
+*.vcxproj.user
+*.txt
+!kursiokai.txt
+!CMakeLists.txt
+
+# Ignruoja .idea failus
+.idea/
+
+# Allow specific .idea files to be committed
+!.idea/misc.xml
+!.idea/modules.xml
+!.idea/studentu-sistema.iml
+!.idea/vcs.xml
+
+# Ignore user-specific files
+.idea/workspace.xml
+.idea/editor.xml
+.idea/inspectionProfiles/
+
+# Allow specific inspection profiles if needed
+!.idea/inspectionProfiles/Project_Default.xml
