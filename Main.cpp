@@ -165,11 +165,22 @@ int main() {
                     pas_opt = AllExceptionsHandler::TryStoI(pas_str);
                 }
                 pas = pas_opt.value();
+                int klaus;
+                cout << "1 - failu kurimas\n2 - failu apdorojimas\n3 - abu\n";
+                string klaus_str;
+                cin >> klaus_str;
+                auto klaus_opt = AllExceptionsHandler::TryStoI(klaus_str);
+                while (!klaus_opt.has_value() || klaus_opt.value() < 1 || klaus_opt.value() > 3) {
+                    cerr << "Neteisingas pasirinkimas, įveskite dar kartą: " << flush;
+                    cin >> klaus_str;
+                    klaus_opt = AllExceptionsHandler::TryStoI(klaus_str);
+                }
+                klaus = klaus_opt.value();
                 int sizes[5] = {1000, 10000, 100000, 1000000, 10000000};
-                for(int i = 0; i < 5; i++) {
+                for(int i = 0; i < 1; i++) {
                     cout << i+1 << " testas\n\n";
-                    //Bandymas1_FailuGeneravimas(sizes);
-                    Bandymas2_DuomenuApdorojimas(sizes, pas);
+                    if(klaus == 1 || klaus == 3) Bandymas1_FailuGeneravimas(sizes);
+                    if(klaus == 2 || klaus == 3) Bandymas2_DuomenuApdorojimas(sizes, pas);
                     cout << endl << endl;
                     }
                 }
