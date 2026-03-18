@@ -67,7 +67,7 @@ GPU 1
 
 # Laiko efektyvumo testai v0.4
 
-## Čia žiurėkite tik į failų generavimo testą, duomenų apdorojimas yra man
+_Čia žiurėkite tik į failų generavimo testą, duomenų apdorojimas yra man kai generavau failus_
 
 Milisekundė (ms) - viena tūkstantoji sekundės dalis
 ![testas](04%20versija%20screenshotai/PirmasTestas.png)
