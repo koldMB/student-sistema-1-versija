@@ -117,4 +117,6 @@ Milisekundė (ms) - viena tūkstantoji sekundės dalis
    * Rašymas - 21344,5 ms
    * Visas laikas - 148490,8 ms
 
+# Laiko efektyvumo testai v1.0
+
 
