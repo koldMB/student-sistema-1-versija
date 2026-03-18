@@ -51,7 +51,7 @@ int main() {
         cerr << "Klaida keičiant console į UTF-8: " << e.what() << std::endl;
         return -2;
     }
-
+    cout << "deque versija\n";
     int MaxPav = 0, MaxVard = 0;
     deque<studentas> stud;  // Changed from vector to deque
     int pasirinkimas;
