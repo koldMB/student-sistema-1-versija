@@ -11,6 +11,8 @@
 #include <chrono>
 #include <iomanip>
 #include <cctype>
+#include <deque>
+#include <list>
 #include <cstdlib>
 #include <sstream>
 #include <array>
@@ -35,6 +37,8 @@ using std::left;
 using std::cerr;
 using std::endl;
 using std::flush;
+using std::deque;
+using std::list;
 
 
 int main() {
@@ -52,146 +56,451 @@ int main() {
         return -2;
     }
 
-    int MaxPav = 0, MaxVard = 0;
-    vector<studentas> stud;
-    int pasirinkimas;
-    do{
-        cout << "1. Įvesti duomenis ranka\n"; 
-        cout << "2. Generuoti pažymius\n";
-        cout << "3. Generuoti vardus ir pavardes bei pažymius\n";
-        cout << "4. Nuskaityti iš failo\n";
-        cout << "5. Testavimas - failu kurimas ir ju apdorojimas (abudu atskirai)\n";
-        cout << "6. Darbo pabaiga\n";
-        cout << "Pasirinkite veiksmą: ";
-        string pasirinkimas_str;
-        cin >> pasirinkimas_str;
-        auto pasirinkimas_opt = AllExceptionsHandler::TryStoI(pasirinkimas_str);
-        while (!pasirinkimas_opt.has_value() || pasirinkimas_opt.value() < 1 || pasirinkimas_opt.value() > 6) {
+    // Pasirinkti duomenų struktūrą
+    int struktura_pasirinkimas;
+    do {
+        cout << "1. Vector\n";
+        cout << "2. Deque\n";
+        cout << "3. List\n";
+        cout << "Pasirinkimas: ";
+        string struktura_str;
+        cin >> struktura_str;
+        auto struktura_opt = AllExceptionsHandler::TryStoI(struktura_str);
+        while (!struktura_opt.has_value() || struktura_opt.value() < 1 || struktura_opt.value() > 3) {
             cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+            cin >> struktura_str;
+            struktura_opt = AllExceptionsHandler::TryStoI(struktura_str);
+        }
+        struktura_pasirinkimas = struktura_opt.value();
+        break;
+    } while (true);
+
+    int MaxPav = 0, MaxVard = 0;
+    int pasirinkimas;
+
+    // Vector versija
+    if (struktura_pasirinkimas == 1) {
+        vector<studentas> stud;
+        do{
+            cout << "1. Įvesti duomenis ranka\n"; 
+            cout << "2. Generuoti pažymius\n";
+            cout << "3. Generuoti vardus ir pavardes bei pažymius\n";
+            cout << "4. Nuskaityti iš failo\n";
+            cout << "5. Testavimas - failu kurimas ir ju apdorojimas (abudu atskirai)\n";
+            cout << "6. Darbo pabaiga\n";
+            cout << "Pasirinkite veiksmą: ";
+            string pasirinkimas_str;
             cin >> pasirinkimas_str;
-            pasirinkimas_opt = AllExceptionsHandler::TryStoI(pasirinkimas_str);
-        }
-        pasirinkimas = pasirinkimas_opt.value();
-        switch (pasirinkimas) 
-        {
-            case 1: // veikia
-                {
-                    skaitymas(stud);
-                    skaiciavimai(stud);
-                    raides(MaxPav, MaxVard, stud);
-                    rikiavimas(stud);
-                    TermArFailas(stud, MaxPav, MaxVard);
-                    stud.clear();
-                }
-            break;
-            case 2: //veikia
-                {
-                    int n, nd_sk;
-                    cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
-                    string nd_sk_str;
-                    cin >> nd_sk_str;
-                    auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
-                    while (!nd_sk_opt.has_value() || nd_sk_opt.value() <= 0) {
-                        cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
-                        cin >> nd_sk_str;
-                        nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+            auto pasirinkimas_opt = AllExceptionsHandler::TryStoI(pasirinkimas_str);
+            while (!pasirinkimas_opt.has_value() || pasirinkimas_opt.value() < 1 || pasirinkimas_opt.value() > 6) {
+                cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+                cin >> pasirinkimas_str;
+                pasirinkimas_opt = AllExceptionsHandler::TryStoI(pasirinkimas_str);
+            }
+            pasirinkimas = pasirinkimas_opt.value();
+            switch (pasirinkimas) 
+            {
+                case 1: // veikia
+                    {
+                        skaitymas(stud);
+                        skaiciavimai(stud);
+                        raides(MaxPav, MaxVard, stud);
+                        rikiavimas(stud);
+                        TermArFailas(stud, MaxPav, MaxVard);
+                        stud.clear();
                     }
-                    nd_sk = nd_sk_opt.value();
-                    skaitymas(stud, n, nd_sk);
-                    skaiciavimai(stud);
-                    raides(MaxPav, MaxVard, stud);
-                    rikiavimas(stud);
-                    TermArFailas(stud, MaxPav, MaxVard);
-                    stud.clear();
-                }
-            break;
-            case 3:
-                {
-                    int n, nd_sk;
-                    cout << "Įveskite kiek studentų duomenų norite generuoti: " << flush;
-                    string n_str;
-                    cin >> n_str;
-                    auto n_opt = AllExceptionsHandler::TryStoI(n_str);
-                    while (!n_opt.has_value() || n_opt.value() <= 0) {
-                        cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+                break;
+                case 2: //veikia
+                    {
+                        int n, nd_sk;
+                        cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
+                        string nd_sk_str;
+                        cin >> nd_sk_str;
+                        auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                        while (!nd_sk_opt.has_value() || nd_sk_opt.value() <= 0) {
+                            cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+                            cin >> nd_sk_str;
+                            nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                        }
+                        nd_sk = nd_sk_opt.value();
+                        skaitymas(stud, n, nd_sk);
+                        skaiciavimai(stud);
+                        raides(MaxPav, MaxVard, stud);
+                        rikiavimas(stud);
+                        TermArFailas(stud, MaxPav, MaxVard);
+                        stud.clear();
+                    }
+                break;
+                case 3:
+                    {
+                        int n, nd_sk;
+                        cout << "Įveskite kiek studentų duomenų norite generuoti: " << flush;
+                        string n_str;
                         cin >> n_str;
-                        n_opt = AllExceptionsHandler::TryStoI(n_str);
-                    }
-                    n = n_opt.value();
-                    cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
-                    string nd_sk_str;
-                    cin >> nd_sk_str;
-                    auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
-                    while (!nd_sk_opt.has_value() || nd_sk_opt.value() <= 0) {
-                        cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+                        auto n_opt = AllExceptionsHandler::TryStoI(n_str);
+                        while (!n_opt.has_value() || n_opt.value() <= 0) {
+                            cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+                            cin >> n_str;
+                            n_opt = AllExceptionsHandler::TryStoI(n_str);
+                        }
+                        n = n_opt.value();
+                        cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
+                        string nd_sk_str;
                         cin >> nd_sk_str;
-                        nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                        auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                        while (!nd_sk_opt.has_value() || nd_sk_opt.value() <= 0) {
+                            cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+                            cin >> nd_sk_str;
+                            nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                        }
+                        nd_sk = nd_sk_opt.value();
+                        skaitymas(stud, n, nd_sk, n); // antras n perduodamas jei bus vardu sarašas
+                        skaiciavimai(stud);
+                        raides(MaxPav, MaxVard, stud);
+                        rikiavimas(stud);
+                        TermArFailas(stud, MaxPav, MaxVard);
+                        stud.clear();
                     }
-                    nd_sk = nd_sk_opt.value();
-                    skaitymas(stud, n, nd_sk, n); // antras n perduodamas jei bus vardu sarašas
-                    skaiciavimai(stud);
-                    raides(MaxPav, MaxVard, stud);
-                    rikiavimas(stud);
-                    TermArFailas(stud, MaxPav, MaxVard);
-                    stud.clear();
-                }
-            break;
-            case 4:
-                {
-                    string filename;
-                    cout << "Įveskite txt failo pavadinimą: " << flush;
-                    cin >> filename;
-                    FailoNuskaitymas(stud, filename);
-                    if(stud.empty()) {
-                        cerr << "Nėra duomenų išvesti.\n";
-                        break;
+                break;
+                case 4:
+                    {
+                        string filename;
+                        cout << "Įveskite txt failo pavadinimą: " << flush;
+                        cin >> filename;
+                        FailoNuskaitymas(stud, filename);
+                        if(stud.empty()) {
+                            cerr << "Nėra duomenų išvesti.\n";
+                            break;
+                        }
+                        skaiciavimai(stud);
+                        raides(MaxPav, MaxVard, stud);
+                        rikiavimas(stud);
+                        TermArFailas(stud, MaxPav, MaxVard);
+                        stud.clear();
                     }
-                    skaiciavimai(stud);
-                    raides(MaxPav, MaxVard, stud);
-                    rikiavimas(stud);
-                    TermArFailas(stud, MaxPav, MaxVard);
-                    stud.clear();
-                }
-            break;
-            case 5: {
-                int pas;
-                cout << "Įveskite pagal ką rikiuoti\n1 - vidurkis\n2 - mediana\n";
-                string pas_str;
-                cin >> pas_str;
-                auto pas_opt = AllExceptionsHandler::TryStoI(pas_str);
-                while (!pas_opt.has_value() || pas_opt.value() < 1 || pas_opt.value() > 2) {
-                    cerr << "Neteisingas pasirinkimas, įveskite dar kartą: " << flush;
+                break;
+                case 5: {
+                    int pas;
+                    cout << "Įveskite pagal ką rikiuoti\n1 - vidurkis\n2 - mediana\n";
+                    string pas_str;
                     cin >> pas_str;
-                    pas_opt = AllExceptionsHandler::TryStoI(pas_str);
-                }
-                pas = pas_opt.value();
-                int klaus;
-                cout << "1 - failu kurimas\n2 - failu apdorojimas\n3 - abu\n";
-                string klaus_str;
-                cin >> klaus_str;
-                auto klaus_opt = AllExceptionsHandler::TryStoI(klaus_str);
-                while (!klaus_opt.has_value() || klaus_opt.value() < 1 || klaus_opt.value() > 3) {
-                    cerr << "Neteisingas pasirinkimas, įveskite dar kartą: " << flush;
-                    cin >> klaus_str;
-                    klaus_opt = AllExceptionsHandler::TryStoI(klaus_str);
-                }
-                klaus = klaus_opt.value();
-                int sizes[5] = {1000, 10000, 100000, 1000000, 10000000};
-                for(int i = 0; i < 1; i++) {
-                    cout << i+1 << " testas\n\n";
-                    if(klaus == 1 || klaus == 3) Bandymas1_FailuGeneravimas(sizes);
-                    if(klaus == 2 || klaus == 3) Bandymas2_DuomenuApdorojimas(sizes, pas);
-                    cout << endl << endl;
+                    auto pas_opt = AllExceptionsHandler::TryStoI(pas_str);
+                    while (!pas_opt.has_value() || pas_opt.value() < 1 || pas_opt.value() > 2) {
+                        cerr << "Neteisingas pasirinkimas, įveskite dar kartą: " << flush;
+                        cin >> pas_str;
+                        pas_opt = AllExceptionsHandler::TryStoI(pas_str);
                     }
-                }
-            break;
-            case 6:
-                {
-                exit(0);
-                }
-            break;
-        }
-    }while(true);
+                    pas = pas_opt.value();
+                    int klaus;
+                    cout << "1 - failu kurimas\n2 - failu apdorojimas\n3 - abu\n";
+                    string klaus_str;
+                    cin >> klaus_str;
+                    auto klaus_opt = AllExceptionsHandler::TryStoI(klaus_str);
+                    while (!klaus_opt.has_value() || klaus_opt.value() < 1 || klaus_opt.value() > 3) {
+                        cerr << "Neteisingas pasirinkimas, įveskite dar kartą: " << flush;
+                        cin >> klaus_str;
+                        klaus_opt = AllExceptionsHandler::TryStoI(klaus_str);
+                    }
+                    klaus = klaus_opt.value();
+                    int sizes[5] = {1000, 10000, 100000, 1000000, 10000000};
+                    for(int i = 0; i < 1; i++) {
+                        cout << i+1 << " testas\n\n";
+                        if(klaus == 1 || klaus == 3) Bandymas1_FailuGeneravimas(sizes);
+                        if(klaus == 2 || klaus == 3) Bandymas2_DuomenuApdorojimas(sizes, pas);
+                        cout << endl << endl;
+                        }
+                    }
+                break;
+                case 6:
+                    {
+                    exit(0);
+                    }
+                break;
+            }
+        }while(true);
+    }
+    // Deque versija
+    else if (struktura_pasirinkimas == 2) {
+        deque<studentas> stud;
+        do{
+            cout << "1. Įvesti duomenis ranka\n"; 
+            cout << "2. Generuoti pažymius\n";
+            cout << "3. Generuoti vardus ir pavardes bei pažymius\n";
+            cout << "4. Nuskaityti iš failo\n";
+            cout << "5. Testavimas - failu kurimas ir ju apdorojimas (abudu atskirai)\n";
+            cout << "6. Darbo pabaiga\n";
+            cout << "Pasirinkite veiksmą: ";
+            string pasirinkimas_str;
+            cin >> pasirinkimas_str;
+            auto pasirinkimas_opt = AllExceptionsHandler::TryStoI(pasirinkimas_str);
+            while (!pasirinkimas_opt.has_value() || pasirinkimas_opt.value() < 1 || pasirinkimas_opt.value() > 6) {
+                cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+                cin >> pasirinkimas_str;
+                pasirinkimas_opt = AllExceptionsHandler::TryStoI(pasirinkimas_str);
+            }
+            pasirinkimas = pasirinkimas_opt.value();
+            switch (pasirinkimas) 
+            {
+                case 1: // veikia
+                    {
+                        skaitymas(stud);
+                        skaiciavimai(stud);
+                        raides(MaxPav, MaxVard, stud);
+                        rikiavimas(stud);
+                        TermArFailas(stud, MaxPav, MaxVard);
+                        stud.clear();
+                    }
+                break;
+                case 2: //veikia
+                    {
+                        int n, nd_sk;
+                        cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
+                        string nd_sk_str;
+                        cin >> nd_sk_str;
+                        auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                        while (!nd_sk_opt.has_value() || nd_sk_opt.value() <= 0) {
+                            cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+                            cin >> nd_sk_str;
+                            nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                        }
+                        nd_sk = nd_sk_opt.value();
+                        skaitymas(stud, n, nd_sk);
+                        skaiciavimai(stud);
+                        raides(MaxPav, MaxVard, stud);
+                        rikiavimas(stud);
+                        TermArFailas(stud, MaxPav, MaxVard);
+                        stud.clear();
+                    }
+                break;
+                case 3:
+                    {
+                        int n, nd_sk;
+                        cout << "Įveskite kiek studentų duomenų norite generuoti: " << flush;
+                        string n_str;
+                        cin >> n_str;
+                        auto n_opt = AllExceptionsHandler::TryStoI(n_str);
+                        while (!n_opt.has_value() || n_opt.value() <= 0) {
+                            cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+                            cin >> n_str;
+                            n_opt = AllExceptionsHandler::TryStoI(n_str);
+                        }
+                        n = n_opt.value();
+                        cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
+                        string nd_sk_str;
+                        cin >> nd_sk_str;
+                        auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                        while (!nd_sk_opt.has_value() || nd_sk_opt.value() <= 0) {
+                            cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+                            cin >> nd_sk_str;
+                            nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                        }
+                        nd_sk = nd_sk_opt.value();
+                        skaitymas(stud, n, nd_sk, n); // antras n perduodamas jei bus vardu sarašas
+                        skaiciavimai(stud);
+                        raides(MaxPav, MaxVard, stud);
+                        rikiavimas(stud);
+                        TermArFailas(stud, MaxPav, MaxVard);
+                        stud.clear();
+                    }
+                break;
+                case 4:
+                    {
+                        string filename;
+                        cout << "Įveskite txt failo pavadinimą: " << flush;
+                        cin >> filename;
+                        FailoNuskaitymas(stud, filename);
+                        if(stud.empty()) {
+                            cerr << "Nėra duomenų išvesti.\n";
+                            break;
+                        }
+                        skaiciavimai(stud);
+                        raides(MaxPav, MaxVard, stud);
+                        rikiavimas(stud);
+                        TermArFailas(stud, MaxPav, MaxVard);
+                        stud.clear();
+                    }
+                break;
+                case 5: {
+                    int pas;
+                    cout << "Įveskite pagal ką rikiuoti\n1 - vidurkis\n2 - mediana\n";
+                    string pas_str;
+                    cin >> pas_str;
+                    auto pas_opt = AllExceptionsHandler::TryStoI(pas_str);
+                    while (!pas_opt.has_value() || pas_opt.value() < 1 || pas_opt.value() > 2) {
+                        cerr << "Neteisingas pasirinkimas, įveskite dar kartą: " << flush;
+                        cin >> pas_str;
+                        pas_opt = AllExceptionsHandler::TryStoI(pas_str);
+                    }
+                    pas = pas_opt.value();
+                    int klaus;
+                    cout << "1 - failu kurimas\n2 - failu apdorojimas\n3 - abu\n";
+                    string klaus_str;
+                    cin >> klaus_str;
+                    auto klaus_opt = AllExceptionsHandler::TryStoI(klaus_str);
+                    while (!klaus_opt.has_value() || klaus_opt.value() < 1 || klaus_opt.value() > 3) {
+                        cerr << "Neteisingas pasirinkimas, įveskite dar kartą: " << flush;
+                        cin >> klaus_str;
+                        klaus_opt = AllExceptionsHandler::TryStoI(klaus_str);
+                    }
+                    klaus = klaus_opt.value();
+                    int sizes[5] = {1000, 10000, 100000, 1000000, 10000000};
+                    for(int i = 0; i < 5; i++) {
+                        cout << i+1 << " testas\n\n";
+                        if(klaus == 1 || klaus == 3) Bandymas1_FailuGeneravimas(sizes);
+                        if(klaus == 2 || klaus == 3) Bandymas2_DuomenuApdorojimas(sizes, pas);
+                        cout << endl << endl;
+                        }
+                    }
+                break;
+                case 6:
+                    {
+                    exit(0);
+                    }
+                break;
+            }
+        }while(true);
+    }
+    // list versija
+    else if (struktura_pasirinkimas == 3) {
+        list<studentas> stud;
+        do{
+            cout << "1. Įvesti duomenis ranka\n"; 
+            cout << "2. Generuoti pažymius\n";
+            cout << "3. Generuoti vardus ir pavardes bei pažymius\n";
+            cout << "4. Nuskaityti iš failo\n";
+            cout << "5. Testavimas - failu kurimas ir ju apdorojimas (abudu atskirai)\n";
+            cout << "6. Darbo pabaiga\n";
+            cout << "Pasirinkite veiksmą: ";
+            string pasirinkimas_str;
+            cin >> pasirinkimas_str;
+            auto pasirinkimas_opt = AllExceptionsHandler::TryStoI(pasirinkimas_str);
+            while (!pasirinkimas_opt.has_value() || pasirinkimas_opt.value() < 1 || pasirinkimas_opt.value() > 6) {
+                cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+                cin >> pasirinkimas_str;
+                pasirinkimas_opt = AllExceptionsHandler::TryStoI(pasirinkimas_str);
+            }
+            pasirinkimas = pasirinkimas_opt.value();
+            switch (pasirinkimas) 
+            {
+                case 1: // veikia
+                    {
+                        skaitymas(stud);
+                        skaiciavimai(stud);
+                        raides(MaxPav, MaxVard, stud);
+                        rikiavimas(stud);
+                        TermArFailas(stud, MaxPav, MaxVard);
+                        stud.clear();
+                    }
+                break;
+                case 2: //veikia
+                    {
+                        int n, nd_sk;
+                        cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
+                        string nd_sk_str;
+                        cin >> nd_sk_str;
+                        auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                        while (!nd_sk_opt.has_value() || nd_sk_opt.value() <= 0) {
+                            cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+                            cin >> nd_sk_str;
+                            nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                        }
+                        nd_sk = nd_sk_opt.value();
+                        skaitymas(stud, n, nd_sk);
+                        skaiciavimai(stud);
+                        raides(MaxPav, MaxVard, stud);
+                        rikiavimas(stud);
+                        TermArFailas(stud, MaxPav, MaxVard);
+                        stud.clear();
+                    }
+                break;
+                case 3:
+                    {
+                        int n, nd_sk;
+                        cout << "Įveskite kiek studentų duomenų norite generuoti: " << flush;
+                        string n_str;
+                        cin >> n_str;
+                        auto n_opt = AllExceptionsHandler::TryStoI(n_str);
+                        while (!n_opt.has_value() || n_opt.value() <= 0) {
+                            cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+                            cin >> n_str;
+                            n_opt = AllExceptionsHandler::TryStoI(n_str);
+                        }
+                        n = n_opt.value();
+                        cout << "Įveskite kiek namų darbų pažymių norite generuoti: ";
+                        string nd_sk_str;
+                        cin >> nd_sk_str;
+                        auto nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                        while (!nd_sk_opt.has_value() || nd_sk_opt.value() <= 0) {
+                            cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+                            cin >> nd_sk_str;
+                            nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
+                        }
+                        nd_sk = nd_sk_opt.value();
+                        skaitymas(stud, n, nd_sk, n); // antras n perduodamas jei bus vardu sarašas
+                        skaiciavimai(stud);
+                        raides(MaxPav, MaxVard, stud);
+                        rikiavimas(stud);
+                        TermArFailas(stud, MaxPav, MaxVard);
+                        stud.clear();
+                    }
+                break;
+                case 4:
+                    {
+                        string filename;
+                        cout << "Įveskite txt failo pavadinimą: " << flush;
+                        cin >> filename;
+                        FailoNuskaitymas(stud, filename);
+                        if(stud.empty()) {
+                            cerr << "Nėra duomenų išvesti.\n";
+                            break;
+                        }
+                        skaiciavimai(stud);
+                        raides(MaxPav, MaxVard, stud);
+                        rikiavimas(stud);
+                        TermArFailas(stud, MaxPav, MaxVard);
+                        stud.clear();
+                    }
+                break;
+                case 5: {
+                    int pas;
+                    cout << "Įveskite pagal ką rikiuoti\n1 - vidurkis\n2 - mediana\n";
+                    string pas_str;
+                    cin >> pas_str;
+                    auto pas_opt = AllExceptionsHandler::TryStoI(pas_str);
+                    while (!pas_opt.has_value() || pas_opt.value() < 1 || pas_opt.value() > 2) {
+                        cerr << "Neteisingas pasirinkimas, įveskite dar kartą: " << flush;
+                        cin >> pas_str;
+                        pas_opt = AllExceptionsHandler::TryStoI(pas_str);
+                    }
+                    pas = pas_opt.value();
+                    int klaus;
+                    cout << "1 - failu kurimas\n2 - failu apdorojimas\n3 - abu\n";
+                    string klaus_str;
+                    cin >> klaus_str;
+                    auto klaus_opt = AllExceptionsHandler::TryStoI(klaus_str);
+                    while (!klaus_opt.has_value() || klaus_opt.value() < 1 || klaus_opt.value() > 3) {
+                        cerr << "Neteisingas pasirinkimas, įveskite dar kartą: " << flush;
+                        cin >> klaus_str;
+                        klaus_opt = AllExceptionsHandler::TryStoI(klaus_str);
+                    }
+                    klaus = klaus_opt.value();
+                    int sizes[5] = {1000, 10000, 100000, 1000000, 10000000};
+                    for(int i = 0; i < 5; i++) {
+                        cout << i+1 << " testas\n\n";
+                        if(klaus == 1 || klaus == 3) Bandymas1_FailuGeneravimas(sizes);
+                        if(klaus == 2 || klaus == 3) Bandymas2_DuomenuApdorojimas(sizes, pas);
+                        cout << endl << endl;
+                        }
+                    }
+                break;
+                case 6:
+                    {
+                    exit(0);
+                    }
+                break;
+            }
+        }while(true);
+    }
 
     return 0;
 }
