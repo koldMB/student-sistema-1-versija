@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
+#include <deque>
 #include <fstream>
 #include <string>
 #include <algorithm>
@@ -36,24 +38,10 @@ using std::cerr;
 using std::endl;
 using std::flush;
 
-
-int main() {
-    // Užtikrina, kad cout ir cerr būtų sinchronizuoti
-    std::ios_base::sync_with_stdio(true);
-    std::cerr.tie(&std::cout);
-    
-    // Keičiam console į UTF-8 kad galėtų teisingai rodyti lietuviškus simbolius ir juos skaityti
-    try{
-        SetConsoleCP(CP_UTF8);
-        SetConsoleOutputCP(CP_UTF8);
-    }
-    catch(const std::exception& e) {
-        cerr << "Klaida keičiant console į UTF-8: " << e.what() << std::endl;
-        return -2;
-    }
-
+template<template<typename> class T>
+void run_program() {
     int MaxPav = 0, MaxVard = 0;
-    vector<studentas> stud;
+    T<studentas> stud;
     int pasirinkimas;
     do{
         cout << "1. Įvesti duomenis ranka\n"; 
@@ -181,6 +169,55 @@ int main() {
             break;
         }
     }while(true);
+}
+
+int main() {
+    // Užtikrina, kad cout ir cerr būtų sinchronizuoti
+    std::ios_base::sync_with_stdio(true);
+    std::cerr.tie(&std::cout);
+    
+    // Keičiam console į UTF-8 kad galėtų teisingai rodyti lietuviškus simbolius ir juos skaityti
+    try{
+        SetConsoleCP(CP_UTF8);
+        SetConsoleOutputCP(CP_UTF8);
+    }
+    catch(const std::exception& e) {
+        cerr << "Klaida keičiant console į UTF-8: " << e.what() << std::endl;
+        return -2;
+    }
+
+    int container_choice;
+    do {
+        cout << "\nPasirinkite konteinerio tipa \n";
+        cout << "1. vector<studentas>\n";
+        cout << "2. list<studentas>\n";
+        cout << "3. deque<studentas>\n";
+        cout << "Pasirinkimas : ";
+        string choice_str;
+        cin >> choice_str;
+        auto choice_opt = AllExceptionsHandler::TryStoI(choice_str);
+        while (!choice_opt.has_value() || choice_opt.value() < 1 || choice_opt.value() > 3) {
+            cerr << "Klaidinga ivestis. Bandykite dar karta: " << flush;
+            cin >> choice_str;
+            choice_opt = AllExceptionsHandler::TryStoI(choice_str);
+        }
+        container_choice = choice_opt.value();
+        
+        switch (container_choice) {
+            case 1:
+                cout << "Naudojamas: vector<studentas>\n\n";
+                run_program<vector>();
+                break;
+            case 2:
+                cout << "Naudojamas: list<studentas>\n\n";
+                run_program<std::list>();
+                break;
+            case 3:
+                cout << "Naudojamas: deque<studentas>\n\n";
+                run_program<std::deque>();
+                break;
+        }
+    } while (true);
 
     return 0;
 }
