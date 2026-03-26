@@ -68,3 +68,39 @@ unsuccessfulbuild
 
 # Allow specific inspection profiles if needed
 !.idea/inspectionProfiles/Project_Default.xml
+
+# CLion IDE
+cmake-build-*/
+cmake-build-debug/
+cmake-build-release/
+.idea/
+*.iml
+.fleet/
+
+# Visual Studio IDE
+.vs/
+.vscode/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.sln.DotSettings
+*.sln.DotSettings.user
+x64/
+x86/
+Debug/
+Release/
+ipch/
+.vs/
+
+# Visual Studio Code
+.vscode/settings.json
+.vscode/launch.json
+.vscode/extensions.json
+.vscode/c_cpp_properties.json
+
+# Build output directories
+build/
+out/
+bin/
+obj/
