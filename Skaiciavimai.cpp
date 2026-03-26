@@ -14,57 +14,6 @@ using std::cout;
 using std::cin;
 using std::cerr;
 
-void skaiciavimai(vector<studentas> &stud) // apskaičiuoja vidurkius ir medianas kiekvienam studentui
-{
-
-    for(auto &s : stud) {
-        if(s.nd.empty()) {
-            s.GalVidurkis = 0;
-            s.GalMediana = 0;
-            continue;
-        }
-
-        double suma = 0;
-        for(const auto &nd_ivar : s.nd) {
-            suma += nd_ivar;
-        }
-        s.GalVidurkis = suma / s.nd.size();
-
-        s.GalVidurkis = s.GalVidurkis * 0.4 + s.egz * 0.6;
-        vector<int> nd_kopija = s.nd;
-        std::sort(nd_kopija.begin(), nd_kopija.end());
-        if(nd_kopija.size() % 2 == 0) {
-            auto mid1 = AllExceptionsHandler::TryAt(nd_kopija, nd_kopija.size()/2 - 1);
-            auto mid2 = AllExceptionsHandler::TryAt(nd_kopija, nd_kopija.size()/2);
-            if (mid1.has_value() && mid2.has_value()) {
-                s.GalMediana = (mid1.value() + mid2.value()) / 2.0;
-            }
-        } else {
-            auto mid = AllExceptionsHandler::TryAt(nd_kopija, nd_kopija.size()/2);
-            if (mid.has_value()) {
-                s.GalMediana = mid.value();
-            }
-        }
-        s.GalMediana = s.GalMediana * 0.4 + s.egz * 0.6;
-    }
-}
-
-
-
-void raides(int &MaxPav, int &MaxVard, const vector <studentas> &stud)
-{
-    MaxPav = 0;
-    MaxVard = 0;
-    for(const auto &s : stud) {
-        if(static_cast<int>(s.pavarde.length()) > MaxPav) {
-            MaxPav = static_cast<int>(s.pavarde.length());
-        }
-        if(static_cast<int>(s.vardas.length()) > MaxVard) {
-            MaxVard = static_cast<int>(s.vardas.length());
-        }
-    }
-}
-
 bool VardoRikiavimas(const studentas &a, const studentas &b) {
     return a.vardas < b.vardas;
 }

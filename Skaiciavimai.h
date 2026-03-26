@@ -6,9 +6,17 @@
 #include <deque>
 using std::vector;
 
+// Forward declarations for comparison functions
+bool VardoRikiavimas(const studentas &a, const studentas &b);
+bool PavardeRikiavimas(const studentas &a, const studentas &b);
+bool MedianaRikiavimas(const studentas &a, const studentas &b);
+bool VidurkisRikiavimas(const studentas &a, const studentas &b);
 
-void skaiciavimai(vector<studentas> &stud); // apskaičiuoja vidurkius ir medianas kiekvienam studentui
-void raides(int &MaxPav, int &MaxVard, const vector <studentas> &stud); // tikrina vardų ir pavardžių ilgius, kad lentelė būtų tvarkinga
+
+template<template<typename> class T>
+void skaiciavimai(T<studentas> &stud); // apskaičiuoja vidurkius ir medianas kiekvienam studentui
+template<template<typename> class T>
+void raides(int &MaxPav, int &MaxVard, const T<studentas> &stud); // tikrina vardų ir pavardžių ilgius, kad lentelė būtų tvarkinga
 bool VardoRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal vardą abėcėlės tvarka
 bool MedianaRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal mediana nuo didžiausio iki mažiausio
 bool VidurkisRikiavimas(const studentas &a, const studentas &b); // rikiuoja pagal vidurkis nuo didžiausio iki mažiausio
