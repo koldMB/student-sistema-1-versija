@@ -89,34 +89,52 @@ Milisekundė (ms) - viena tūkstantoji sekundės dalis
 ![testas2](04%20versija%20screenshotai/2Testas1.png)
 ![testas2](04%20versija%20screenshotai/2Testas2.png)
 
-### Vidurkiai failų apdorojimui:
+### Vidurkiai failų apdorojimui (vector 0.4 versija)
 
-1. 1 000 studentų:
-   * Skaitymas - 12 ms
-   * Rūšiavimas - 2,25 ms
-   * Rašymas - 3 ms
-   * Visas laikas - 17,25 ms
-2. 10 000 studentų:
-   * Skaitymas - 75,25 ms
-   * Rūšiavimas - 24,25 ms
-   * Rašymas - 22,5 ms
-   * Visas laikas - 122 ms
-3. 100 000 studentų:
-   * Skaitymas - 730 ms
-   * Rūšiavimas - 340 ms
-   * Rašymas - 213,25 ms
-   * Visas laikas - 1283,25 ms
-4. 1 000 000 studentų:
-   * Skaitymas - 1407 ms
-   * Rūšiavimas - 712,75 ms
-   * Rašymas - 428,5 ms
-   * Visas laikas - 2548,25 ms
-5. 10 000 000 studentų:
-   * Skaitymas - 74361,75 ms
-   * Rūšiavimas - 52784,5 ms
-   * Rašymas - 21344,5 ms
-   * Visas laikas - 148490,8 ms
+	+------------------+-------------+--------------+-------------+--------------+
+	| Studentų kiekis  | Skaitymas   | Rūšiavimas   | Rašymas     | Visas laikas |
+	+------------------+-------------+--------------+-------------+--------------+
+	| 1 000            | 12 ms       | 2,25 ms      | 3 ms        | 17,25 ms     |
+	| 10 000           | 75,25 ms    | 24,25 ms     | 22,5 ms     | 122 ms       |
+	| 100 000          | 730 ms      | 340 ms       | 213,25 ms   | 1283,25 ms   |
+	| 1 000 000        | 1407 ms     | 712,75 ms    | 428,5 ms    | 2548,25 ms   |
+	| 10 000 000       | 74361,75 ms | 52784,5 ms   | 21344,5 ms  | 148490,8 ms  |
+	+------------------+-------------+--------------+-------------+--------------+
 
 # Laiko efektyvumo testai v1.0
 
+## Deque
 
+![deque test 1](deque/Screenshot%202026-03-26%20211141.png)
+![deque test 2-5](deque/Screenshot%202026-03-26%20211152.png)
+![deque test 5](deque/Screenshot%202026-03-26%20211158.png)
+
+### Vidurkiai failų apdorojimui (Deque v1.0)
+
+	+------------------+-------------+--------------+-------------+--------------+
+	| Studentų kiekis  | Skaitymas   | Rūšiavimas   | Rašymas     | Visas laikas |
+	+------------------+-------------+--------------+-------------+--------------+
+	| 1 000            | 8.6 ms      | 2.6 ms       | 4.8 ms      | 16 ms        |
+	| 10 000           | 84 ms       | 34.2 ms      | 22.6 ms     | 140.8 ms     |
+	| 100 000          | 674.4 ms    | 398.4 ms     | 210 ms      | 1282.8 ms    |
+	| 1 000 000        | 1283.4 ms   | 855.6 ms     | 412.8 ms    | 2551.8 ms    |
+	| 10 000 000       | 66892.6 ms  | 64840.6 ms   | 21481.8 ms  | 153215 ms    |
+	+------------------+-------------+--------------+-------------+--------------+
+
+## List
+
+![list test 1](list/Screenshot%202026-03-26%20205654.png)
+![list test 2-5](list/Screenshot%202026-03-26%20205710.png)
+![list test 5](list/Screenshot%202026-03-26%20205720.png)
+
+### Vidurkiai failų apdorojimui (List v1.0)
+
+	+------------------+-------------+--------------+-------------+--------------+
+	| Studentų kiekis  | Skaitymas   | Rūšiavimas   | Rašymas     | Visas laikas |
+	+------------------+-------------+--------------+-------------+--------------+
+	| 1 000            | 10.6 ms     | 2.6 ms       | 3.8 ms      | 17 ms        |
+	| 10 000           | 65.4 ms     | 31.4 ms      | 24.6 ms     | 121.4 ms     |
+	| 100 000          | 659.4 ms    | 387.2 ms     | 250.4 ms    | 1297 ms      |
+	| 1 000 000        | 1198.2 ms   | 800.2 ms     | 469.2 ms    | 2467.6 ms    |
+	| 10 000 000       | 63257.2 ms  | 61293.4 ms   | 27081 ms     | 152169.8 ms  |
+	+------------------+-------------+--------------+-------------+--------------+ 
