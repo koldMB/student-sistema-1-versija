@@ -9,6 +9,9 @@
 #include <string>
 #include <list>
 #include <deque>
+#include <random>
+#include <chrono>
+#include <array>
 #include "Common.h"
 #include "klaiduValdymas.h"
 

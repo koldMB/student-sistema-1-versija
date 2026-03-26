@@ -102,7 +102,7 @@ Milisekundė (ms) - viena tūkstantoji sekundės dalis
 	+------------------+-------------+--------------+-------------+--------------+
 
 # Laiko efektyvumo testai v1.0
-
+(Čia be pritaikitų algoritmų)
 ## Deque
 
 ![deque test 1](deque/Screenshot%202026-03-26%20211141.png)
@@ -136,5 +136,5 @@ Milisekundė (ms) - viena tūkstantoji sekundės dalis
 	| 10 000           | 65.4 ms     | 31.4 ms      | 24.6 ms     | 121.4 ms     |
 	| 100 000          | 659.4 ms    | 387.2 ms     | 250.4 ms    | 1297 ms      |
 	| 1 000 000        | 1198.2 ms   | 800.2 ms     | 469.2 ms    | 2467.6 ms    |
-	| 10 000 000       | 63257.2 ms  | 61293.4 ms   | 27081 ms     | 152169.8 ms  |
+	| 10 000 000       | 63257.2 ms  | 61293.4 ms   | 27081 ms    | 152169.8 ms  |
 	+------------------+-------------+--------------+-------------+--------------+ 
