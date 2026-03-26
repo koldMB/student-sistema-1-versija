@@ -13,6 +13,8 @@
 #include <chrono>
 #include <iomanip>
 #include <cctype>
+#include <deque>
+#include <list>
 #include <cstdlib>
 #include <sstream>
 #include <array>
@@ -37,12 +39,16 @@ using std::left;
 using std::cerr;
 using std::endl;
 using std::flush;
+using std::deque;
+using std::list;
 
-template<template<typename> class T>
-void run_program() {
+
+template<typename Container>
+void runStudentSystem() {
+    Container stud;
     int MaxPav = 0, MaxVard = 0;
-    T<studentas> stud;
     int pasirinkimas;
+    
     do{
         cout << "1. Įvesti duomenis ranka\n"; 
         cout << "2. Generuoti pažymius\n";
@@ -153,11 +159,22 @@ void run_program() {
                     pas_opt = AllExceptionsHandler::TryStoI(pas_str);
                 }
                 pas = pas_opt.value();
+                int klaus;
+                cout << "1 - failu kurimas\n2 - failu apdorojimas\n3 - abu\n";
+                string klaus_str;
+                cin >> klaus_str;
+                auto klaus_opt = AllExceptionsHandler::TryStoI(klaus_str);
+                while (!klaus_opt.has_value() || klaus_opt.value() < 1 || klaus_opt.value() > 3) {
+                    cerr << "Neteisingas pasirinkimas, įveskite dar kartą: " << flush;
+                    cin >> klaus_str;
+                    klaus_opt = AllExceptionsHandler::TryStoI(klaus_str);
+                }
+                klaus = klaus_opt.value();
                 int sizes[5] = {1000, 10000, 100000, 1000000, 10000000};
                 for(int i = 0; i < 5; i++) {
                     cout << i+1 << " testas\n\n";
-                    //Bandymas1_FailuGeneravimas(sizes);
-                    Bandymas2_DuomenuApdorojimas(sizes, pas);
+                    if(klaus == 1 || klaus == 3) Bandymas1_FailuGeneravimas(sizes);
+                    if(klaus == 2 || klaus == 3) Bandymas2_DuomenuApdorojimas(sizes, pas);
                     cout << endl << endl;
                     }
                 }
@@ -170,6 +187,7 @@ void run_program() {
         }
     }while(true);
 }
+
 
 int main() {
     // Užtikrina, kad cout ir cerr būtų sinchronizuoti
@@ -186,38 +204,32 @@ int main() {
         return -2;
     }
 
-    int container_choice;
+    // Pasirinkti duomenų struktūrą
+    int struktura_pasirinkimas;
     do {
-        cout << "\nPasirinkite konteinerio tipa \n";
-        cout << "1. vector<studentas>\n";
-        cout << "2. list<studentas>\n";
-        cout << "3. deque<studentas>\n";
-        cout << "Pasirinkimas : ";
-        string choice_str;
-        cin >> choice_str;
-        auto choice_opt = AllExceptionsHandler::TryStoI(choice_str);
-        while (!choice_opt.has_value() || choice_opt.value() < 1 || choice_opt.value() > 3) {
-            cerr << "Klaidinga ivestis. Bandykite dar karta: " << flush;
-            cin >> choice_str;
-            choice_opt = AllExceptionsHandler::TryStoI(choice_str);
+        cout << "1. Vector\n";
+        cout << "2. Deque\n";
+        cout << "3. List\n";
+        cout << "Pasirinkimas: ";
+        string struktura_str;
+        cin >> struktura_str;
+        auto struktura_opt = AllExceptionsHandler::TryStoI(struktura_str);
+        while (!struktura_opt.has_value() || struktura_opt.value() < 1 || struktura_opt.value() > 3) {
+            cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
+            cin >> struktura_str;
+            struktura_opt = AllExceptionsHandler::TryStoI(struktura_str);
         }
-        container_choice = choice_opt.value();
-        
-        switch (container_choice) {
-            case 1:
-                cout << "Naudojamas: vector<studentas>\n\n";
-                run_program<vector>();
-                break;
-            case 2:
-                cout << "Naudojamas: list<studentas>\n\n";
-                run_program<std::list>();
-                break;
-            case 3:
-                cout << "Naudojamas: deque<studentas>\n\n";
-                run_program<std::deque>();
-                break;
-        }
+        struktura_pasirinkimas = struktura_opt.value();
+        break;
     } while (true);
+
+    if (struktura_pasirinkimas == 1) {
+        runStudentSystem<vector<studentas>>();
+    } else if (struktura_pasirinkimas == 2) {
+        runStudentSystem<deque<studentas>>();
+    } else if (struktura_pasirinkimas == 3) {
+        runStudentSystem<list<studentas>>();
+    }
 
     return 0;
 }

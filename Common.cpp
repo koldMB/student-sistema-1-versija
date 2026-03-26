@@ -76,6 +76,7 @@ void Bandymas1_FailuGeneravimas(int sizes[5]) {
 
     int nd_sk = 10;
     Laikas timer;
+    timer.Reset();  // isvalo praeitus matavimus
 
     for (int i = 0; i < 5; ++i) {
         string filename = "studentai" + std::to_string(sizes[i]) + "_gen";
@@ -102,13 +103,13 @@ void Bandymas2_DuomenuApdorojimas(int sizes[5], const int pas) {
             << std::setw(20) << "Iš viso (ms)" << "\n";
     cout << string(95, '-') << "\n";
 
+    Laikas timer;
+    timer.Reset();  // isvalo praeitus matavimus
+
     for (int i = 0; i < 5; ++i) {
         string filename = "studentai" + std::to_string(sizes[i]) + "_gen";
         vector<studentas> stud;
         int MaxPav = 0, MaxVard = 0;
-
-        Laikas timer;
-        timer.Reset();
 
         // Laiko pradžia (iš viso)
         timer.PradekLaikmati();

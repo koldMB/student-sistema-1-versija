@@ -7,10 +7,8 @@
 #include <sstream>
 #include <vector>
 #include <string>
-#include <random>
-#include <array>
-#include <limits>
-#include <chrono>
+#include <list>
+#include <deque>
 #include "Common.h"
 #include "klaiduValdymas.h"
 
@@ -422,6 +420,41 @@ void FailoNuskaitymas(T<studentas> &stud, const string& filename) {
         }
         f.close();
     });
+}
+
+// Template overloads for list and deque
+template<typename T>
+void skaitymas(T &stud) {
+    vector<studentas> temp;
+    skaitymas(temp);
+    stud.assign(temp.begin(), temp.end());
+}
+
+template<typename T>
+void skaitymas(T &stud, int &n, int nd_sk) {
+    vector<studentas> temp;
+    skaitymas(temp, n, nd_sk);
+    stud.assign(temp.begin(), temp.end());
+}
+
+template<typename T>
+void skaitymas(T &stud, int &n, int nd_sk, int VardPavSk) {
+    vector<studentas> temp;
+    skaitymas(temp, n, nd_sk, VardPavSk);
+    stud.assign(temp.begin(), temp.end());
+}
+
+template<typename T>
+void FailoNuskaitymas(T &stud, const string& filename) {
+    vector<studentas> temp;
+    FailoNuskaitymas(temp, filename);
+    stud.assign(temp.begin(), temp.end());
+}
+
+template<typename T>
+void TermArFailas(const T &stud, int &MaxPav, int &MaxVard) {
+    vector<studentas> temp(stud.begin(), stud.end());
+    TermArFailas(temp, MaxPav, MaxVard);
 }
 
 #endif //STUDENTU_SISTEMA_ISVESTISIVESTIS_H

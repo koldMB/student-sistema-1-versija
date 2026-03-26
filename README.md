@@ -1,6 +1,73 @@
+# Testavimo kompiuterio specifikacijos
+
+Processor	AMD Ryzen 5 5600H with Radeon Graphics 3.30 GHz
+
+Installed RAM	16,0 GB (13,9 GB usable)
+
+System type	64-bit operating system, x64-based processor
+
+Edition	Windows 11 Home
+Version	23H2
+
+Disk 1 (C:)
+
+	WDC PC SN530 SDBPMPZ-512G-1101
+
+	Capacity:	477 GB
+	Formatted:	477 GB
+	System disk:	Yes
+	Page file:	Yes
+	Type:	SSD
+
+Disk 0 (D: E:)
+
+	ADATA LEGEND 710
+
+	Capacity:	477 GB
+	Formatted:	477 GB
+	System disk:	No
+	Page file:	No
+	Type:	SSD
+
+Memory
+
+	16,0 GB
+
+	Speed:	3200 MT/s
+	Slots used:	1 of 2
+	Form factor:	SODIMM
+	Hardware reserved:	2,1 GB
+
+GPU 0
+
+	NVIDIA GeForce RTX 3060 Laptop GPU
+
+	Driver version:	32.0.15.7283
+	Driver date:	2025-03-14
+	DirectX version:	12 (FL 12.1)
+	Physical location:	PCI bus 1, device 0, function 0
+
+	Dedicated GPU memory	0,1/6,0 GB
+	Shared GPU memory	0,0/6,9 GB
+	GPU Memory	0,1/12,9 GB
+
+GPU 1
+
+	AMD Radeon(TM) Graphics
+
+	Driver version:	31.0.21921.13001
+	Driver date:	2025-07-07
+	DirectX version:	12 (FL 12.1)
+	Physical location:	PCI bus 6, device 0, function 0
+
+	Dedicated GPU memory	0,5/2,0 GB
+	Shared GPU memory	0,1/6,9 GB
+	GPU Memory	0,6/8,9 GB
+
+
 # Laiko efektyvumo testai v0.4
 
-## Čia žiurėkite tik į failų generavimo testą, duomenų apdorojimas yra man
+_Čia žiurėkite tik į failų generavimo testą, duomenų apdorojimas yra man kai generavau failus_
 
 Milisekundė (ms) - viena tūkstantoji sekundės dalis
 ![testas](04%20versija%20screenshotai/PirmasTestas.png)
@@ -49,5 +116,7 @@ Milisekundė (ms) - viena tūkstantoji sekundės dalis
    * Rūšiavimas - 52784,5 ms
    * Rašymas - 21344,5 ms
    * Visas laikas - 148490,8 ms
+
+# Laiko efektyvumo testai v1.0
 
 
