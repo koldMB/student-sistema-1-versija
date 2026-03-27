@@ -55,13 +55,12 @@ void atrinkimas(const vector<studentas> &stud, vector<studentas> &atrinkti, vect
 }
 
 void atrinkimasAutomatiskas(vector<studentas> &stud, vector<studentas> &geri, vector<studentas> &blogi) {
-    for (const auto &s: stud) {
-        if (s.GalMediana >= 5.0) {
-            geri.push_back(s);
-        } else {
-            blogi.push_back(s);
-        }
-    }
+    auto partition_point = std::partition(stud.begin(), stud.end(),
+        [](const studentas &s) { return s.GalMediana >= 5.0; });
+    
+    std::copy(stud.begin(), partition_point, std::back_inserter(geri));
+    std::copy(partition_point, stud.end(), std::back_inserter(blogi));
+    
     stud.clear();
     stud.shrink_to_fit();
 }

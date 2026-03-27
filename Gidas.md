@@ -1,6 +1,72 @@
 # Studentų Sistema
 
-Šis projektas yra skirtas studentų duomenų valdymui, įskaitant jų įvedimą, skaičiavimus, rikiavimą ir išvedimą. Sistema leidžia vartotojui dirbti su studentų vardais, pavardėmis, namų darbų pažymiais ir egzaminų rezultatais.
+## Reikalavimai
+
+Jums reikės šių įrankių, įdiegtų jūsų sistemoje:
+
+1. **CMake** (versija 3.20 arba naujesnė)
+   - Atsisiųskite iš: https://cmake.org/download/
+
+2. **C++ Kompiliatorius** (GCC/G++)
+   - Rekomenduojame naudoti **MSYS2** su MinGW64
+   - Atsisiųskite iš: https://www.msys2.org/
+   - Sekite jų diegimo instrukcijas
+
+## Patikrinkite Diegimą
+
+Atidarykite **PowerShell** ir patikrinkite, ar įrankiai yra įdiegti:
+
+```powershell
+cmake --version
+g++ --version
+```
+
+Jei gausite klaidų, įsitikinkite, kad įrankiai yra pridėti prie jūsų sistemos PATH aplinkos kintamojo.
+
+## Projekto Kompiliavimas
+
+### 1 Žingsnis: Navigiuokite į Projekto Aplankalą, pvz.
+
+```powershell
+cd "C:\Users\...\studentu-sistema"
+```
+
+### 2 Žingsnis: Sukurkite Kompiliavimo Aplankalą
+
+```powershell
+mkdir build -Force
+cd build
+```
+
+### 3 Žingsnis: Konfigūruokite Projektą su CMake
+
+```powershell
+cmake .. -G "MinGW Makefiles"
+```
+
+### 4 Žingsnis: Kompiliuokite Projektą
+
+```powershell
+cmake --build .
+```
+
+**Tikėtina Išvestis:** Išplečiamasis failas `studentuSistema.exe` bus sukurtas `build` kataloge.
+
+## Programos Paleidimas
+
+### Parinktis 1: Paleiskite iš Kompiliavimo Katalogo
+
+```powershell
+.\studentuSistema.exe
+```
+
+### Parinktis 2: Paleiskite iš Projekto Šaknies
+
+```powershell
+cd ..
+.\build\studentuSistema.exe
+```
+
 
 ## Projekto Struktūra
 
