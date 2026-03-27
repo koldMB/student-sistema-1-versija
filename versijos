@@ -1,0 +1,7 @@
+v0.1 - Minimali pradinė versija (proof of concept)
+v0.1 pataisyta - Programa išskaidyta į vector ir masyvo versijas
+v0.2 - Pridėta laikmačio klasė matuoti veiksmų laikus programoje 
+v0.3.1 - Programa perkelta į kelis failus
+v0.3.2 - Pridėtas klaidų apdorojimas prie v0.3.1
+v0.4 - Studentų atrinkimas į du kontenerius pagal nurodymus
+v1.0 - dabartinė versija
