@@ -46,11 +46,19 @@ public:
   inline void addNd(double grade) { nd_.push_back(grade); }
   inline void clearNd() { nd_.clear(); }
   inline void resizeNd(size_t size) { nd_.resize(size); }
-  inline void setNdAt(size_t idx, double grade) { if(idx < nd_.size()) nd_[idx] = grade; }
+  inline void setNdAt(size_t idx, double grade) { if(idx < nd_.size()) nd_[idx] = grade;
+  }
   
   std::istream& readStudent(std::istream&);
 
-  ~Studentas() = default;  
+  ~Studentas() {
+    vardas_.clear();
+    pavarde_.clear();
+    egzaminas_ = 0;
+    mediana_ = 0;
+    vidurkis_ = 0;
+    nd_.clear();
+  }
 };
 
 void atrinkimas(const vector<Studentas> &stud, vector<Studentas> &atrinkti, vector<Studentas> &neatrinkti);
