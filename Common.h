@@ -48,7 +48,9 @@ public:
   inline void resizeNd(size_t size) { nd_.resize(size); }
   inline void setNdAt(size_t idx, double grade) { if(idx < nd_.size()) nd_[idx] = grade; }
   
-  std::istream& readStudent(std::istream&);  // set'eriai
+  std::istream& readStudent(std::istream&);
+
+  ~Studentas() = default;  
 };
 
 void atrinkimas(const vector<Studentas> &stud, vector<Studentas> &atrinkti, vector<Studentas> &neatrinkti);
