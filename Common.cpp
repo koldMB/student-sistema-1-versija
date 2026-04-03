@@ -26,7 +26,7 @@ bool isInteger(const string &s) {
     return (s.size() - start) > 0;
 }
 
-void atrinkimas(const vector<studentas> &stud, vector<studentas> &atrinkti, vector<studentas> &neatrinkti) {
+void atrinkimas(const vector<Studentas> &stud, vector<Studentas> &atrinkti, vector<Studentas> &neatrinkti) {
     cout << "Pagal ką atrinkinėti? (1 - pagal vidurkį, 2 - pagal medianą): " << std::flush;
     string pasirinkimas;
     std::cin >> pasirinkimas;
@@ -37,7 +37,7 @@ void atrinkimas(const vector<studentas> &stud, vector<studentas> &atrinkti, vect
     int pasirinkimas_int = std::stoi(pasirinkimas);
     if (pasirinkimas_int == 1) {
         for (const auto &s: stud) {
-            if (s.GalVidurkis >= 5) {
+            if (s.vidurkis() >= 5) {
                 atrinkti.push_back(s);
             } else {
                 neatrinkti.push_back(s);
@@ -45,7 +45,7 @@ void atrinkimas(const vector<studentas> &stud, vector<studentas> &atrinkti, vect
         }
     } else {
         for (const auto &s: stud) {
-            if (s.GalMediana >= 5) {
+            if (s.mediana() >= 5) {
                 atrinkti.push_back(s);
             } else {
                 neatrinkti.push_back(s);
@@ -54,9 +54,9 @@ void atrinkimas(const vector<studentas> &stud, vector<studentas> &atrinkti, vect
     }
 }
 
-void atrinkimasAutomatiskas(vector<studentas> &stud, vector<studentas> &geri, vector<studentas> &blogi) {
+void atrinkimasAutomatiskas(vector<Studentas> &stud, vector<Studentas> &geri, vector<Studentas> &blogi) {
     auto partition_point = std::partition(stud.begin(), stud.end(),
-        [](const studentas &s) { return s.GalMediana >= 5.0; });
+        [](const Studentas &s) { return s.mediana() >= 5.0; });
     
     std::copy(stud.begin(), partition_point, std::back_inserter(geri));
     std::copy(partition_point, stud.end(), std::back_inserter(blogi));
@@ -66,7 +66,7 @@ void atrinkimasAutomatiskas(vector<studentas> &stud, vector<studentas> &geri, ve
 }
 
 void Bandymas1_FailuGeneravimas(int sizes[5]) {
-    cout << "1 BANDYMAS: FAILŲ GENERAVIMAS\n";
+    cout << "FAILŲ GENERAVIMAS\n";
 
     cout << std::left << std::setw(15) << "Studentai"
             << std::setw(20) << "Laikas (ms)"
@@ -94,7 +94,7 @@ void Bandymas1_FailuGeneravimas(int sizes[5]) {
 }
 
 void Bandymas2_DuomenuApdorojimas(int sizes[5], const int pas) {
-    cout << "2 BANDYMAS: DUOMENŲ APDOROJIMAS (Skaitymas, Rūšiavimas, Rašymas)\n";
+    cout << "DUOMENŲ APDOROJIMAS (Skaitymas, Rūšiavimas, Rašymas)\n";
     cout << std::left << std::setw(15) << "Studentai"
             << std::setw(20) << "Skaitymas (ms)"
             << std::setw(20) << "Rūšiavimas (ms)"
@@ -107,7 +107,7 @@ void Bandymas2_DuomenuApdorojimas(int sizes[5], const int pas) {
 
     for (int i = 0; i < 5; ++i) {
         string filename = "studentai" + std::to_string(sizes[i]) + "_gen";
-        vector<studentas> stud;
+        vector<Studentas> stud;
         int MaxPav = 0, MaxVard = 0;
 
         // Laiko pradžia (iš viso)
@@ -124,16 +124,16 @@ void Bandymas2_DuomenuApdorojimas(int sizes[5], const int pas) {
 
         // 3. Rūšiavimas
         timer.PradekLaikmati();
-        vector<studentas> geri, blogi;
+        vector<Studentas> geri, blogi;
         atrinkimasAutomatiskas(stud, geri, blogi);
         if (pas == 1) {
             // vidurkis
-            rikiavimas(blogi, 4);
-            rikiavimas(geri, 4);
+            rikiavimas(blogi, 1);
+            rikiavimas(geri, 1);
         } else if (pas == 2) {
             // mediana
-            rikiavimas(blogi, 3);
-            rikiavimas(geri, 3);
+            rikiavimas(blogi, 2);
+            rikiavimas(geri, 2);
         } else exit(-9);
         timer.BaigtiLaikmati();
         double sorting_time = LaikoVektorius.back();
