@@ -73,9 +73,17 @@ unsuccessfulbuild
 cmake-build-*/
 cmake-build-debug/
 cmake-build-release/
+cmake-build-minsizerel/
+cmake-build-relwithdebinfo/
 .idea/
 *.iml
 .fleet/
+
+# Direktorijos su optimizavimo vėliavėlėm
+build-O1/
+build-O2/
+build-O3/
+build/
 
 # Visual Studio IDE
 .vs/
