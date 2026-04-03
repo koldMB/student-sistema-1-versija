@@ -5,42 +5,59 @@
 #include <vector>
 #include <list>
 #include <deque>
+#include <iostream>
+
 
 using std::string;
 using std::vector;
 bool isInteger(const string& s);
 
-struct studentas {
-    std::string vardas;
-    std::string pavarde;
-    std::vector<int> nd;
-    double GalMediana;
-    double GalVidurkis;
-    int egz;
+class Studentas {
+// realizacija
+private:
+  std::string vardas_;
+  std::string pavarde_;
+  double egzaminas_;
+  double mediana_;
+  double vidurkis_;
+  std::vector<double> nd_;
+// interfeisas
+public:
+  Studentas() : egzaminas_(0), mediana_(0.0), vidurkis_(0.0) { }  // default konstruktorius
+  Studentas(std::istream& is);
+  
+  // Getters
+  inline std::string vardas() const { return vardas_; }
+  inline std::string pavarde() const { return pavarde_; }
+  inline double egzaminas() const { return egzaminas_; }
+  inline double mediana() const { return mediana_; }
+  inline double vidurkis() const { return vidurkis_; }
+  inline const std::vector<double>& nd() const { return nd_; }
+  double galBalas(double (*) (const vector<double>&) = nullptr) const;
+  
+  // Setters
+  inline void setVardas(const std::string& v) { vardas_ = v; }
+  inline void setPavarde(const std::string& p) { pavarde_ = p; }
+  inline void setEgzaminas(double e) { egzaminas_ = e; }
+  inline void setMediana(double m) { mediana_ = m; }
+  inline void setVidurkis(double v) { vidurkis_ = v; }
+  inline void setNd(const std::vector<double>& n) { nd_ = n; }
+  inline std::vector<double>& ndRef() { return nd_; }
+  inline void addNd(double grade) { nd_.push_back(grade); }
+  inline void clearNd() { nd_.clear(); }
+  inline void resizeNd(size_t size) { nd_.resize(size); }
+  inline void setNdAt(size_t idx, double grade) { if(idx < nd_.size()) nd_[idx] = grade; }
+  
+  std::istream& readStudent(std::istream&);  // set'eriai
 };
 
-void atrinkimas(const vector<studentas> &stud, vector<studentas> &atrinkti, vector<studentas> &neatrinkti);
-void atrinkimasAutomatiskas(const vector<studentas> &stud, vector<studentas> &geri, vector<studentas> &blogi);
+void atrinkimas(const vector<Studentas> &stud, vector<Studentas> &atrinkti, vector<Studentas> &neatrinkti);
+void atrinkimasAutomatiskas(const vector<Studentas> &stud, vector<Studentas> &geri, vector<Studentas> &blogi);
 void Bandymas1_FailuGeneravimas(int sizes[5]);
 void Bandymas2_DuomenuApdorojimas(int sizes[5], int pas);
 
-// Templatai studentui
-template<typename T1, typename T2, typename T3>
-void atrinkimas(const T1 &stud, T2 &atrinkti, T3 &neatrinkti) {
-    vector<studentas> temp_stud(stud.begin(), stud.end());
-    vector<studentas> temp_atrinkti, temp_neatrinkti;
-    atrinkimas(temp_stud, temp_atrinkti, temp_neatrinkti);
-    atrinkti.assign(temp_atrinkti.begin(), temp_atrinkti.end());
-    neatrinkti.assign(temp_neatrinkti.begin(), temp_neatrinkti.end());
-}
+void atrinkimas(const vector<Studentas> &stud, vector<Studentas> &atrinkti, vector<Studentas> &neatrinkti);
 
-template<typename T1, typename T2, typename T3>
-void atrinkimasAutomatiskas(const T1 &stud, T2 &geri, T3 &blogi) {
-    vector<studentas> temp_stud(stud.begin(), stud.end());
-    vector<studentas> temp_geri, temp_blogi;
-    atrinkimasAutomatiskas(temp_stud, temp_geri, temp_blogi);
-    geri.assign(temp_geri.begin(), temp_geri.end());
-    blogi.assign(temp_blogi.begin(), temp_blogi.end());
-}
+void atrinkimasAutomatiskas(const vector<Studentas> &stud, vector<Studentas> &geri, vector<Studentas> &blogi);
 
 #endif // COMMON_H
