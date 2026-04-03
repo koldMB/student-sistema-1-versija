@@ -14,19 +14,19 @@ using std::cout;
 using std::cin;
 using std::cerr;
 
-bool VardoRikiavimas(const studentas &a, const studentas &b) {
-    return a.vardas < b.vardas;
+bool VardoRikiavimas(const Studentas &a, const Studentas &b) {
+    return a.vardas() < b.vardas();
 }
 
-bool MedianaRikiavimas(const studentas &a, const studentas &b) {
-    return a.GalMediana > b.GalMediana;
+bool MedianaRikiavimas(const Studentas &a, const Studentas &b) {
+    return a.mediana() > b.mediana();
 }
 
-bool VidurkisRikiavimas(const studentas &a, const studentas &b) {
-    return a.GalVidurkis > b.GalVidurkis;
+bool VidurkisRikiavimas(const Studentas &a, const Studentas &b) {
+    return a.vidurkis() > b.vidurkis();
 }
 
-bool PavardeRikiavimas(const studentas &a, const studentas &b) {
-    return a.pavarde < b.pavarde;
+bool PavardeRikiavimas(const Studentas &a, const Studentas &b) {
+    return a.pavarde() < b.pavarde();
 }
 
