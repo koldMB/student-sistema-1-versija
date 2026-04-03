@@ -131,7 +131,14 @@ Milisekundė (ms) - viena tūkstantoji sekundės dalis
 | 10 000 000     | 74361.75 ms   | 52784.5 ms    | 21344.5 ms    | 148490.8 ms   |
 ## Optimizavimo vėliavėlės v1.1
 
-Pas mane MSVC todėl Ox vietoje O3
+### Klasės versija testas 1
+
+![O1 class 1](Kompiliavimo%20optimizavimas%20nuotraukos/O1%20class%201.png)
+![O1 class 2](Kompiliavimo%20optimizavimas%20nuotraukos/O1%20class%202.png)
+![O2 class 1](Kompiliavimo%20optimizavimas%20nuotraukos/O2%20class%201.png)
+![O2 class 2](Kompiliavimo%20optimizavimas%20nuotraukos/O2%20class%202.png)
+![O3 class 1](Kompiliavimo%20optimizavimas%20nuotraukos/O3%20class%201.png)
+![O3 class 2](Kompiliavimo%20optimizavimas%20nuotraukos/O3%20class%202.png)
 
 ### Klasės versija
 
@@ -139,7 +146,7 @@ Pas mane MSVC todėl Ox vietoje O3
 ---------|-----------------
  O1      | 90 KB           
  O2      | 113 KB          
- Ox      | 134 KB          
+ O3      | 134 KB          
 
 O1 versija
 
@@ -162,7 +169,7 @@ O2 versija
  744,4     | 328        | 345,8   | 1418,2       
  40893,4   | 47441,2    | 21496,6 | 109831,2     
 
-Ox versija
+O3 versija
 
  Skaitymas | Rušiavimas | Rašmas  | Visas laikas 
 -----------|------------|---------|--------------
@@ -173,11 +180,46 @@ Ox versija
  41899,2   | 45956,8    | 22088,2 | 109944,2     
 
 
+### Struktūros versija testas 1
+
+![O1 struct](Kompiliavimo%20optimizavimas%20nuotraukos/O1%20struct.png)
+![O2 struct](Kompiliavimo%20optimizavimas%20nuotraukos/O2%20struct.png)
+![O3 struct](Kompiliavimo%20optimizavimas%20nuotraukos/O3%20struct.png)
+
 ### Struktūros versija
 
 | Versija | Exe failo dydis |
 |---------|-----------------|
-| O1      | 84 KB           |
-| O2      | 113 KB          |
-| Ox      | 113 KB          |
+| O1      | 462 KB          |
+| O2      | 429 KB          |
+| O3      | 429 KB          |
 
+O1 versija
+
+| Skaitymas (ms) | Rūšiavimas (ms) | Rašymas (ms) | Iš viso (ms) |
+|----------------|-----------------|--------------|--------------|
+| 6,6            | 0               | 3,2          | 9,8          |
+| 28,4           | 3,6             | 14,2         | 46,2         |
+| 232,6          | 53,2            | 155,2        | 441          |
+| 454,6          | 105,2           | 285,2        | 845          |
+| 22552,2        | 7739,2          | 12592,8      | 42884,2      |
+
+O2 versija
+
+| Skaitymas (ms) | Rūšiavimas (ms) | Rašymas (ms) | Iš viso (ms) |
+|----------------|-----------------|--------------|--------------|
+| 2,6            | 0               | 2,2          | 4,8          |
+| 28             | 3,8             | 16,4         | 48,2         |
+| 245,2          | 55,4            | 141          | 441,6        |
+| 405,6          | 115,2           | 253,6        | 774,4        |
+| 21627,8        | 7808,8          | 12422,2      | 41858,8      |
+
+O3 versija
+
+| Skaitymas (ms) | Rūšiavimas (ms) | Rašymas (ms) | Iš viso (ms) |
+|----------------|-----------------|--------------|--------------|
+| 2,6            | 0               | 2,6          | 5,2          |
+| 22,8           | 3,2             | 14,8         | 40,8         |
+| 220,8          | 60              | 155,8        | 436,6        |
+| 456,4          | 113,8           | 304,6        | 874,8        |
+| 21103,6        | 7508,4          | 12939,6      | 41551,6      |
