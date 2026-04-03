@@ -137,7 +137,7 @@ Milisekundė (ms) - viena tūkstantoji sekundės dalis
 ---------|-----------------
  O1      | 90 KB           
  O2      | 113 KB          
- O3      | 134 KB          
+ Ox      | 134 KB          
 
 O1 versija
 
@@ -172,4 +172,10 @@ O3 versija
 
 
 ### Struktūros versija
+
+| Versija | Exe failo dydis |
+|---------|-----------------|
+| O1      | 84 KB           |
+| O2      | 113 KB          |
+| Ox      | 113 KB          |
 
