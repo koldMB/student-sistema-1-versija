@@ -131,13 +131,15 @@ Milisekundė (ms) - viena tūkstantoji sekundės dalis
 | 10 000 000     | 74361.75 ms   | 52784.5 ms    | 21344.5 ms    | 148490.8 ms   |
 ## Optimizavimo vėliavėlės v1.1
 
+Pas mane MSVC todėl Ox vietoje O3
+
 ### Klasės versija
 
  Versija | Exe failo dydis 
 ---------|-----------------
  O1      | 90 KB           
  O2      | 113 KB          
- O3      | 134 KB          
+ Ox      | 134 KB          
 
 O1 versija
 
@@ -160,7 +162,7 @@ O2 versija
  744,4     | 328        | 345,8   | 1418,2       
  40893,4   | 47441,2    | 21496,6 | 109831,2     
 
-O3 versija
+Ox versija
 
  Skaitymas | Rušiavimas | Rašmas  | Visas laikas 
 -----------|------------|---------|--------------
