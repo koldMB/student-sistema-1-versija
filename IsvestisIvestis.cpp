@@ -55,9 +55,9 @@ string pad_utf8(const string& str, size_t width) {
     return str + string(width - display_width, ' ');
 }
 
-void skaitymas(vector<studentas> &stud)
+void skaitymas(vector<Studentas> &stud)
 {
-    studentas temp;
+    Studentas temp;
     string laikinas;
     int n = 0;
     cout << "Jeigu norite baigti darba įveskite \\0" << "\n";
@@ -65,11 +65,11 @@ void skaitymas(vector<studentas> &stud)
         cout << "Įveskite " << n + 1 << " studento vardą: ";
         cin >> laikinas;
         if(laikinas == "\\0") return;
-        temp.vardas = laikinas;
+        temp.setVardas(laikinas);
         cout << "Įveskite " << n + 1 << " studento pavardę: ";
         cin >> laikinas;
         if(laikinas == "\\0") return;
-        temp.pavarde = laikinas;
+        temp.setPavarde(laikinas);
         cout << "Įveskite namų darbų skaičių: ";
         string nd_sk_str;
         cin >> nd_sk_str;
@@ -82,14 +82,14 @@ void skaitymas(vector<studentas> &stud)
             nd_sk_opt = AllExceptionsHandler::TryStoI(nd_sk_str);
         }
         const int nd_count = nd_sk_opt.value();
-        temp.nd.resize(nd_count);
+        temp.resizeNd(nd_count);
 
         for(int j = 0; j < nd_count; j++) {
             cout << "Įveskite " << j + 1 << " namų darbų įvertinimą: ";
             string nd_str;
             cin >> nd_str;
             if(nd_str == "\\0") {
-                temp.nd.resize(j); // sumažina vektoriaus dydį iki įvestų pažymių skaičiaus
+                temp.resizeNd(j); // sumažina vektoriaus dydį iki įvestų pažymių skaičiaus
                 return;
             }
             auto nd_opt = AllExceptionsHandler::TryStoI(nd_str);
@@ -99,25 +99,25 @@ void skaitymas(vector<studentas> &stud)
                 if(nd_str == "\\0") return;
                 nd_opt = AllExceptionsHandler::TryStoI(nd_str);
             }
-            temp.nd[j] = nd_opt.value();
+            temp.ndRef()[j] = nd_opt.value();
         }
         cout << "Įveskite egzamino įvertinimą: ";
         string egz_str;
         cin >> egz_str;
         if(egz_str == "\\0") {
-            temp.nd.clear();
+            temp.clearNd();
             return;
         }
         auto egz_opt = AllExceptionsHandler::TryStoI(egz_str);
         if (egz_opt.has_value()) {
-            temp.egz = egz_opt.value();
+            temp.setEgzaminas(egz_opt.value());
         }
         stud.push_back(temp);
         n++;
     }
 }
 
-void skaitymas(vector<studentas> &stud, int &n, int nd_sk)
+void skaitymas(vector<Studentas> &stud, int &n, int nd_sk)
 {
     n = 0;
     if (nd_sk <= 0)
@@ -143,27 +143,27 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk)
     cout << "Įveskite \\0 norėdami baigti duomenų įvedimą\n";
     int i = 0;
     while(true) {
-        studentas temp;
+        Studentas temp;
         cout << "Įveskite " << i + 1 << " studento vardą: ";
         cin >> laikinas;
         if(laikinas == "\\0") break;
-        temp.vardas = laikinas;
+        temp.setVardas(laikinas);
         cout << "Įveskite " << i + 1 << " studento pavardę: ";
         cin >> laikinas;
         if(laikinas == "\\0") break;
-        temp.pavarde = laikinas;
-        temp.nd.resize(nd_sk);
+        temp.setPavarde(laikinas);
+        temp.resizeNd(nd_sk);
         for (int j = 0; j < nd_sk; ++j) {
-            AllExceptionsHandler::TrySetAt(temp.nd, j, dist(gen));
+            AllExceptionsHandler::TrySetAt(temp.ndRef(), j, static_cast<double>(dist(gen)));
         }
-        temp.egz = dist(gen);
+        temp.setEgzaminas(static_cast<double>(dist(gen)));
         stud.push_back(temp);
         i++;
     }
     n = static_cast<int>(stud.size());
 }
 
-void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int VardPavSk)
+void skaitymas(vector<Studentas> &stud, int &n, int nd_sk, int VardPavSk)
 {
     if (n <= 0 || nd_sk <= 0 || VardPavSk <= 0)
     {
@@ -178,17 +178,17 @@ void skaitymas(vector<studentas> &stud, int &n, int nd_sk, int VardPavSk)
     std::uniform_int_distribution<> score_dist(1, 10);
 
     for (int i = 0; i < n; ++i) {
-        studentas temp;
-        temp.vardas = randomVardas(stud);
-        temp.pavarde = randomPavarde(stud);
-        temp.nd.resize(nd_sk);
-        for (int j = 0; j < nd_sk; ++j) AllExceptionsHandler::TrySetAt(temp.nd, j, score_dist(gen));
-        temp.egz = score_dist(gen);
+        Studentas temp;
+        temp.setVardas(randomVardas(stud));
+        temp.setPavarde(randomPavarde(stud));
+        temp.resizeNd(nd_sk);
+        for (int j = 0; j < nd_sk; ++j) AllExceptionsHandler::TrySetAt(temp.ndRef(), j, static_cast<double>(score_dist(gen)));
+        temp.setEgzaminas(static_cast<double>(score_dist(gen)));
         stud.push_back(temp);
     }
 }
 
-void isvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
+void isvestis(const vector<Studentas> &stud, int &MaxPav, int &MaxVard)
 {
     MaxVard = std::max(MaxVard, 12);
     MaxPav  = std::max(MaxPav, 12);
@@ -199,15 +199,15 @@ void isvestis(const vector<studentas> &stud, int &MaxPav, int &MaxVard)
             << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     oss << string(MaxVard + MaxPav + 44, '-') << "\n";
     for(auto &s : stud) {
-        oss << pad_utf8(s.vardas, MaxVard + 2) << pad_utf8(s.pavarde, MaxPav + 2)
-            << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis
-            << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
+        oss << pad_utf8(s.vardas(), MaxVard + 2) << pad_utf8(s.pavarde(), MaxPav + 2)
+            << setw(20) << std::fixed << std::setprecision(2) << s.vidurkis()
+            << setw(20) << std::fixed << std::setprecision(2) << s.mediana() << "\n";
     }
     cout << oss.str();
 }
 
 
-void FailoIsvedimas(const vector<studentas> &stud, const string& filename, int &MaxPav, int &MaxVard) {
+void FailoIsvedimas(const vector<Studentas> &stud, const string& filename, int &MaxPav, int &MaxVard) {
     std::ofstream f(filename + ".txt");
     if (!f.is_open()) {
         std::cerr << "Nepavyko atidaryti failo rašymui." << filename << "\n";
@@ -219,16 +219,16 @@ void FailoIsvedimas(const vector<studentas> &stud, const string& filename, int &
         << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     oss << string(MaxVard + MaxPav + 44, '-') << "\n";
     for(const auto &s : stud) {
-        oss << pad_utf8(s.vardas, MaxVard + 2) << pad_utf8(s.pavarde, MaxPav + 2)
-            << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis
-            << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
+        oss << pad_utf8(s.vardas(), MaxVard + 2) << pad_utf8(s.pavarde(), MaxPav + 2)
+            << setw(20) << std::fixed << std::setprecision(2) << s.vidurkis()
+            << setw(20) << std::fixed << std::setprecision(2) << s.mediana() << "\n";
     }
     
     f << oss.str();
     f.close();
 }
 
-void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard) {
+void TermArFailas(const vector<Studentas> &stud, int &MaxPav, int &MaxVard) {
     int pasirinkimas;
     cout << "Ar norite išvesti duomenis į failą? (1 - Taip, 2 - Ne): ";
     cin >> pasirinkimas;
@@ -247,7 +247,7 @@ void TermArFailas(const vector<studentas> &stud, int &MaxPav, int &MaxVard) {
     }
 }
 
-void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
+void FailoNuskaitymas(vector<Studentas> &stud, const string& filename) {
     Laikas FailSkait;
     
     std::ifstream f(filename+".txt");
@@ -283,13 +283,13 @@ void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
                 nd_sk = static_cast<int>(tokens.size()) - 3; // pirmi du žodžiai - vardas ir pavardė, paskutinis - egzaminas
             }
 
-            studentas temp;
+            Studentas temp;
             auto vardas_opt = AllExceptionsHandler::TryAt(tokens, 0);
             auto pavarde_opt = AllExceptionsHandler::TryAt(tokens, 1);
             if (!vardas_opt.has_value() || !pavarde_opt.has_value()) continue;
-            temp.vardas = vardas_opt.value();
-            temp.pavarde = pavarde_opt.value();
-            temp.nd.resize(nd_sk);
+            temp.setVardas(vardas_opt.value());
+            temp.setPavarde(pavarde_opt.value());
+            temp.resizeNd(nd_sk);
 
             // nuskaito namų darbų pažymius
             for (int i = 0; i < nd_sk; i++) {
@@ -297,7 +297,7 @@ void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
                 if (!token_opt.has_value()) continue;
                 auto nd_opt = AllExceptionsHandler::TryStoI(token_opt.value());
                 if (nd_opt.has_value()) {
-                    AllExceptionsHandler::TrySetAt(temp.nd, i, nd_opt.value());
+                    AllExceptionsHandler::TrySetAt(temp.ndRef(), i, static_cast<double>(nd_opt.value()));
                 }
             }
 
@@ -306,7 +306,7 @@ void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
             if (egz_token_opt.has_value()) {
                 auto egz_opt = AllExceptionsHandler::TryStoI(egz_token_opt.value());
                 if (egz_opt.has_value()) {
-                    temp.egz = egz_opt.value();
+                    temp.setEgzaminas(static_cast<double>(egz_opt.value()));
                 }
             }
 
@@ -316,7 +316,7 @@ void FailoNuskaitymas(vector<studentas> &stud, const string& filename) {
     });
 }
 
-void IsvestiGeriBlogiFailus(const vector<studentas> &geri, const vector<studentas> &blogi, int MaxPav, int MaxVard) {
+void IsvestiGeriBlogiFailus(const vector<Studentas> &geri, const vector<Studentas> &blogi, int MaxPav, int MaxVard) {
     MaxVard = std::max(MaxVard, 12);
     MaxPav = std::max(MaxPav, 12);
 
@@ -331,24 +331,24 @@ void IsvestiGeriBlogiFailus(const vector<studentas> &geri, const vector<studenta
         << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     geri_failas << string(MaxVard + MaxPav + 44, '-') << "\n";
     for (const auto& s : geri) {
-        geri_failas << pad_utf8(s.vardas, MaxVard + 2) << pad_utf8(s.pavarde, MaxPav + 2)
-            << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis
-            << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
+        geri_failas << pad_utf8(s.vardas(), MaxVard + 2) << pad_utf8(s.pavarde(), MaxPav + 2)
+            << setw(20) << std::fixed << std::setprecision(2) << s.vidurkis()
+            << setw(20) << std::fixed << std::setprecision(2) << s.mediana() << "\n";
     }
     // Blogi studentai
     blogi_failas << pad_utf8("Vardas", MaxVard + 2) << pad_utf8("Pavardė", MaxPav + 2)
         << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     blogi_failas << string(MaxVard + MaxPav + 44, '-') << "\n";
     for (const auto& s : blogi) {
-        blogi_failas << pad_utf8(s.vardas, MaxVard + 2) << pad_utf8(s.pavarde, MaxPav + 2)
-            << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis
-            << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
+        blogi_failas << pad_utf8(s.vardas(), MaxVard + 2) << pad_utf8(s.pavarde(), MaxPav + 2)
+            << setw(20) << std::fixed << std::setprecision(2) << s.vidurkis()
+            << setw(20) << std::fixed << std::setprecision(2) << s.mediana() << "\n";
     }
     geri_failas.close();
     blogi_failas.close();
 }
 
-string randomVardas(vector<studentas> &stud) {
+string randomVardas(vector<Studentas> &stud) {
     static const std::array<string, 67> vardai = {
         "Jonas", "Petras", "Andrius", "Tomas", "Matas",
         "Lukas", "Mantas", "Domas", "Karolis", "Rokas",
@@ -372,7 +372,7 @@ string randomVardas(vector<studentas> &stud) {
     return vardai[dist(gen)];
 }
 
-string randomPavarde(vector<studentas> &stud) {
+string randomPavarde(vector<Studentas> &stud) {
     static const std::array<string, 100> pavardes = {
     "Kazlauskas", "Stankevičius", "Petrauskas", "Jankauskas", "Žukauskas",
     "Butkus", "Balčiūnas", "Paulauskas", "Vasiliauskas", "Baranauskas", "Urbonas",
@@ -400,8 +400,7 @@ string randomPavarde(vector<studentas> &stud) {
     std::uniform_int_distribution<> dist(0, pavardes.size() - 1);
     return pavardes[dist(gen)];
 }
-
-void IsvestiBlogusGerusFailus(const vector<studentas> &geri, const vector<studentas> &blogi, const string& basename, int MaxPav, int MaxVard) {
+void IsvestiBlogusGerusFailus(const vector<Studentas> &geri, const vector<Studentas> &blogi, const string& basename, int MaxPav, int MaxVard) {
     MaxVard = std::max(MaxVard, 12);
     MaxPav = std::max(MaxPav, 12);
 
@@ -416,18 +415,18 @@ void IsvestiBlogusGerusFailus(const vector<studentas> &geri, const vector<studen
         << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     geri_failas << string(MaxVard + MaxPav + 44, '-') << "\n";
     for (const auto& s : geri) {
-        geri_failas << pad_utf8(s.vardas, MaxVard + 2) << pad_utf8(s.pavarde, MaxPav + 2)
-            << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis
-            << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
+        geri_failas << pad_utf8(s.vardas(), MaxVard + 2) << pad_utf8(s.pavarde(), MaxPav + 2)
+            << setw(20) << std::fixed << std::setprecision(2) << s.vidurkis()
+            << setw(20) << std::fixed << std::setprecision(2) << s.mediana() << "\n";
     }
     // Blogi studentai
     blogi_failas << pad_utf8("Vardas", MaxVard + 2) << pad_utf8("Pavardė", MaxPav + 2)
         << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     blogi_failas << string(MaxVard + MaxPav + 44, '-') << "\n";
     for (const auto& s : blogi) {
-        blogi_failas << pad_utf8(s.vardas, MaxVard + 2) << pad_utf8(s.pavarde, MaxPav + 2)
-            << setw(20) << std::fixed << std::setprecision(2) << s.GalVidurkis
-            << setw(20) << std::fixed << std::setprecision(2) << s.GalMediana << "\n";
+        blogi_failas << pad_utf8(s.vardas(), MaxVard + 2) << pad_utf8(s.pavarde(), MaxPav + 2)
+            << setw(20) << std::fixed << std::setprecision(2) << s.vidurkis()
+            << setw(20) << std::fixed << std::setprecision(2) << s.mediana() << "\n";
     }
     geri_failas.close();
     blogi_failas.close();
@@ -451,7 +450,14 @@ void GeneruotiStudentuFaila(const string& filename, int student_count, int nd_sk
         return;
     }
 
-    vector<studentas> dummy; // Viena kart naudojamas konteineris randomVardas ir randomPavarde funkcijoms
+    // Write header line
+    failas << "Vardas Pavarde";
+    for (int j = 0; j < nd_sk; ++j) {
+        failas << " ND" << (j + 1);
+    }
+    failas << " Egzaminas\n";
+
+    vector<Studentas> dummy; // Viena kart naudojamas konteineris randomVardas ir randomPavarde funkcijoms
     for (int i = 0; i < student_count; ++i) {
         string vardas = randomVardas(dummy);
         string pavarde = randomPavarde(dummy);
