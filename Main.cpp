@@ -203,33 +203,8 @@ int main() {
         cerr << "Klaida keičiant console į UTF-8: " << e.what() << std::endl;
         return -2;
     }
-
-    // Pasirinkti duomenų struktūrą
-    int struktura_pasirinkimas;
-    do {
-        cout << "1. Vector\n";
-        cout << "2. Deque\n";
-        cout << "3. List\n";
-        cout << "Pasirinkimas: ";
-        string struktura_str;
-        cin >> struktura_str;
-        auto struktura_opt = AllExceptionsHandler::TryStoI(struktura_str);
-        while (!struktura_opt.has_value() || struktura_opt.value() < 1 || struktura_opt.value() > 3) {
-            cerr << "Klaidinga įvestis. Bandykite dar kartą: " << flush;
-            cin >> struktura_str;
-            struktura_opt = AllExceptionsHandler::TryStoI(struktura_str);
-        }
-        struktura_pasirinkimas = struktura_opt.value();
-        break;
-    } while (true);
-
-    if (struktura_pasirinkimas == 1) {
-        runStudentSystem<vector<studentas>>();
-    } else if (struktura_pasirinkimas == 2) {
-        runStudentSystem<deque<studentas>>();
-    } else if (struktura_pasirinkimas == 3) {
-        runStudentSystem<list<studentas>>();
-    }
+    
+    runStudentSystem<vector<Studentas>>();
 
     return 0;
 }
