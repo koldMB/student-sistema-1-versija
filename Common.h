@@ -24,7 +24,13 @@ private:
 // interfeisas
 public:
   Studentas() : egzaminas_(0), mediana_(0.0), vidurkis_(0.0) { }  // default konstruktorius
-  Studentas(std::istream& is);
+  
+  // Kopijavimo konstruktorius
+  Studentas(const Studentas& kitasSTD) 
+    : vardas_(kitasSTD.vardas_), pavarde_(kitasSTD.pavarde_), 
+      egzaminas_(kitasSTD.egzaminas_), mediana_(kitasSTD.mediana_), 
+      vidurkis_(kitasSTD.vidurkis_), nd_(kitasSTD.nd_) { }
+  
   
   // Getters
   inline std::string vardas() const { return vardas_; }
