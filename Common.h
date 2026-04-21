@@ -44,13 +44,24 @@ public:
     return *this;
   }
   
-  // Move constructor
+  // Perkelimo konstruktorius
   Studentas(Studentas&& kitasSTD) noexcept
     : vardas_(std::move(kitasSTD.vardas_)), pavarde_(std::move(kitasSTD.pavarde_)), 
       egzaminas_(kitasSTD.egzaminas_), mediana_(kitasSTD.mediana_), 
       vidurkis_(kitasSTD.vidurkis_), nd_(std::move(kitasSTD.nd_)) { }
   
-
+  // Perkelimo priskyrimo operatorius
+  Studentas& operator=(Studentas&& kitasSTD) noexcept {
+    if (this != &kitasSTD) {
+      vardas_ = std::move(kitasSTD.vardas_);
+      pavarde_ = std::move(kitasSTD.pavarde_);
+      egzaminas_ = kitasSTD.egzaminas_;
+      mediana_ = kitasSTD.mediana_;
+      vidurkis_ = kitasSTD.vidurkis_;
+      nd_ = std::move(kitasSTD.nd_);
+    }
+    return *this;
+  }
   
   // Getters
   inline std::string vardas() const { return vardas_; }
