@@ -44,6 +44,13 @@ public:
     return *this;
   }
   
+  // Move constructor
+  Studentas(Studentas&& kitasSTD) noexcept
+    : vardas_(std::move(kitasSTD.vardas_)), pavarde_(std::move(kitasSTD.pavarde_)), 
+      egzaminas_(kitasSTD.egzaminas_), mediana_(kitasSTD.mediana_), 
+      vidurkis_(kitasSTD.vidurkis_), nd_(std::move(kitasSTD.nd_)) { }
+  
+
   
   // Getters
   inline std::string vardas() const { return vardas_; }
