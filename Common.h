@@ -31,6 +31,19 @@ public:
       egzaminas_(kitasSTD.egzaminas_), mediana_(kitasSTD.mediana_), 
       vidurkis_(kitasSTD.vidurkis_), nd_(kitasSTD.nd_) { }
   
+  // Kopijavimo priskyrimo operatorius
+  Studentas& operator=(const Studentas& kitasSTD) {
+    if (this != &kitasSTD) {
+      vardas_ = kitasSTD.vardas_;
+      pavarde_ = kitasSTD.pavarde_;
+      egzaminas_ = kitasSTD.egzaminas_;
+      mediana_ = kitasSTD.mediana_;
+      vidurkis_ = kitasSTD.vidurkis_;
+      nd_ = kitasSTD.nd_;
+    }
+    return *this;
+  }
+  
   
   // Getters
   inline std::string vardas() const { return vardas_; }
