@@ -4,8 +4,6 @@
 #include <string>
 #include <vector>
 #include <list>
-#include <deque>
-#include <iostream>
 
 
 using std::string;
@@ -25,11 +23,16 @@ private:
 public:
   Studentas() : egzaminas_(0), mediana_(0.0), vidurkis_(0.0) { }  // default konstruktorius
   
+  // Konstruktorius su vardais
+  Studentas(std::string v, std::string p) 
+    : vardas_(std::move(v)), pavarde_(std::move(p)), egzaminas_(0), mediana_(0.0), vidurkis_(0.0) { }
+  
+  // Konstruktorius su visais duomenimis
+  Studentas(std::string v, std::string p, double egz, double med, double vid, std::vector<double> n)
+    : vardas_(std::move(v)), pavarde_(std::move(p)), egzaminas_(egz), mediana_(med), vidurkis_(vid), nd_(std::move(n)) { }
+  
   // Kopijavimo konstruktorius
-  Studentas(const Studentas& kitasSTD) 
-    : vardas_(kitasSTD.vardas_), pavarde_(kitasSTD.pavarde_), 
-      egzaminas_(kitasSTD.egzaminas_), mediana_(kitasSTD.mediana_), 
-      vidurkis_(kitasSTD.vidurkis_), nd_(kitasSTD.nd_) { }
+  Studentas(const Studentas& kitasSTD) = default;
   
   // Kopijavimo priskyrimo operatorius
   Studentas& operator=(const Studentas& kitasSTD) {
@@ -73,17 +76,37 @@ public:
   double galBalas(double (*) (const vector<double>&) = nullptr) const;
   
   // Setters
-  inline void setVardas(const std::string& v) { vardas_ = v; }
-  inline void setPavarde(const std::string& p) { pavarde_ = p; }
+  inline void setVardas(std::string v) { vardas_ = std::move(v); }
+  inline void setPavarde(std::string p) { pavarde_ = std::move(p); }
   inline void setEgzaminas(double e) { egzaminas_ = e; }
   inline void setMediana(double m) { mediana_ = m; }
   inline void setVidurkis(double v) { vidurkis_ = v; }
-  inline void setNd(const std::vector<double>& n) { nd_ = n; }
+  inline void setNd(std::vector<double> n) { nd_ = std::move(n); }
   inline std::vector<double>& ndRef() { return nd_; }
+  
+  // addNd vienam pažymiui
   inline void addNd(double grade) { nd_.push_back(grade); }
+  
+  // addNd keliems pažymiams
+  inline void addNd(const std::vector<double>& grades) { 
+    for(double g : grades) nd_.push_back(g); 
+  }
+  
   inline void clearNd() { nd_.clear(); }
   inline void resizeNd(size_t size) { nd_.resize(size); }
-  inline void setNdAt(size_t idx, double grade) { if(idx < nd_.size()) nd_[idx] = grade;
+  inline void setNdAt(size_t idx, double grade) { if(idx < nd_.size()) nd_[idx] = grade; }
+  
+  // Overloaded setters - set name (vardas and pavarde together)
+  inline void setVardaPavarde(std::string v, std::string p) { 
+    vardas_ = std::move(v); 
+    pavarde_ = std::move(p); 
+  }
+  
+  // Overloaded setters pazymiams
+  inline void setRez(double egz, double med, double vid) {
+    egzaminas_ = egz;
+    mediana_ = med;
+    vidurkis_ = vid;
   }
   
   std::istream& readStudent(std::istream&);
@@ -102,9 +125,5 @@ void atrinkimas(const vector<Studentas> &stud, vector<Studentas> &atrinkti, vect
 void atrinkimasAutomatiskas(const vector<Studentas> &stud, vector<Studentas> &geri, vector<Studentas> &blogi);
 void Bandymas1_FailuGeneravimas(int sizes[5]);
 void Bandymas2_DuomenuApdorojimas(int sizes[5], int pas);
-
-void atrinkimas(const vector<Studentas> &stud, vector<Studentas> &atrinkti, vector<Studentas> &neatrinkti);
-
-void atrinkimasAutomatiskas(const vector<Studentas> &stud, vector<Studentas> &geri, vector<Studentas> &blogi);
 
 #endif // COMMON_H
