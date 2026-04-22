@@ -85,18 +85,18 @@ public:
   inline std::vector<double>& ndRef() { return nd_; }
   
   // addNd vienam pažymiui
-  inline void addNd(double grade) { nd_.push_back(grade); }
+  inline void addNd(double pazymys) { nd_.push_back(pazymys); }
   
   // addNd keliems pažymiams
-  inline void addNd(const std::vector<double>& grades) { 
-    for(double g : grades) nd_.push_back(g); 
+  inline void addNd(const std::vector<double>& pazymiai) { 
+    for(double g : pazymiai) nd_.push_back(g); 
   }
   
   inline void clearNd() { nd_.clear(); }
   inline void resizeNd(size_t size) { nd_.resize(size); }
-  inline void setNdAt(size_t idx, double grade) { if(idx < nd_.size()) nd_[idx] = grade; }
+  inline void setNdAt(size_t idx, double pazymys) { if(idx < nd_.size()) nd_[idx] = pazymys; }
   
-  // Overloaded setters - set name (vardas and pavarde together)
+  // Overloaded setters - set name (vardas and pavarde kartu)
   inline void setVardaPavarde(std::string v, std::string p) { 
     vardas_ = std::move(v); 
     pavarde_ = std::move(p); 
