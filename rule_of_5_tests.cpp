@@ -19,14 +19,14 @@ void test_numatytasis_konstruktorius() {
 void test_kopijavimo_konstruktorius() {
     std::cout << "Test 2: Kopijavimo Konstruktorius... ";
     Studentas original;
-    original.setVardas("Jonas");
-    original.setPavarde("Jonaitis");
+    original.setVardas("test1");
+    original.setPavarde("test2");
     original.setEgzaminas(8.5);
     original.addNd(7.0);
     
     Studentas copy(original);
-    assert(copy.vardas() == "Jonas");
-    assert(copy.pavarde() == "Jonaitis");
+    assert(copy.vardas() == "test1");
+    assert(copy.pavarde() == "test2");
     assert(copy.egzaminas() == 8.5);
     assert(copy.nd()[0] == 7.0);
     std::cout << "PASSED\n";
@@ -36,14 +36,14 @@ void test_kopijavimo_konstruktorius() {
 void test_kopijavimo_priskyrimas() {
     std::cout << "Test 3: Kopijavimo Priskyrimo Operatorius... ";
     Studentas s1;
-    s1.setVardas("Petras");
-    s1.setPavarde("Petraitis");
+    s1.setVardas("test3");
+    s1.setPavarde("test4");
     s1.addNd(6.5);
     
     Studentas s2;
     s2 = s1;
-    assert(s2.vardas() == "Petras");
-    assert(s2.pavarde() == "Petraitis");
+    assert(s2.vardas() == "test3");
+    assert(s2.pavarde() == "test4");
     assert(s2.nd()[0] == 6.5);
     std::cout << "PASSED\n";
 }
@@ -52,13 +52,13 @@ void test_kopijavimo_priskyrimas() {
 void test_perkėlimo_konstruktorius() {
     std::cout << "Test 4: Perkėlimo Konstruktorius... ";
     Studentas original;
-    original.setVardas("Marija");
-    original.setPavarde("Motina");
+    original.setVardas("test5");
+    original.setPavarde("test6");
     original.addNd(8.0);
     
     Studentas moved(std::move(original));
-    assert(moved.vardas() == "Marija");
-    assert(moved.pavarde() == "Motina");
+    assert(moved.vardas() == "test5");
+    assert(moved.pavarde() == "test6");
     assert(moved.nd()[0] == 8.0);
     std::cout << "PASSED\n";
 }
@@ -67,14 +67,14 @@ void test_perkėlimo_konstruktorius() {
 void test_perkėlimo_priskyrimas() {
     std::cout << "Test 5: Perkėlimo Priskyrimo Operatorius... ";
     Studentas s1;
-    s1.setVardas("Laima");
-    s1.setPavarde("Laimaite");
+    s1.setVardas("test7");
+    s1.setPavarde("test8");
     s1.addNd(9.0);
     
     Studentas s2;
     s2 = std::move(s1);
-    assert(s2.vardas() == "Laima");
-    assert(s2.pavarde() == "Laimaite");
+    assert(s2.vardas() == "test7");
+    assert(s2.pavarde() == "test8");
     assert(s2.nd()[0] == 9.0);
     std::cout << "PASSED\n";
 }
@@ -84,7 +84,7 @@ void test_destruktorius() {
     std::cout << "Test 6: Destruktorius... ";
     {
         Studentas s;
-        s.setVardas("Darius");
+        s.setVardas("test9");
         s.addNd(7.5);
         s.addNd(8.0);
         // Destruktorius automatiškai iškviečiamas
@@ -97,11 +97,11 @@ void test_setteriai_getteriai() {
     std::cout << "Test 7: Setteriai ir Getteriai... ";
     Studentas s;
     
-    s.setVardas("Vytautas");
-    assert(s.vardas() == "Vytautas");
+    s.setVardas("test10");
+    assert(s.vardas() == "test10");
     
-    s.setPavarde("Vytautaitis");
-    assert(s.pavarde() == "Vytautaitis");
+    s.setPavarde("test11");
+    assert(s.pavarde() == "test11");
     
     s.setEgzaminas(7.5);
     assert(s.egzaminas() == 7.5);
