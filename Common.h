@@ -19,7 +19,7 @@ public:
     virtual ~Zmogus() = default;
   };
 
-class Studentas {
+class Studentas : public Zmogus {
 // realizacija
 private:
   std::string vardas_;
