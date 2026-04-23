@@ -16,6 +16,7 @@ private:
     string pavarde_;
 public:
     virtual void foo() = 0;
+    virtual ~Zmogus() = default;
   };
 
 class Studentas {
