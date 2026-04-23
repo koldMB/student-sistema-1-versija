@@ -14,7 +14,9 @@ class Zmogus {
 private:
     string vardas_;
     string pavarde_;
-};
+public:
+    virtual void foo() = 0;
+  };
 
 class Studentas {
 // realizacija
