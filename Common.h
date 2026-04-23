@@ -10,6 +10,12 @@ using std::string;
 using std::vector;
 bool isInteger(const string& s);
 
+class Zmogus {
+private:
+    string vardas_;
+    string pavarde_;
+};
+
 class Studentas {
 // realizacija
 private:
