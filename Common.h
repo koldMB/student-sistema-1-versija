@@ -15,7 +15,7 @@ private:
     string vardas_;
     string pavarde_;
 public:
-    virtual void foo() = 0;
+    virtual void setVardaPavarde(const string& v, const string& p) = 0;
     virtual ~Zmogus() = default;
   };
 
@@ -114,9 +114,9 @@ public:
   inline void setNdAt(size_t idx, double pazymys) { if(idx < nd_.size()) nd_[idx] = pazymys; }
   
   // Overloaded setters - set name (vardas and pavarde kartu)
-  inline void setVardaPavarde(std::string v, std::string p) { 
-    vardas_ = std::move(v); 
-    pavarde_ = std::move(p); 
+  inline void setVardaPavarde(const std::string& v, const std::string& p) override { 
+    vardas_ = v; 
+    pavarde_ = p; 
   }
   
   // Overloaded setters pazymiams
@@ -127,7 +127,6 @@ public:
   }
   
   std::istream& readStudent(std::istream&);
-  //TODO: operator >> ir <<
   friend std::istream& operator>>(std::istream& in, Studentas& s);
   friend std::ostream& operator<<(std::ostream& out, const Studentas& s);
 
@@ -140,7 +139,7 @@ public:
     nd_.clear();
   }
 };
-//TODO: Žmogaus base klasė su vardu ir pavarde (v1.5)
+
 void atrinkimas(const vector<Studentas> &stud, vector<Studentas> &atrinkti, vector<Studentas> &neatrinkti);
 void atrinkimasAutomatiskas(const vector<Studentas> &stud, vector<Studentas> &geri, vector<Studentas> &blogi);
 void Bandymas1_FailuGeneravimas(int sizes[5]);
