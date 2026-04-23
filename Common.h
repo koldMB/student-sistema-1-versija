@@ -32,7 +32,15 @@ public:
     : vardas_(std::move(v)), pavarde_(std::move(p)), egzaminas_(egz), mediana_(med), vidurkis_(vid), nd_(std::move(n)) { }
   
   // Kopijavimo konstruktorius
-  Studentas(const Studentas& kitasSTD) = default;
+  Studentas(const Studentas& kitasSTD) 
+  {
+    vardas_ = kitasSTD.vardas_;
+    pavarde_ = kitasSTD.pavarde_;
+    egzaminas_ = kitasSTD.egzaminas_;
+    mediana_ = kitasSTD.mediana_;
+    vidurkis_ = kitasSTD.vidurkis_;
+    nd_ = kitasSTD.nd_;
+  }
   
   // Kopijavimo priskyrimo operatorius
   Studentas& operator=(const Studentas& kitasSTD) {
@@ -110,6 +118,9 @@ public:
   }
   
   std::istream& readStudent(std::istream&);
+  //TODO: operator >> ir <<
+  friend std::istream& operator>>(std::istream& in, Studentas& s);
+  friend std::ostream& operator<<(std::ostream& out, const Studentas& s);
 
   ~Studentas() {
     vardas_.clear();
@@ -120,7 +131,7 @@ public:
     nd_.clear();
   }
 };
-
+//TODO: Žmogaus base klasė su vardu ir pavarde (v1.5)
 void atrinkimas(const vector<Studentas> &stud, vector<Studentas> &atrinkti, vector<Studentas> &neatrinkti);
 void atrinkimasAutomatiskas(const vector<Studentas> &stud, vector<Studentas> &geri, vector<Studentas> &blogi);
 void Bandymas1_FailuGeneravimas(int sizes[5]);

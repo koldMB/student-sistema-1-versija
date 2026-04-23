@@ -6,6 +6,7 @@
 #include "Laikas.h"
 #include <iostream>
 #include <iomanip>
+#include <algorithm>
 
 using std::string;
 using std::vector;
@@ -162,4 +163,57 @@ void Bandymas2_DuomenuApdorojimas(int sizes[5], const int pas) {
     }
 
     cout << "\n";
+}
+
+// Stream input operator
+std::istream& operator>>(std::istream& in, Studentas& s) {
+    return s.readStudent(in);
+}
+
+// Stream output operator
+std::ostream& operator<<(std::ostream& out, const Studentas& s) {
+    out << std::left 
+        << std::setw(15) << s.vardas()
+        << std::setw(15) << s.pavarde()
+        << std::setw(12) << std::fixed << std::setprecision(2) << s.vidurkis()
+        << std::setw(12) << std::fixed << std::setprecision(2) << s.mediana()
+        << std::setw(12) << std::fixed << std::setprecision(2) << s.egzaminas();
+    return out;
+}
+
+// Read student data from input stream
+std::istream& Studentas::readStudent(std::istream& in) {
+    in >> vardas_ >> pavarde_ >> egzaminas_;
+    
+    int nd_count;
+    in >> nd_count;
+    nd_.clear();
+    nd_.resize(nd_count);
+    
+    for (int i = 0; i < nd_count; ++i) {
+        in >> nd_[i];
+    }
+    
+    // Calculate median and average
+    if (!nd_.empty()) {
+        std::vector<double> sorted_nd = nd_;
+        std::sort(sorted_nd.begin(), sorted_nd.end());
+        
+        if (sorted_nd.size() % 2 == 0) {
+            mediana_ = (sorted_nd[sorted_nd.size() / 2 - 1] + sorted_nd[sorted_nd.size() / 2]) / 2.0;
+        } else {
+            mediana_ = sorted_nd[sorted_nd.size() / 2];
+        }
+        
+        double sum = 0.0;
+        for (double grade : nd_) {
+            sum += grade;
+        }
+        vidurkis_ = sum / nd_.size();
+    } else {
+        mediana_ = 0.0;
+        vidurkis_ = 0.0;
+    }
+    
+    return in;
 }
