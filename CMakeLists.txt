@@ -3,6 +3,9 @@ project(studentu-sistema)
 
 set(CMAKE_CXX_STANDARD 17)
 
+# Add googletest
+add_subdirectory(C:/Users/Matas/googletest googletest_build)
+
 add_executable(studentuSistema
         Main.cpp
         Laikas.cpp
@@ -31,3 +34,5 @@ add_executable(rule_of_5_tests
         klaiduValdymas.cpp
         klaiduValdymas.h
 )
+
+target_link_libraries(rule_of_5_tests gtest gtest_main)
