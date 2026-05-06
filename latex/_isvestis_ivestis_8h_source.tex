@@ -1,0 +1,45 @@
+\doxysection{Isvestis\+Ivestis.\+h}
+\hypertarget{_isvestis_ivestis_8h_source}{}\label{_isvestis_ivestis_8h_source}\doxymbox{\hyperlink{_isvestis_ivestis_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ STUDENTU\_SISTEMA\_ISVESTISIVESTIS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ STUDENTU\_SISTEMA\_ISVESTISIVESTIS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <iomanip>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_common_8h}{Common.h}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{klaidu_valdymas_8h}{klaiduValdymas.h}}"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{using\ }std::string;}
+\DoxyCodeLine{00017\ \textcolor{keyword}{using\ }std::vector;}
+\DoxyCodeLine{00018\ \textcolor{keyword}{using\ }std::cout;}
+\DoxyCodeLine{00019\ \textcolor{keyword}{using\ }std::cerr;}
+\DoxyCodeLine{00020\ \textcolor{keyword}{using\ }std::cin;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ Forward\ declarations}}
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{string}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a39b09334b58a7c3868e6364d3260d820}{pad\_utf8}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ str,\ \textcolor{keywordtype}{size\_t}\ width);}
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{string}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a2f68c84a9df3158341619dea12429297}{randomVardas}}(vector<Studentas>\ \&stud);}
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{string}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a10d7edf966495689e86da8c8c7ccbe5d}{randomPavarde}}(vector<Studentas>\ \&stud);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ Function\ declarations\ -\/\ all\ using\ vector<Studentas>\ only}}
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a576d13a4a5f610c3ab56ed6ed3398502}{skaitymas}}(vector<Studentas>\ \&stud);}
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a576d13a4a5f610c3ab56ed6ed3398502}{skaitymas}}(vector<Studentas>\ \&stud,\ \textcolor{keywordtype}{int}\ \&n,\ \textcolor{keywordtype}{int}\ nd\_sk);}
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a576d13a4a5f610c3ab56ed6ed3398502}{skaitymas}}(vector<Studentas>\ \&stud,\ \textcolor{keywordtype}{int}\ \&n,\ \textcolor{keywordtype}{int}\ nd\_sk,\ \textcolor{keywordtype}{int}\ VardPavSk);}
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a99db211788b3aee4c64f62553edfc921}{FailoNuskaitymas}}(vector<Studentas>\ \&stud,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ filename);}
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a6db975ee02b095fffe8d884d666e5eb4}{FailoIsvedimas}}(\textcolor{keyword}{const}\ vector<Studentas>\ \&stud,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ filename,\ \textcolor{keywordtype}{int}\ \&MaxPav,\ \textcolor{keywordtype}{int}\ \&MaxVard);}
+\DoxyCodeLine{00033\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_ac83fbc3f7ce715ebc9aba9f61476e3b6}{TermArFailas}}(\textcolor{keyword}{const}\ vector<Studentas>\ \&stud,\ \textcolor{keywordtype}{int}\ \&MaxPav,\ \textcolor{keywordtype}{int}\ \&MaxVard);}
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a71e36bc2b9c1c376e707fb82ea227dfb}{isvestis}}(\textcolor{keyword}{const}\ vector<Studentas>\ \&stud,\ \textcolor{keywordtype}{int}\ \&MaxPav,\ \textcolor{keywordtype}{int}\ \&MaxVard);}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a43616e30de5c14d52edfc15e7dde176b}{IsvestiGeriBlogiFailus}}(\textcolor{keyword}{const}\ vector<Studentas>\ \&geri,\ \textcolor{keyword}{const}\ vector<Studentas>\ \&blogi,\ \textcolor{keywordtype}{int}\ MaxPav,\ \textcolor{keywordtype}{int}\ MaxVard);}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a40c0e3c9464fd3d30548d7fc6b93d745}{IsvestiBlogusGerusFailus}}(\textcolor{keyword}{const}\ vector<Studentas>\ \&geri,\ \textcolor{keyword}{const}\ vector<Studentas>\ \&blogi,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ basename,\ \textcolor{keywordtype}{int}\ MaxPav,\ \textcolor{keywordtype}{int}\ MaxVard);}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a051df042cbfd64f3d73f975e58266161}{GeneruotiStudentuFaila}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ filename,\ \textcolor{keywordtype}{int}\ student\_count,\ \textcolor{keywordtype}{int}\ nd\_sk);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//STUDENTU\_SISTEMA\_ISVESTISIVESTIS\_H}}
+
+\end{DoxyCode}

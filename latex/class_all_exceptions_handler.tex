@@ -1,0 +1,63 @@
+\doxysection{All\+Exceptions\+Handler Class Reference}
+\hypertarget{class_all_exceptions_handler}{}\label{class_all_exceptions_handler}\index{AllExceptionsHandler@{AllExceptionsHandler}}
+
+
+{\ttfamily \+\#include $<$klaidu\+Valdymas.\+h$>$}
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Func$>$ }\\static void \doxymbox{\hyperlink{class_all_exceptions_handler_a508d457727c766fcf18621661ad5b853}{Catch\+All}} (Func \&\&func)
+\item 
+{\footnotesize template$<$typename T = int$>$ }\\static std::\+optional$<$ T $>$ \doxymbox{\hyperlink{class_all_exceptions_handler_a03c4b117906f208319b4bf08755d26e4}{Try\+StoI}} (const std::\+string \&s)
+\item 
+static void \doxymbox{\hyperlink{class_all_exceptions_handler_aabc100a5f18956a3d235a7716a22cbdd}{Throw\+Runtime\+Error}} ()
+\item 
+{\footnotesize template$<$typename T$>$ }\\static std::\+optional$<$ T $>$ \doxymbox{\hyperlink{class_all_exceptions_handler_a44019e0d367320053c4ba89f5fe579b2}{Try\+At}} (const std::\+vector$<$ T $>$ \&vec, size\+\_\+t index)
+\item 
+{\footnotesize template$<$typename T$>$ }\\static bool \doxymbox{\hyperlink{class_all_exceptions_handler_a55a4476b03027cca88d4db21a63b2ddb}{Try\+Set\+At}} (std::\+vector$<$ T $>$ \&vec, size\+\_\+t index, const T \&value)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_all_exceptions_handler_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_all_exceptions_handler_a508d457727c766fcf18621661ad5b853}\index{AllExceptionsHandler@{AllExceptionsHandler}!CatchAll@{CatchAll}}
+\index{CatchAll@{CatchAll}!AllExceptionsHandler@{AllExceptionsHandler}}
+\doxysubsubsection{\texorpdfstring{CatchAll()}{CatchAll()}}
+{\footnotesize\ttfamily \label{class_all_exceptions_handler_a508d457727c766fcf18621661ad5b853} 
+template$<$typename Func$>$ \\
+void All\+Exceptions\+Handler::\+\+Catch\+All (\begin{DoxyParamCaption}\item[{Func \&\&}]{func}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\Hypertarget{class_all_exceptions_handler_aabc100a5f18956a3d235a7716a22cbdd}\index{AllExceptionsHandler@{AllExceptionsHandler}!ThrowRuntimeError@{ThrowRuntimeError}}
+\index{ThrowRuntimeError@{ThrowRuntimeError}!AllExceptionsHandler@{AllExceptionsHandler}}
+\doxysubsubsection{\texorpdfstring{ThrowRuntimeError()}{ThrowRuntimeError()}}
+{\footnotesize\ttfamily \label{class_all_exceptions_handler_aabc100a5f18956a3d235a7716a22cbdd} 
+void All\+Exceptions\+Handler::\+\+Throw\+Runtime\+Error (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\Hypertarget{class_all_exceptions_handler_a44019e0d367320053c4ba89f5fe579b2}\index{AllExceptionsHandler@{AllExceptionsHandler}!TryAt@{TryAt}}
+\index{TryAt@{TryAt}!AllExceptionsHandler@{AllExceptionsHandler}}
+\doxysubsubsection{\texorpdfstring{TryAt()}{TryAt()}}
+{\footnotesize\ttfamily \label{class_all_exceptions_handler_a44019e0d367320053c4ba89f5fe579b2} 
+template$<$typename T$>$ \\
+std::\+optional$<$ T $>$ All\+Exceptions\+Handler::\+\+Try\+At (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ T $>$ \&}]{vec}{, }\item[{size\+\_\+t}]{index}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\Hypertarget{class_all_exceptions_handler_a55a4476b03027cca88d4db21a63b2ddb}\index{AllExceptionsHandler@{AllExceptionsHandler}!TrySetAt@{TrySetAt}}
+\index{TrySetAt@{TrySetAt}!AllExceptionsHandler@{AllExceptionsHandler}}
+\doxysubsubsection{\texorpdfstring{TrySetAt()}{TrySetAt()}}
+{\footnotesize\ttfamily \label{class_all_exceptions_handler_a55a4476b03027cca88d4db21a63b2ddb} 
+template$<$typename T$>$ \\
+bool All\+Exceptions\+Handler::\+\+Try\+Set\+At (\begin{DoxyParamCaption}\item[{std::\+vector$<$ T $>$ \&}]{vec}{, }\item[{size\+\_\+t}]{index}{, }\item[{const T \&}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\Hypertarget{class_all_exceptions_handler_a03c4b117906f208319b4bf08755d26e4}\index{AllExceptionsHandler@{AllExceptionsHandler}!TryStoI@{TryStoI}}
+\index{TryStoI@{TryStoI}!AllExceptionsHandler@{AllExceptionsHandler}}
+\doxysubsubsection{\texorpdfstring{TryStoI()}{TryStoI()}}
+{\footnotesize\ttfamily \label{class_all_exceptions_handler_a03c4b117906f208319b4bf08755d26e4} 
+template$<$typename T = int$>$ \\
+std::\+optional$<$ T $>$ All\+Exceptions\+Handler::\+\+Try\+StoI (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{s}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{klaidu_valdymas_8h}{klaidu\+Valdymas.\+h}}\end{DoxyCompactItemize}

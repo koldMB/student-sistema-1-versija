@@ -1,0 +1,75 @@
+\doxysection{Common.\+cpp File Reference}
+\hypertarget{_common_8cpp}{}\label{_common_8cpp}\index{Common.cpp@{Common.cpp}}
+{\ttfamily \+\#include $<$string$>$}\newline
+{\ttfamily \+\#include "{}klaidu\+Valdymas.\+h"{}}\newline
+{\ttfamily \+\#include "{}Common.\+h"{}}\newline
+{\ttfamily \+\#include "{}Isvestis\+Ivestis.\+h"{}}\newline
+{\ttfamily \+\#include "{}Skaiciavimai.\+h"{}}\newline
+{\ttfamily \+\#include "{}Laikas.\+h"{}}\newline
+{\ttfamily \+\#include $<$iostream$>$}\newline
+{\ttfamily \+\#include $<$iomanip$>$}\newline
+{\ttfamily \+\#include $<$algorithm$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \doxymbox{\hyperlink{_common_8cpp_a42a8022c459256f365a6c675a0b842dc}{is\+Integer}} (const string \&s)
+\item 
+void \doxymbox{\hyperlink{_common_8cpp_ac1c67c33281b6ca35e3b8489356e94a7}{atrinkimas}} (const vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&stud, vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&atrinkti, vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&neatrinkti)
+\item 
+void \doxymbox{\hyperlink{_common_8cpp_a0bfaac3c8df86d0f2b1385b9f5ca1c6a}{atrinkimas\+Automatiskas}} (vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&stud, vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&geri, vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&blogi)
+\item 
+void \doxymbox{\hyperlink{_common_8cpp_aec34d6df22d0688aad878a7d61bf6968}{Bandymas1\+\_\+\+Failu\+Generavimas}} (int sizes\+[5]\+)
+\item 
+void \doxymbox{\hyperlink{_common_8cpp_a4ddbf5ca62bd5e0cec645848338376a8}{Bandymas2\+\_\+\+Duomenu\+Apdorojimas}} (int sizes\+[5]\+, const int pas)
+\item 
+std::\+istream \& \doxymbox{\hyperlink{_common_8cpp_af8f35a3ee68335b1adb35ac85edf1c03}{operator$>$$>$}} (std::\+istream \&in, \doxymbox{\hyperlink{class_studentas}{Studentas}} \&s)
+\item 
+std::\+ostream \& \doxymbox{\hyperlink{_common_8cpp_a8ef0139ac1bd9eb75f994ab35393cdad}{operator$<$$<$}} (std::\+ostream \&out, const \doxymbox{\hyperlink{class_studentas}{Studentas}} \&s)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{_common_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_common_8cpp_ac1c67c33281b6ca35e3b8489356e94a7}\index{Common.cpp@{Common.cpp}!atrinkimas@{atrinkimas}}
+\index{atrinkimas@{atrinkimas}!Common.cpp@{Common.cpp}}
+\doxysubsubsection{\texorpdfstring{atrinkimas()}{atrinkimas()}}
+{\footnotesize\ttfamily \label{_common_8cpp_ac1c67c33281b6ca35e3b8489356e94a7} 
+void atrinkimas (\begin{DoxyParamCaption}\item[{const vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{stud}{, }\item[{vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{atrinkti}{, }\item[{vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{neatrinkti}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_common_8cpp_a0bfaac3c8df86d0f2b1385b9f5ca1c6a}\index{Common.cpp@{Common.cpp}!atrinkimasAutomatiskas@{atrinkimasAutomatiskas}}
+\index{atrinkimasAutomatiskas@{atrinkimasAutomatiskas}!Common.cpp@{Common.cpp}}
+\doxysubsubsection{\texorpdfstring{atrinkimasAutomatiskas()}{atrinkimasAutomatiskas()}}
+{\footnotesize\ttfamily \label{_common_8cpp_a0bfaac3c8df86d0f2b1385b9f5ca1c6a} 
+void atrinkimas\+Automatiskas (\begin{DoxyParamCaption}\item[{vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{stud}{, }\item[{vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{geri}{, }\item[{vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{blogi}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_common_8cpp_aec34d6df22d0688aad878a7d61bf6968}\index{Common.cpp@{Common.cpp}!Bandymas1\_FailuGeneravimas@{Bandymas1\_FailuGeneravimas}}
+\index{Bandymas1\_FailuGeneravimas@{Bandymas1\_FailuGeneravimas}!Common.cpp@{Common.cpp}}
+\doxysubsubsection{\texorpdfstring{Bandymas1\_FailuGeneravimas()}{Bandymas1\_FailuGeneravimas()}}
+{\footnotesize\ttfamily \label{_common_8cpp_aec34d6df22d0688aad878a7d61bf6968} 
+void Bandymas1\+\_\+\+Failu\+Generavimas (\begin{DoxyParamCaption}\item[{int}]{sizes}{\+[5]\+}\end{DoxyParamCaption})}
+
+\Hypertarget{_common_8cpp_a4ddbf5ca62bd5e0cec645848338376a8}\index{Common.cpp@{Common.cpp}!Bandymas2\_DuomenuApdorojimas@{Bandymas2\_DuomenuApdorojimas}}
+\index{Bandymas2\_DuomenuApdorojimas@{Bandymas2\_DuomenuApdorojimas}!Common.cpp@{Common.cpp}}
+\doxysubsubsection{\texorpdfstring{Bandymas2\_DuomenuApdorojimas()}{Bandymas2\_DuomenuApdorojimas()}}
+{\footnotesize\ttfamily \label{_common_8cpp_a4ddbf5ca62bd5e0cec645848338376a8} 
+void Bandymas2\+\_\+\+Duomenu\+Apdorojimas (\begin{DoxyParamCaption}\item[{int}]{sizes}{\+[5]\+, }\item[{const int}]{pas}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_common_8cpp_a42a8022c459256f365a6c675a0b842dc}\index{Common.cpp@{Common.cpp}!isInteger@{isInteger}}
+\index{isInteger@{isInteger}!Common.cpp@{Common.cpp}}
+\doxysubsubsection{\texorpdfstring{isInteger()}{isInteger()}}
+{\footnotesize\ttfamily \label{_common_8cpp_a42a8022c459256f365a6c675a0b842dc} 
+bool is\+Integer (\begin{DoxyParamCaption}\item[{const string \&}]{s}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_common_8cpp_a8ef0139ac1bd9eb75f994ab35393cdad}\index{Common.cpp@{Common.cpp}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Common.cpp@{Common.cpp}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily \label{_common_8cpp_a8ef0139ac1bd9eb75f994ab35393cdad} 
+std::\+ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std::\+ostream \&}]{out}{, }\item[{const \doxymbox{\hyperlink{class_studentas}{Studentas}} \&}]{s}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_common_8cpp_af8f35a3ee68335b1adb35ac85edf1c03}\index{Common.cpp@{Common.cpp}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Common.cpp@{Common.cpp}}
+\doxysubsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}}
+{\footnotesize\ttfamily \label{_common_8cpp_af8f35a3ee68335b1adb35ac85edf1c03} 
+std::\+istream \& operator$>$$>$ (\begin{DoxyParamCaption}\item[{std::\+istream \&}]{in}{, }\item[{\doxymbox{\hyperlink{class_studentas}{Studentas}} \&}]{s}{}\end{DoxyParamCaption})}
+

@@ -1,0 +1,132 @@
+\doxysection{Isvestis\+Ivestis.\+cpp File Reference}
+\hypertarget{_isvestis_ivestis_8cpp}{}\label{_isvestis_ivestis_8cpp}\index{IsvestisIvestis.cpp@{IsvestisIvestis.cpp}}
+{\ttfamily \+\#include "{}Isvestis\+Ivestis.\+h"{}}\newline
+{\ttfamily \+\#include "{}Common.\+h"{}}\newline
+{\ttfamily \+\#include "{}klaidu\+Valdymas.\+h"{}}\newline
+{\ttfamily \+\#include "{}Laikas.\+h"{}}\newline
+{\ttfamily \+\#include $<$chrono$>$}\newline
+{\ttfamily \+\#include $<$iostream$>$}\newline
+{\ttfamily \+\#include $<$random$>$}\newline
+{\ttfamily \+\#include $<$array$>$}\newline
+{\ttfamily \+\#include $<$iomanip$>$}\newline
+{\ttfamily \+\#include $<$fstream$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \doxymbox{\hyperlink{_isvestis_ivestis_8cpp_ad6fbfa4dead01ee17445c7077c471785}{utf8\+\_\+display\+\_\+width}} (const string \&str)
+\item 
+string \doxymbox{\hyperlink{_isvestis_ivestis_8cpp_a39b09334b58a7c3868e6364d3260d820}{pad\+\_\+utf8}} (const string \&str, size\+\_\+t width)
+\item 
+void \doxymbox{\hyperlink{_isvestis_ivestis_8cpp_a576d13a4a5f610c3ab56ed6ed3398502}{skaitymas}} (vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&stud)
+\item 
+void \doxymbox{\hyperlink{_isvestis_ivestis_8cpp_a045258ee0f286b3096de5e4494be0b99}{skaitymas}} (vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&stud, int \&n, int nd\+\_\+sk)
+\item 
+void \doxymbox{\hyperlink{_isvestis_ivestis_8cpp_a14158f896c92bb8fb6a2d9a641d74d4f}{skaitymas}} (vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&stud, int \&n, int nd\+\_\+sk, int Vard\+Pav\+Sk)
+\item 
+void \doxymbox{\hyperlink{_isvestis_ivestis_8cpp_a71e36bc2b9c1c376e707fb82ea227dfb}{isvestis}} (const vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&stud, int \&Max\+Pav, int \&Max\+Vard)
+\item 
+void \doxymbox{\hyperlink{_isvestis_ivestis_8cpp_a6db975ee02b095fffe8d884d666e5eb4}{Failo\+Isvedimas}} (const vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&stud, const string \&filename, int \&Max\+Pav, int \&Max\+Vard)
+\item 
+void \doxymbox{\hyperlink{_isvestis_ivestis_8cpp_ac83fbc3f7ce715ebc9aba9f61476e3b6}{Term\+Ar\+Failas}} (const vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&stud, int \&Max\+Pav, int \&Max\+Vard)
+\item 
+void \doxymbox{\hyperlink{_isvestis_ivestis_8cpp_a99db211788b3aee4c64f62553edfc921}{Failo\+Nuskaitymas}} (vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&stud, const string \&filename)
+\item 
+void \doxymbox{\hyperlink{_isvestis_ivestis_8cpp_a43616e30de5c14d52edfc15e7dde176b}{Isvesti\+Geri\+Blogi\+Failus}} (const vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&geri, const vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&blogi, int Max\+Pav, int Max\+Vard)
+\item 
+string \doxymbox{\hyperlink{_isvestis_ivestis_8cpp_a2f68c84a9df3158341619dea12429297}{random\+Vardas}} (vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&stud)
+\item 
+string \doxymbox{\hyperlink{_isvestis_ivestis_8cpp_a10d7edf966495689e86da8c8c7ccbe5d}{random\+Pavarde}} (vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&stud)
+\item 
+void \doxymbox{\hyperlink{_isvestis_ivestis_8cpp_a40c0e3c9464fd3d30548d7fc6b93d745}{Isvesti\+Blogus\+Gerus\+Failus}} (const vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&geri, const vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&blogi, const string \&basename, int Max\+Pav, int Max\+Vard)
+\item 
+void \doxymbox{\hyperlink{_isvestis_ivestis_8cpp_a051df042cbfd64f3d73f975e58266161}{Generuoti\+Studentu\+Faila}} (const string \&filename, int student\+\_\+count, int nd\+\_\+sk)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{_isvestis_ivestis_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_isvestis_ivestis_8cpp_a6db975ee02b095fffe8d884d666e5eb4}\index{IsvestisIvestis.cpp@{IsvestisIvestis.cpp}!FailoIsvedimas@{FailoIsvedimas}}
+\index{FailoIsvedimas@{FailoIsvedimas}!IsvestisIvestis.cpp@{IsvestisIvestis.cpp}}
+\doxysubsubsection{\texorpdfstring{FailoIsvedimas()}{FailoIsvedimas()}}
+{\footnotesize\ttfamily \label{_isvestis_ivestis_8cpp_a6db975ee02b095fffe8d884d666e5eb4} 
+void Failo\+Isvedimas (\begin{DoxyParamCaption}\item[{const vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{stud}{, }\item[{const string \&}]{filename}{, }\item[{int \&}]{Max\+Pav}{, }\item[{int \&}]{Max\+Vard}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_isvestis_ivestis_8cpp_a99db211788b3aee4c64f62553edfc921}\index{IsvestisIvestis.cpp@{IsvestisIvestis.cpp}!FailoNuskaitymas@{FailoNuskaitymas}}
+\index{FailoNuskaitymas@{FailoNuskaitymas}!IsvestisIvestis.cpp@{IsvestisIvestis.cpp}}
+\doxysubsubsection{\texorpdfstring{FailoNuskaitymas()}{FailoNuskaitymas()}}
+{\footnotesize\ttfamily \label{_isvestis_ivestis_8cpp_a99db211788b3aee4c64f62553edfc921} 
+void Failo\+Nuskaitymas (\begin{DoxyParamCaption}\item[{vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{stud}{, }\item[{const string \&}]{filename}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_isvestis_ivestis_8cpp_a051df042cbfd64f3d73f975e58266161}\index{IsvestisIvestis.cpp@{IsvestisIvestis.cpp}!GeneruotiStudentuFaila@{GeneruotiStudentuFaila}}
+\index{GeneruotiStudentuFaila@{GeneruotiStudentuFaila}!IsvestisIvestis.cpp@{IsvestisIvestis.cpp}}
+\doxysubsubsection{\texorpdfstring{GeneruotiStudentuFaila()}{GeneruotiStudentuFaila()}}
+{\footnotesize\ttfamily \label{_isvestis_ivestis_8cpp_a051df042cbfd64f3d73f975e58266161} 
+void Generuoti\+Studentu\+Faila (\begin{DoxyParamCaption}\item[{const string \&}]{filename}{, }\item[{int}]{student\+\_\+count}{, }\item[{int}]{nd\+\_\+sk}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_isvestis_ivestis_8cpp_a40c0e3c9464fd3d30548d7fc6b93d745}\index{IsvestisIvestis.cpp@{IsvestisIvestis.cpp}!IsvestiBlogusGerusFailus@{IsvestiBlogusGerusFailus}}
+\index{IsvestiBlogusGerusFailus@{IsvestiBlogusGerusFailus}!IsvestisIvestis.cpp@{IsvestisIvestis.cpp}}
+\doxysubsubsection{\texorpdfstring{IsvestiBlogusGerusFailus()}{IsvestiBlogusGerusFailus()}}
+{\footnotesize\ttfamily \label{_isvestis_ivestis_8cpp_a40c0e3c9464fd3d30548d7fc6b93d745} 
+void Isvesti\+Blogus\+Gerus\+Failus (\begin{DoxyParamCaption}\item[{const vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{geri}{, }\item[{const vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{blogi}{, }\item[{const string \&}]{basename}{, }\item[{int}]{Max\+Pav}{, }\item[{int}]{Max\+Vard}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_isvestis_ivestis_8cpp_a43616e30de5c14d52edfc15e7dde176b}\index{IsvestisIvestis.cpp@{IsvestisIvestis.cpp}!IsvestiGeriBlogiFailus@{IsvestiGeriBlogiFailus}}
+\index{IsvestiGeriBlogiFailus@{IsvestiGeriBlogiFailus}!IsvestisIvestis.cpp@{IsvestisIvestis.cpp}}
+\doxysubsubsection{\texorpdfstring{IsvestiGeriBlogiFailus()}{IsvestiGeriBlogiFailus()}}
+{\footnotesize\ttfamily \label{_isvestis_ivestis_8cpp_a43616e30de5c14d52edfc15e7dde176b} 
+void Isvesti\+Geri\+Blogi\+Failus (\begin{DoxyParamCaption}\item[{const vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{geri}{, }\item[{const vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{blogi}{, }\item[{int}]{Max\+Pav}{, }\item[{int}]{Max\+Vard}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_isvestis_ivestis_8cpp_a71e36bc2b9c1c376e707fb82ea227dfb}\index{IsvestisIvestis.cpp@{IsvestisIvestis.cpp}!isvestis@{isvestis}}
+\index{isvestis@{isvestis}!IsvestisIvestis.cpp@{IsvestisIvestis.cpp}}
+\doxysubsubsection{\texorpdfstring{isvestis()}{isvestis()}}
+{\footnotesize\ttfamily \label{_isvestis_ivestis_8cpp_a71e36bc2b9c1c376e707fb82ea227dfb} 
+void isvestis (\begin{DoxyParamCaption}\item[{const vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{stud}{, }\item[{int \&}]{Max\+Pav}{, }\item[{int \&}]{Max\+Vard}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_isvestis_ivestis_8cpp_a39b09334b58a7c3868e6364d3260d820}\index{IsvestisIvestis.cpp@{IsvestisIvestis.cpp}!pad\_utf8@{pad\_utf8}}
+\index{pad\_utf8@{pad\_utf8}!IsvestisIvestis.cpp@{IsvestisIvestis.cpp}}
+\doxysubsubsection{\texorpdfstring{pad\_utf8()}{pad\_utf8()}}
+{\footnotesize\ttfamily \label{_isvestis_ivestis_8cpp_a39b09334b58a7c3868e6364d3260d820} 
+string pad\+\_\+utf8 (\begin{DoxyParamCaption}\item[{const string \&}]{str}{, }\item[{size\+\_\+t}]{width}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_isvestis_ivestis_8cpp_a10d7edf966495689e86da8c8c7ccbe5d}\index{IsvestisIvestis.cpp@{IsvestisIvestis.cpp}!randomPavarde@{randomPavarde}}
+\index{randomPavarde@{randomPavarde}!IsvestisIvestis.cpp@{IsvestisIvestis.cpp}}
+\doxysubsubsection{\texorpdfstring{randomPavarde()}{randomPavarde()}}
+{\footnotesize\ttfamily \label{_isvestis_ivestis_8cpp_a10d7edf966495689e86da8c8c7ccbe5d} 
+string random\+Pavarde (\begin{DoxyParamCaption}\item[{vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{stud}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_isvestis_ivestis_8cpp_a2f68c84a9df3158341619dea12429297}\index{IsvestisIvestis.cpp@{IsvestisIvestis.cpp}!randomVardas@{randomVardas}}
+\index{randomVardas@{randomVardas}!IsvestisIvestis.cpp@{IsvestisIvestis.cpp}}
+\doxysubsubsection{\texorpdfstring{randomVardas()}{randomVardas()}}
+{\footnotesize\ttfamily \label{_isvestis_ivestis_8cpp_a2f68c84a9df3158341619dea12429297} 
+string random\+Vardas (\begin{DoxyParamCaption}\item[{vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{stud}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_isvestis_ivestis_8cpp_a576d13a4a5f610c3ab56ed6ed3398502}\index{IsvestisIvestis.cpp@{IsvestisIvestis.cpp}!skaitymas@{skaitymas}}
+\index{skaitymas@{skaitymas}!IsvestisIvestis.cpp@{IsvestisIvestis.cpp}}
+\doxysubsubsection{\texorpdfstring{skaitymas()}{skaitymas()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \label{_isvestis_ivestis_8cpp_a576d13a4a5f610c3ab56ed6ed3398502} 
+void skaitymas (\begin{DoxyParamCaption}\item[{vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{stud}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_isvestis_ivestis_8cpp_a045258ee0f286b3096de5e4494be0b99}\index{IsvestisIvestis.cpp@{IsvestisIvestis.cpp}!skaitymas@{skaitymas}}
+\index{skaitymas@{skaitymas}!IsvestisIvestis.cpp@{IsvestisIvestis.cpp}}
+\doxysubsubsection{\texorpdfstring{skaitymas()}{skaitymas()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \label{_isvestis_ivestis_8cpp_a045258ee0f286b3096de5e4494be0b99} 
+void skaitymas (\begin{DoxyParamCaption}\item[{vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{stud}{, }\item[{int \&}]{n}{, }\item[{int}]{nd\+\_\+sk}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_isvestis_ivestis_8cpp_a14158f896c92bb8fb6a2d9a641d74d4f}\index{IsvestisIvestis.cpp@{IsvestisIvestis.cpp}!skaitymas@{skaitymas}}
+\index{skaitymas@{skaitymas}!IsvestisIvestis.cpp@{IsvestisIvestis.cpp}}
+\doxysubsubsection{\texorpdfstring{skaitymas()}{skaitymas()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \label{_isvestis_ivestis_8cpp_a14158f896c92bb8fb6a2d9a641d74d4f} 
+void skaitymas (\begin{DoxyParamCaption}\item[{vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{stud}{, }\item[{int \&}]{n}{, }\item[{int}]{nd\+\_\+sk}{, }\item[{int}]{Vard\+Pav\+Sk}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_isvestis_ivestis_8cpp_ac83fbc3f7ce715ebc9aba9f61476e3b6}\index{IsvestisIvestis.cpp@{IsvestisIvestis.cpp}!TermArFailas@{TermArFailas}}
+\index{TermArFailas@{TermArFailas}!IsvestisIvestis.cpp@{IsvestisIvestis.cpp}}
+\doxysubsubsection{\texorpdfstring{TermArFailas()}{TermArFailas()}}
+{\footnotesize\ttfamily \label{_isvestis_ivestis_8cpp_ac83fbc3f7ce715ebc9aba9f61476e3b6} 
+void Term\+Ar\+Failas (\begin{DoxyParamCaption}\item[{const vector$<$ \doxymbox{\hyperlink{class_studentas}{Studentas}} $>$ \&}]{stud}{, }\item[{int \&}]{Max\+Pav}{, }\item[{int \&}]{Max\+Vard}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_isvestis_ivestis_8cpp_ad6fbfa4dead01ee17445c7077c471785}\index{IsvestisIvestis.cpp@{IsvestisIvestis.cpp}!utf8\_display\_width@{utf8\_display\_width}}
+\index{utf8\_display\_width@{utf8\_display\_width}!IsvestisIvestis.cpp@{IsvestisIvestis.cpp}}
+\doxysubsubsection{\texorpdfstring{utf8\_display\_width()}{utf8\_display\_width()}}
+{\footnotesize\ttfamily \label{_isvestis_ivestis_8cpp_ad6fbfa4dead01ee17445c7077c471785} 
+size\+\_\+t utf8\+\_\+display\+\_\+width (\begin{DoxyParamCaption}\item[{const string \&}]{str}{}\end{DoxyParamCaption})}
+
