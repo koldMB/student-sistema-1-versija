@@ -1,0 +1,324 @@
+\chapter{Testavimo kompiuterio specifikacijos }
+\hypertarget{md__r_e_a_d_m_e}{}\label{md__r_e_a_d_m_e}\index{Testavimo kompiuterio specifikacijos@{Testavimo kompiuterio specifikacijos}}
+\label{md__r_e_a_d_m_e_autotoc_md31}%
+\Hypertarget{md__r_e_a_d_m_e_autotoc_md31}%
+
+
+Processor AMD Ryzen 5 5600H with Radeon Graphics 3.\+30 GHz
+
+Installed RAM 16,0 GB (13,9 GB usable)
+
+System type 64-\/bit operating system, x64-\/based processor
+
+Edition Windows 11 Home Version 23H2
+
+Disk 1 (C:\+) \begin{DoxyVerb}WDC PC SN530 SDBPMPZ-512G-1101
+
+Capacity:   477 GB
+Formatted:  477 GB
+System disk:    Yes
+Page file:  Yes
+Type:   SSD
+\end{DoxyVerb}
+
+
+Disk 0 (D:\+ E:\+) \begin{DoxyVerb}ADATA LEGEND 710
+
+Capacity:   477 GB
+Formatted:  477 GB
+System disk:    No
+Page file:  No
+Type:   SSD
+\end{DoxyVerb}
+
+
+Memory \begin{DoxyVerb}16,0 GB
+
+Speed:  3200 MT/s
+Slots used: 1 of 2
+Form factor:    SODIMM
+Hardware reserved:  2,1 GB
+\end{DoxyVerb}
+
+
+GPU 0 \begin{DoxyVerb}NVIDIA GeForce RTX 3060 Laptop GPU
+
+Driver version: 32.0.15.7283
+Driver date:    2025-03-14
+DirectX version:    12 (FL 12.1)
+Physical location:  PCI bus 1, device 0, function 0
+
+Dedicated GPU memory    0,1/6,0 GB
+Shared GPU memory   0,0/6,9 GB
+GPU Memory  0,1/12,9 GB
+\end{DoxyVerb}
+
+
+GPU 1 \begin{DoxyVerb}AMD Radeon(TM) Graphics
+
+Driver version: 31.0.21921.13001
+Driver date:    2025-07-07
+DirectX version:    12 (FL 12.1)
+Physical location:  PCI bus 6, device 0, function 0
+
+Dedicated GPU memory    0,5/2,0 GB
+Shared GPU memory   0,1/6,9 GB
+GPU Memory  0,6/8,9 GB
+\end{DoxyVerb}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md32}{}\doxysection{\texorpdfstring{Studentu Sistema -\/ Klasės Dokumentacija}{Studentu Sistema -\/ Klasės Dokumentacija}}\label{md__r_e_a_d_m_e_autotoc_md32}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md33}{}\doxysubsection{\texorpdfstring{Studentas Klase -\/ Perdengi Metodai}{Studentas Klase -\/ Perdengi Metodai}}\label{md__r_e_a_d_m_e_autotoc_md33}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md34}{}\doxysubsubsection{\texorpdfstring{Konstruktoriai (Perkrautas Inicializacijos Metodai)}{Konstruktoriai (Perkrautas Inicializacijos Metodai)}}\label{md__r_e_a_d_m_e_autotoc_md34}
+\doxylink{class_studentas}{Studentas} klasė turi kelis konstruktorius, kurie leidžia sukurti objektus skirtingais būdais:\+
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Numatytasis konstruktorius:\+}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{class_studentas}{Studentas}}()}
+
+\end{DoxyCode}
+ Sukuria tuščią studentą su nulinėmis reikšmėmis.
+\item {\bfseries{Konstruktorius su vardais:\+}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{class_studentas}{Studentas}}(std::string\ v,\ std::string\ p)}
+
+\end{DoxyCode}
+ Sukuria studentą nurodant vardą ir pavardę.
+\item {\bfseries{Pilnas konstruktorius:\+}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{class_studentas}{Studentas}}(std::string\ v,\ std::string\ p,\ \textcolor{keywordtype}{double}\ egz,\ \textcolor{keywordtype}{double}\ med,\ \textcolor{keywordtype}{double}\ vid,\ std::vector<double>\ n)}
+
+\end{DoxyCode}
+ Sukuria studentą su visais duomenimis:\+ vardu, pavarde, egzamino balu, mediana, vidurkiu ir namų darbų pažymiais.
+\end{DoxyEnumerate}\hypertarget{md__r_e_a_d_m_e_autotoc_md35}{}\doxysubsubsection{\texorpdfstring{Duomenų Įvestis -\/ Perkrauti {\ttfamily add\+Nd()} Metodai}{Duomenų Įvestis -\/ Perkrauti {\ttfamily add\+Nd()} Metodai}}\label{md__r_e_a_d_m_e_autotoc_md35}
+Pažymiai gali būti pridėti dviem būdais:\+
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Vienas pažymys vienu metu:\+}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{studentas.addNd(7.5);\ \ \textcolor{comment}{//\ Prideda\ vieną\ pažymį}}
+
+\end{DoxyCode}
+
+\item {\bfseries{Keletas pažymių iš kartų:\+}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{std::vector<double>\ pazymiai\ =\ \{7.0,\ 8.5,\ 9.0\};}
+\DoxyCodeLine{studentas.addNd(pazymiai);\ \ \textcolor{comment}{//\ Prideda\ visus\ pažymius\ iš\ vektoriaus}}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}\hypertarget{md__r_e_a_d_m_e_autotoc_md36}{}\doxysubsubsection{\texorpdfstring{Duomenų Šaltiniai ir Metodai}{Duomenų Šaltiniai ir Metodai}}\label{md__r_e_a_d_m_e_autotoc_md36}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md37}{}\doxysubsubsubsection{\texorpdfstring{1. {\bfseries{Rankinė Įvestis}}}{1. {\bfseries{Rankinė Įvestis}}}}\label{md__r_e_a_d_m_e_autotoc_md37}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{class_studentas}{Studentas}}\ studentas;}
+\DoxyCodeLine{studentas.\doxymbox{\hyperlink{class_studentas_a270a6c0b0c035d3ce67a2c4086516694}{setVardas}}(\textcolor{stringliteral}{"{}Jonas"{}});}
+\DoxyCodeLine{studentas.\doxymbox{\hyperlink{class_studentas_af0e9fdb3c3f28123f44ca9ff9564760b}{setPavarde}}(\textcolor{stringliteral}{"{}Jonaitis"{}});}
+\DoxyCodeLine{studentas.\doxymbox{\hyperlink{class_studentas_a57a7d3967f508eccf93778b8e53f7fed}{setEgzaminas}}(8.5);}
+\DoxyCodeLine{studentas.\doxymbox{\hyperlink{class_studentas_aa79a3bf0d79018d3663e4bd8c97e174d}{addNd}}(7.0);}
+\DoxyCodeLine{studentas.\doxymbox{\hyperlink{class_studentas_aa79a3bf0d79018d3663e4bd8c97e174d}{addNd}}(8.0);}
+\DoxyCodeLine{studentas.\doxymbox{\hyperlink{class_studentas_aa79a3bf0d79018d3663e4bd8c97e174d}{addNd}}(9.0);}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md38}{}\doxysubsubsubsection{\texorpdfstring{2. {\bfseries{Automatinė Įvestis (Iš Failų)}}}{2. {\bfseries{Automatinė Įvestis (Iš Failų)}}}}\label{md__r_e_a_d_m_e_autotoc_md38}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{class_studentas}{Studentas}}\ studentas;}
+\DoxyCodeLine{std::ifstream\ failas(\textcolor{stringliteral}{"{}studentai.txt"{}});}
+\DoxyCodeLine{studentas.\doxymbox{\hyperlink{class_studentas_a975844a2893c2c5718cc83fcfc92e5c8}{readStudent}}(failas);\ \ \textcolor{comment}{//\ Skaito\ studentą\ iš\ failo}}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md39}{}\doxysubsubsection{\texorpdfstring{Duomenų Išvestis}{Duomenų Išvestis}}\label{md__r_e_a_d_m_e_autotoc_md39}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md40}{}\doxysubsubsubsection{\texorpdfstring{1. {\bfseries{Išvestis į Ekraną}}}{1. {\bfseries{Išvestis į Ekraną}}}}\label{md__r_e_a_d_m_e_autotoc_md40}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{std::cout\ <<\ \textcolor{stringliteral}{"{}Vardas:\ "{}}\ <<\ studentas.\doxymbox{\hyperlink{class_studentas_a000a73298cd723400eeea22427bd437b}{vardas}}()\ <<\ std::endl;}
+\DoxyCodeLine{std::cout\ <<\ \textcolor{stringliteral}{"{}Pavardė:\ "{}}\ <<\ studentas.\doxymbox{\hyperlink{class_studentas_af80936870cf0e4d66ae5cab31461e8ec}{pavarde}}()\ <<\ std::endl;}
+\DoxyCodeLine{std::cout\ <<\ \textcolor{stringliteral}{"{}Egzaminas:\ "{}}\ <<\ studentas.\doxymbox{\hyperlink{class_studentas_a64d09da390e433eb68d7ca43e414d570}{egzaminas}}()\ <<\ std::endl;}
+\DoxyCodeLine{std::cout\ <<\ \textcolor{stringliteral}{"{}Mediana:\ "{}}\ <<\ studentas.\doxymbox{\hyperlink{class_studentas_a503f18b8bbe14f5501ba97a1dc1c48fc}{mediana}}()\ <<\ std::endl;}
+\DoxyCodeLine{std::cout\ <<\ \textcolor{stringliteral}{"{}Vidurkis:\ "{}}\ <<\ studentas.\doxymbox{\hyperlink{class_studentas_a0e85ff82a3ab64d4d318da28c9ee06dc}{vidurkis}}()\ <<\ std::endl;}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md41}{}\doxysubsubsubsection{\texorpdfstring{2. {\bfseries{Išvestis į Failą}}}{2. {\bfseries{Išvestis į Failą}}}}\label{md__r_e_a_d_m_e_autotoc_md41}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{std::ofstream\ failas(\textcolor{stringliteral}{"{}rezultatai.txt"{}});}
+\DoxyCodeLine{\textcolor{comment}{//\ Funkcijos\ atrinkimas()\ ir\ atrinkimasAutomatiskas()\ rašo\ duomenis\ į\ failą}}
+\DoxyCodeLine{\doxymbox{\hyperlink{_common_8cpp_ac1c67c33281b6ca35e3b8489356e94a7}{atrinkimas}}(studentai,\ geri\_studentai,\ blogi\_studentai);}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md42}{}\doxysubsubsection{\texorpdfstring{Perkrauti Setter Metodai}{Perkrauti Setter Metodai}}\label{md__r_e_a_d_m_e_autotoc_md42}
+Duomenys gali būti nustatyti dviem būdais:\+
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Atskirai (Individual setters):\+}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{studentas.\doxymbox{\hyperlink{class_studentas_a270a6c0b0c035d3ce67a2c4086516694}{setVardas}}(\textcolor{stringliteral}{"{}Marija"{}});}
+\DoxyCodeLine{studentas.\doxymbox{\hyperlink{class_studentas_af0e9fdb3c3f28123f44ca9ff9564760b}{setPavarde}}(\textcolor{stringliteral}{"{}Marijanauskaite"{}});}
+\DoxyCodeLine{studentas.\doxymbox{\hyperlink{class_studentas_a57a7d3967f508eccf93778b8e53f7fed}{setEgzaminas}}(8.0);}
+
+\end{DoxyCode}
+
+\item {\bfseries{Iš Karto (Overloaded setters -\/ multiple at once):\+}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{studentas.\doxymbox{\hyperlink{class_studentas_a08fb8835e6cead91994811d8f059b63c}{setVardaPavarde}}(\textcolor{stringliteral}{"{}Marija"{}},\ \textcolor{stringliteral}{"{}Marijanauskaite"{}});}
+\DoxyCodeLine{studentas.\doxymbox{\hyperlink{class_studentas_abd8c46913b7a788ef056f50399932316}{setRez}}(8.0,\ 7.5,\ 7.75);\ \ \textcolor{comment}{//\ Nustatytika\ egzaminą,\ medianą\ ir\ vidurkį}}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}\hypertarget{md__r_e_a_d_m_e_autotoc_md43}{}\doxysubsubsection{\texorpdfstring{Rule of 5 -\/ Specialus Metodai}{Rule of 5 -\/ Specialus Metodai}}\label{md__r_e_a_d_m_e_autotoc_md43}
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Default konstruktorius}}
+\item {\bfseries{Copy konstruktorius}}
+\item {\bfseries{Copy assignment operatorius}}
+\item {\bfseries{Move konstruktorius}}
+\item {\bfseries{Move assignment operatorius}}
+\item {\bfseries{Destruktorius}}
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md45}{}\doxysection{\texorpdfstring{Laiko efektyvumo testai v0.\+4}{Laiko efektyvumo testai v0.\+4}}\label{md__r_e_a_d_m_e_autotoc_md45}
+{\itshape Čia žiurėkite tik į failų generavimo testą, duomenų apdorojimas yra man kai generavau failus}
+
+Milisekundė (ms) -\/ viena tūkstantoji sekundės dalis     \hypertarget{md__r_e_a_d_m_e_autotoc_md46}{}\doxysubsubsection{\texorpdfstring{Vidurkiai failų generavimui:\+}{Vidurkiai failų generavimui:\+}}\label{md__r_e_a_d_m_e_autotoc_md46}
+
+\begin{DoxyEnumerate}
+\item 1 000 studentų -\/ 29,6 ms
+\item 10 000 studentų -\/ 285,8 ms
+\item 100 000 studentų -\/ 2751,2 ms
+\item 1 000 000 studentų -\/ 27461,8 ms
+\item 10 000 000 studentų -\/ 275001,6 ms
+\end{DoxyEnumerate}\hypertarget{md__r_e_a_d_m_e_autotoc_md47}{}\doxysubsection{\texorpdfstring{Nuo čia yra tikrinamas duomenų apdorojimas su tais pačiais failais}{Nuo čia yra tikrinamas duomenų apdorojimas su tais pačiais failais}}\label{md__r_e_a_d_m_e_autotoc_md47}
+ \hypertarget{md__r_e_a_d_m_e_autotoc_md48}{}\doxysubsubsection{\texorpdfstring{Vidurkiai failų apdorojimui (vector 0.\+4 versija)}{Vidurkiai failų apdorojimui (vector 0.\+4 versija)}}\label{md__r_e_a_d_m_e_autotoc_md48}
+
+\begin{DoxyTable}{5}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Studentų kiekis  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Skaitymas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rūšiavimas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rašymas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Visas laikas  \\
+1 000  &12 ms  &2,25 ms  &3 ms  &17,25 ms  \\
+10 000  &75,25 ms  &24,25 ms  &22,5 ms  &122 ms  \\
+100 000  &730 ms  &340 ms  &213,25 ms  &1283,25 ms  \\
+1 000 000  &1407 ms  &712,75 ms  &428,5 ms  &2548,25 ms  \\
+10 000 000  &74361,75 ms  &52784,5 ms  &21344,5 ms  &148490,8 ms  \\
+\end{DoxyTable}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md49}{}\doxysection{\texorpdfstring{Laiko efektyvumo testai v1.\+0}{Laiko efektyvumo testai v1.\+0}}\label{md__r_e_a_d_m_e_autotoc_md49}
+(Čia be pritaikitų algoritmų) \hypertarget{md__r_e_a_d_m_e_autotoc_md50}{}\doxysubsection{\texorpdfstring{Deque}{Deque}}\label{md__r_e_a_d_m_e_autotoc_md50}
+  \hypertarget{md__r_e_a_d_m_e_autotoc_md51}{}\doxysubsubsection{\texorpdfstring{Vidurkiai failų apdorojimui (Deque v1.\+0)}{Vidurkiai failų apdorojimui (Deque v1.\+0)}}\label{md__r_e_a_d_m_e_autotoc_md51}
+
+\begin{DoxyTable}{5}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Studentų kiekis  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Skaitymas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rūšiavimas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rašymas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Visas laikas  \\
+1 000  &8.\+6 ms  &2.\+6 ms  &4.\+8 ms  &16 ms  \\
+10 000  &84 ms  &34.\+2 ms  &22.\+6 ms  &140.\+8 ms  \\
+100 000  &674.\+4 ms  &398.\+4 ms  &210 ms  &1282.\+8 ms  \\
+1 000 000  &1283.\+4 ms  &855.\+6 ms  &412.\+8 ms  &2551.\+8 ms  \\
+10 000 000  &66892.\+6 ms  &64840.\+6 ms  &21481.\+8 ms  &153215 ms  \\
+\end{DoxyTable}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md52}{}\doxysubsection{\texorpdfstring{List}{List}}\label{md__r_e_a_d_m_e_autotoc_md52}
+  \hypertarget{md__r_e_a_d_m_e_autotoc_md53}{}\doxysubsubsection{\texorpdfstring{Vidurkiai failų apdorojimui (List v1.\+0)}{Vidurkiai failų apdorojimui (List v1.\+0)}}\label{md__r_e_a_d_m_e_autotoc_md53}
+
+\begin{DoxyTable}{5}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Studentų kiekis  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Skaitymas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rūšiavimas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rašymas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Visas laikas  \\
+1 000  &12 ms  &2.\+25 ms  &3 ms  &17.\+25 ms  \\
+10 000  &75.\+25 ms  &24.\+25 ms  &22.\+5 ms  &122 ms  \\
+100 000  &730 ms  &340 ms  &213.\+25 ms  &1283.\+25 ms  \\
+1 000 000  &1407 ms  &712.\+75 ms  &428.\+5 ms  &2548.\+25 ms  \\
+10 000 000  &74361.\+75 ms  &52784.\+5 ms  &21344.\+5 ms  &148490.\+8 ms  \\
+\end{DoxyTable}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md54}{}\doxysubsection{\texorpdfstring{Optimizavimo vėliavėlės v1.\+1}{Optimizavimo vėliavėlės v1.\+1}}\label{md__r_e_a_d_m_e_autotoc_md54}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md55}{}\doxysubsubsection{\texorpdfstring{Klasės versija testas 1}{Klasės versija testas 1}}\label{md__r_e_a_d_m_e_autotoc_md55}
+     \hypertarget{md__r_e_a_d_m_e_autotoc_md56}{}\doxysubsubsection{\texorpdfstring{Klasės versija}{Klasės versija}}\label{md__r_e_a_d_m_e_autotoc_md56}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Versija  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Exe failo dydis  \\
+O1  &90 KB  \\
+O2  &113 KB  \\
+O3  &134 KB  \\
+\end{DoxyTable}
+
+
+O1 versija
+
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Skaitymas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rušiavimas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rašmas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Visas laikas  \\
+6,6  &0,6  &3,2  &10,4  \\
+52,6  &16,6  &20,4  &89,6  \\
+390,8  &144,4  &180,2  &715,4  \\
+707,4  &365,4  &358,2  &1431  \\
+40704,4  &26894,6  &24890  &92489  \\
+\end{DoxyTable}
+
+
+O2 versija
+
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Skaitymas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rušiavimas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rašmas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Visas laikas  \\
+6,8  &0,8  &4  &11,6  \\
+41,2  &13,2  &20,4  &74,8  \\
+422,2  &176,6  &188,6  &787,4  \\
+744,4  &328  &345,8  &1418,2  \\
+40893,4  &47441,2  &21496,6  &109831,2  \\
+\end{DoxyTable}
+
+
+O3 versija
+
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Skaitymas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rušiavimas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rašmas  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Visas laikas  \\
+5,8  &0,2  &4  &10  \\
+48,4  &11,4  &18,6  &78,4  \\
+408  &177,6  &206  &791,6  \\
+714,4  &380,2  &368,2  &1462,8  \\
+41899,2  &45956,8  &22088,2  &109944,2  \\
+\end{DoxyTable}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md57}{}\doxysubsubsection{\texorpdfstring{Struktūros versija testas 1}{Struktūros versija testas 1}}\label{md__r_e_a_d_m_e_autotoc_md57}
+  \hypertarget{md__r_e_a_d_m_e_autotoc_md58}{}\doxysubsubsection{\texorpdfstring{Struktūros versija}{Struktūros versija}}\label{md__r_e_a_d_m_e_autotoc_md58}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Versija  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Exe failo dydis  \\
+O1  &462 KB  \\
+O2  &429 KB  \\
+O3  &429 KB  \\
+\end{DoxyTable}
+
+
+O1 versija
+
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Skaitymas (ms)  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rūšiavimas (ms)  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rašymas (ms)  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Iš viso (ms)  \\
+6,6  &0  &3,2  &9,8  \\
+28,4  &3,6  &14,2  &46,2  \\
+232,6  &53,2  &155,2  &441  \\
+454,6  &105,2  &285,2  &845  \\
+22552,2  &7739,2  &12592,8  &42884,2  \\
+\end{DoxyTable}
+
+
+O2 versija
+
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Skaitymas (ms)  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rūšiavimas (ms)  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rašymas (ms)  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Iš viso (ms)  \\
+2,6  &0  &2,2  &4,8  \\
+28  &3,8  &16,4  &48,2  \\
+245,2  &55,4  &141  &441,6  \\
+405,6  &115,2  &253,6  &774,4  \\
+21627,8  &7808,8  &12422,2  &41858,8  \\
+\end{DoxyTable}
+
+
+O3 versija
+
+
+\begin{DoxyTable}{4}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Skaitymas (ms)  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rūšiavimas (ms)  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Rašymas (ms)  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Iš viso (ms)  \\
+2,6  &0  &2,6  &5,2  \\
+22,8  &3,2  &14,8  &40,8  \\
+220,8  &60  &155,8  &436,6  \\
+456,4  &113,8  &304,6  &874,8  \\
+21103,6  &7508,4  &12939,6  &41551,6  \\
+\end{DoxyTable}

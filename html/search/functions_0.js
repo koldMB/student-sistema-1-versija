@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['addnd_0',['addNd',['../class_studentas.html#aa79a3bf0d79018d3663e4bd8c97e174d',1,'Studentas::addNd(double pazymys)'],['../class_studentas.html#a3e43913083df25d8b3c759d8cdc89638',1,'Studentas::addNd(const std::vector&lt; double &gt; &amp;pazymiai)']]],
+  ['atrinkimas_1',['atrinkimas',['../_common_8cpp.html#ac1c67c33281b6ca35e3b8489356e94a7',1,'atrinkimas(const vector&lt; Studentas &gt; &amp;stud, vector&lt; Studentas &gt; &amp;atrinkti, vector&lt; Studentas &gt; &amp;neatrinkti):&#160;Common.cpp'],['../_common_8h.html#ac1c67c33281b6ca35e3b8489356e94a7',1,'atrinkimas(const vector&lt; Studentas &gt; &amp;stud, vector&lt; Studentas &gt; &amp;atrinkti, vector&lt; Studentas &gt; &amp;neatrinkti):&#160;Common.cpp']]],
+  ['atrinkimasautomatiskas_2',['atrinkimasAutomatiskas',['../_common_8cpp.html#a0bfaac3c8df86d0f2b1385b9f5ca1c6a',1,'atrinkimasAutomatiskas(vector&lt; Studentas &gt; &amp;stud, vector&lt; Studentas &gt; &amp;geri, vector&lt; Studentas &gt; &amp;blogi):&#160;Common.cpp'],['../_common_8h.html#a319d1dc973d0247cf5fe694b0c393b47',1,'atrinkimasAutomatiskas(const vector&lt; Studentas &gt; &amp;stud, vector&lt; Studentas &gt; &amp;geri, vector&lt; Studentas &gt; &amp;blogi):&#160;Common.h']]]
+];
