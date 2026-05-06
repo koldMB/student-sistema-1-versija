@@ -1,0 +1,17 @@
+var searchData=
+[
+  ['tais_20pačiais_20failais_0',['Nuo čia yra tikrinamas duomenų apdorojimas su tais pačiais failais',['../md__r_e_a_d_m_e.html#autotoc_md47',1,'']]],
+  ['termarfailas_1',['TermArFailas',['../_isvestis_ivestis_8cpp.html#ac83fbc3f7ce715ebc9aba9f61476e3b6',1,'TermArFailas(const vector&lt; Studentas &gt; &amp;stud, int &amp;MaxPav, int &amp;MaxVard):&#160;IsvestisIvestis.cpp'],['../_isvestis_ivestis_8h.html#ac83fbc3f7ce715ebc9aba9f61476e3b6',1,'TermArFailas(const vector&lt; Studentas &gt; &amp;stud, int &amp;MaxPav, int &amp;MaxVard):&#160;IsvestisIvestis.cpp']]],
+  ['test_2',['TEST',['../rule__of__5__tests_8cpp.html#a2cb798a6424d73c4ee7f148dcbebeb36',1,'TEST(StudentasTest, NumatytasisKonstruktorius):&#160;rule_of_5_tests.cpp'],['../rule__of__5__tests_8cpp.html#a782fb16ecaebd76efe926da1777dec63',1,'TEST(StudentasTest, KopijantimoKonstruktorius):&#160;rule_of_5_tests.cpp'],['../rule__of__5__tests_8cpp.html#a3ff5ba72e9350ad831af17bbf6dc02c7',1,'TEST(StudentasTest, KopijantimoPeriskyrimo):&#160;rule_of_5_tests.cpp'],['../rule__of__5__tests_8cpp.html#a43c5d723546fc61bf4d2d3b2a0279a7d',1,'TEST(StudentasTest, PerkėlimoKonstruktorius):&#160;rule_of_5_tests.cpp'],['../rule__of__5__tests_8cpp.html#ac0c752b43daa8cd0b3342e479f5cfa1e',1,'TEST(StudentasTest, PerkelimoPerskyrimas):&#160;rule_of_5_tests.cpp'],['../rule__of__5__tests_8cpp.html#a3b5a3ef4ce97b274ff4a33d1aae19652',1,'TEST(StudentasTest, Destruktorius):&#160;rule_of_5_tests.cpp'],['../rule__of__5__tests_8cpp.html#a3833dc3578ac25352e1b4fc5c86733a5',1,'TEST(StudentasTest, SetteriaIGetteriai):&#160;rule_of_5_tests.cpp'],['../rule__of__5__tests_8cpp.html#a6279b51539b70b81647e427a223330af',1,'TEST(StudentasTest, NDOperacijos):&#160;rule_of_5_tests.cpp'],['../rule__of__5__tests_8cpp.html#a15f826a0424d047a93112004df810718',1,'TEST(StudentasTest, SetndNdref):&#160;rule_of_5_tests.cpp']]],
+  ['testai_20su_20failais_3',['Laiko efektyvumo testai su failais',['../md__laiko_01efektyvumo_01testai_01v0_83_01.html',1,'']]],
+  ['testai_20v0_204_4',['Laiko efektyvumo testai v0.4',['../md__r_e_a_d_m_e.html#autotoc_md45',1,'']]],
+  ['testai_20v1_200_5',['Laiko efektyvumo testai v1.0',['../md__r_e_a_d_m_e.html#autotoc_md49',1,'']]],
+  ['testas_201_6',['testas 1',['../md__r_e_a_d_m_e.html#autotoc_md55',1,'Klasės versija testas 1'],['../md__r_e_a_d_m_e.html#autotoc_md57',1,'Struktūros versija testas 1']]],
+  ['testavimo_20kompiuterio_20specifikacijos_7',['Testavimo kompiuterio specifikacijos',['../md__r_e_a_d_m_e.html',1,'']]],
+  ['throwruntimeerror_8',['ThrowRuntimeError',['../class_all_exceptions_handler.html#aabc100a5f18956a3d235a7716a22cbdd',1,'AllExceptionsHandler']]],
+  ['tikrinamas_20duomenų_20apdorojimas_20su_20tais_20pačiais_20failais_9',['Nuo čia yra tikrinamas duomenų apdorojimas su tais pačiais failais',['../md__r_e_a_d_m_e.html#autotoc_md47',1,'']]],
+  ['tryat_10',['TryAt',['../class_all_exceptions_handler.html#a44019e0d367320053c4ba89f5fe579b2',1,'AllExceptionsHandler']]],
+  ['trysetat_11',['TrySetAt',['../class_all_exceptions_handler.html#a55a4476b03027cca88d4db21a63b2ddb',1,'AllExceptionsHandler']]],
+  ['trystoi_12',['TryStoI',['../class_all_exceptions_handler.html#a03c4b117906f208319b4bf08755d26e4',1,'AllExceptionsHandler']]],
+  ['txt_13',['txt',['../md__laiko_01efektyvumo_01testai_01v0_83_01.html#autotoc_md25',1,'studentai10000.txt'],['../md__laiko_01efektyvumo_01testai_01v0_83_01.html#autotoc_md27',1,'studentai100000.txt'],['../md__laiko_01efektyvumo_01testai_01v0_83_01.html#autotoc_md29',1,'studentai1000000.txt']]]
+];
