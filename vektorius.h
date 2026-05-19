@@ -156,7 +156,24 @@ public:
         return duomenys_[dydis_ - 1];
     }
 
-    
+    // Talpa
+    size_t size() const {
+        return dydis_;
+    }
+
+    size_t capacity() const {
+        return talpa_;
+    }
+
+    bool empty() const {
+        return dydis_ == 0;
+    }
+
+    void reserve(size_t new_capacity) {
+        if (new_capacity > talpa_) {
+            reallocate(new_capacity);
+        }
+    }
 
 };
 
