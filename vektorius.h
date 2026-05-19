@@ -175,6 +175,20 @@ public:
         }
     }
 
+    void resize(size_t new_size) {
+        if (new_size > talpa_) {
+            size_t new_capacity = (talpa_ == 0) ? new_size : std::max(new_size, talpa_ * 2);
+            reallocate(new_capacity);
+        }
+
+        // naikink kas neieina į naują dydį
+        for (size_t i = new_size; i < dydis_; ++i) {
+            duomenys_[i] = T{};
+        }
+
+        dydis_ = new_size;
+    }
+
 };
 
 #endif // VEKTORIUS_H
