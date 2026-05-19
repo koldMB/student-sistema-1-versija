@@ -83,6 +83,27 @@ public:
         return *this;
     }
 
+    // Perkėlimo priskyrimo operatorius
+    mano_vektorius& operator=(mano_vektorius&& other) noexcept {
+        if (this != &other) {
+            delete[] duomenys_;
+
+            duomenys_ = other.duomenys_;
+            dydis_ = other.dydis_;
+            talpa_ = other.talpa_;
+
+            other.duomenys_ = nullptr;
+            other.dydis_ = 0;
+            other.talpa_ = 0;
+        }
+        return *this;
+    }
+
+    // Destruktorius
+    ~mano_vektorius() {
+        delete[] duomenys_;
+    }
+
 };
 
 #endif // VEKTORIUS_H
