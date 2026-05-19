@@ -68,6 +68,21 @@ public:
         }
     }
 
+    // Perkėlimo konstruktorius
+    mano_vektorius(mano_vektorius&& other) noexcept
+        : duomenys_(other.duomenys_), dydis_(other.dydis_), talpa_(other.talpa_) {
+        other.duomenys_ = nullptr;
+        other.dydis_ = 0;
+        other.talpa_ = 0;
+    }
+    // Kopijavimo priskyrimo operatorius
+    mano_vektorius& operator=(mano_vektorius other) noexcept {
+        std::swap(duomenys_, other.duomenys_);
+        std::swap(dydis_,    other.dydis_);
+        std::swap(talpa_,    other.talpa_);
+        return *this;
+    }
+
 };
 
 #endif // VEKTORIUS_H
