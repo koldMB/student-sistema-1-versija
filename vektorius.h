@@ -54,6 +54,20 @@ public:
             duomenys_ = nullptr;
         }
     }
+
+    // Kopijuojantis konstruktorius
+    mano_vektorius(const mano_vektorius& other)
+        : dydis_(other.dydis_), talpa_(other.talpa_) {
+        if (talpa_ > 0) {
+            duomenys_ = new T[talpa_];
+            for (size_t i = 0; i < dydis_; ++i) {
+                duomenys_[i] = other.duomenys_[i];
+            }
+        } else {
+            duomenys_ = nullptr;
+        }
+    }
+
 };
 
 #endif // VEKTORIUS_H
