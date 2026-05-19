@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['failoisvedimas_0',['FailoIsvedimas',['../_isvestis_ivestis_8cpp.html#a6db975ee02b095fffe8d884d666e5eb4',1,'FailoIsvedimas(const vector&lt; Studentas &gt; &amp;stud, const string &amp;filename, int &amp;MaxPav, int &amp;MaxVard):&#160;IsvestisIvestis.cpp'],['../_isvestis_ivestis_8h.html#a6db975ee02b095fffe8d884d666e5eb4',1,'FailoIsvedimas(const vector&lt; Studentas &gt; &amp;stud, const string &amp;filename, int &amp;MaxPav, int &amp;MaxVard):&#160;IsvestisIvestis.cpp']]],
-  ['failonuskaitymas_1',['FailoNuskaitymas',['../_isvestis_ivestis_8cpp.html#a99db211788b3aee4c64f62553edfc921',1,'FailoNuskaitymas(vector&lt; Studentas &gt; &amp;stud, const string &amp;filename):&#160;IsvestisIvestis.cpp'],['../_isvestis_ivestis_8h.html#a99db211788b3aee4c64f62553edfc921',1,'FailoNuskaitymas(vector&lt; Studentas &gt; &amp;stud, const string &amp;filename):&#160;IsvestisIvestis.cpp']]]
+  ['egzaminas_0',['egzaminas',['../class_studentas.html#a64d09da390e433eb68d7ca43e414d570',1,'Studentas']]],
+  ['empty_1',['empty',['../classmano__vektorius.html#a3c9e7ee838e644f1bec44d0465e89a42',1,'mano_vektorius']]],
+  ['end_2',['end',['../classmano__vektorius.html#acbaf64dda1c8bf8cf60956375b93e07e',1,'mano_vektorius::end()'],['../classmano__vektorius.html#a246c4b607b7d3e4d019d5f675cac8b30',1,'mano_vektorius::end() const']]]
 ];

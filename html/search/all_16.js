@@ -7,11 +7,13 @@ var searchData=
   ['readme_2emd_4',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
   ['readstudent_5',['readStudent',['../class_studentas.html#a975844a2893c2c5718cc83fcfc92e5c8',1,'Studentas']]],
   ['reikalavimai_6',['Reikalavimai',['../md__gidas.html#autotoc_md1',1,'']]],
-  ['reset_7',['Reset',['../class_laikas.html#a4e07dacd2920d2ae94afa3297c2bb038',1,'Laikas']]],
-  ['resizend_8',['resizeNd',['../class_studentas.html#af8311a8b3ed51fc88d9400eadd947634',1,'Studentas']]],
-  ['rikiavimas_9',['rikiavimas',['../_skaiciavimai_8h.html#a7a922bc1738ac6e482f8190aa4ceed71',1,'rikiavimas(vector&lt; Studentas &gt; &amp;stud):&#160;Skaiciavimai.h'],['../_skaiciavimai_8h.html#a607a7cf5a87906a9210ea5fe2b888baa',1,'rikiavimas(vector&lt; Studentas &gt; &amp;stud, int krit):&#160;Skaiciavimai.h']]],
-  ['rule_20of_205_20specialus_20metodai_10',['Rule of 5 - Specialus Metodai',['../md__r_e_a_d_m_e.html#autotoc_md43',1,'']]],
-  ['rule_5fof_5f5_5ftests_2ecpp_11',['rule_of_5_tests.cpp',['../rule__of__5__tests_8cpp.html',1,'']]],
-  ['rule_5fof_5f5_5ftests_2ecpp_2eobj_2ed_12',['rule_of_5_tests.cpp.obj.d',['../rule__of__5__tests_8cpp_8obj_8d.html',1,'']]],
-  ['runstudentsystem_13',['runStudentSystem',['../_main_8cpp.html#a5c658ec7ca655e7b7a876ad1d4ae3a4f',1,'Main.cpp']]]
+  ['reserve_7',['reserve',['../classmano__vektorius.html#a6746b4fac695e5154e32becec95c77e5',1,'mano_vektorius']]],
+  ['reset_8',['Reset',['../class_laikas.html#a4e07dacd2920d2ae94afa3297c2bb038',1,'Laikas']]],
+  ['resize_9',['resize',['../classmano__vektorius.html#a39a2666d2ac1e3a7f7656147e3628f46',1,'mano_vektorius::resize(size_t new_size)'],['../classmano__vektorius.html#a52d553b4027f83eafd187fc126a131ac',1,'mano_vektorius::resize(size_t new_size, const T &amp;value)']]],
+  ['resizend_10',['resizeNd',['../class_studentas.html#af8311a8b3ed51fc88d9400eadd947634',1,'Studentas']]],
+  ['rikiavimas_11',['rikiavimas',['../_skaiciavimai_8h.html#a7a922bc1738ac6e482f8190aa4ceed71',1,'rikiavimas(vector&lt; Studentas &gt; &amp;stud):&#160;Skaiciavimai.h'],['../_skaiciavimai_8h.html#a607a7cf5a87906a9210ea5fe2b888baa',1,'rikiavimas(vector&lt; Studentas &gt; &amp;stud, int krit):&#160;Skaiciavimai.h']]],
+  ['rule_20of_205_20specialus_20metodai_12',['Rule of 5 - Specialus Metodai',['../md__r_e_a_d_m_e.html#autotoc_md43',1,'']]],
+  ['rule_5fof_5f5_5ftests_2ecpp_13',['rule_of_5_tests.cpp',['../rule__of__5__tests_8cpp.html',1,'']]],
+  ['rule_5fof_5f5_5ftests_2ecpp_2eobj_2ed_14',['rule_of_5_tests.cpp.obj.d',['../rule__of__5__tests_8cpp_8obj_8d.html',1,'']]],
+  ['runstudentsystem_15',['runStudentSystem',['../_main_8cpp.html#a5c658ec7ca655e7b7a876ad1d4ae3a4f',1,'Main.cpp']]]
 ];

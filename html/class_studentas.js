@@ -25,7 +25,7 @@ var class_studentas =
     [ "setNdAt", "class_studentas.html#afa4b473c3d0d5c99f06e94c0f79345ea", null ],
     [ "setPavarde", "class_studentas.html#af0e9fdb3c3f28123f44ca9ff9564760b", null ],
     [ "setRez", "class_studentas.html#abd8c46913b7a788ef056f50399932316", null ],
-    [ "setVardaPavarde", "class_studentas.html#a08fb8835e6cead91994811d8f059b63c", null ],
+    [ "setVardaPavarde", "class_studentas.html#a43161ad03f6f321972c5bf01e2207148", null ],
     [ "setVardas", "class_studentas.html#a270a6c0b0c035d3ce67a2c4086516694", null ],
     [ "setVidurkis", "class_studentas.html#ad6935a90741dce1930bbfac8ea14e0a0", null ],
     [ "vardas", "class_studentas.html#a000a73298cd723400eeea22427bd437b", null ],

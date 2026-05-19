@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "C++ studentų sistema", "index.html", [
+  [ "Studentų sistema", "index.html", [
     [ "Studentų Sistema", "md__gidas.html", [
       [ "Reikalavimai", "md__gidas.html#autotoc_md1", null ],
       [ "Patikrinkite Diegimą", "md__gidas.html#autotoc_md2", null ],
@@ -106,6 +106,7 @@ var NAVTREE =
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
+      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
@@ -127,8 +128,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_common_8cpp.html",
-"class_studentas.html#a0e85ff82a3ab64d4d318da28c9ee06dc",
-"dir_b36eff01ef90bc400fa5cfe24cbdd465.html"
+"build_2_c_make_files_24_83_80_2_compiler_id_c_x_x_2_c_make_c_x_x_compiler_id_8cpp.html#adbc5372f40838899018fadbc89bd588b",
+"cmake-build-relwithdebinfo_2_c_make_files_24_81_82_2_compiler_id_c_2_c_make_c_compiler_id_8c.html#a2321403dee54ee23f0c2fa849c60f7d4"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

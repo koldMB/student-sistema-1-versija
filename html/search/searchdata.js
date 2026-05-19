@@ -1,9 +1,9 @@
 var indexSectionsWithContent =
 {
-  0: "012345_abcdefghiklmnoprstuvy~čįšž",
-  1: "als",
-  2: "cgiklmrs",
-  3: "abcefgimnoprstuv~",
+  0: "012345_abcdefghiklmnoprstuvyz~čįšž",
+  1: "almsz",
+  2: "cgiklmrsv",
+  3: "abcdefgimnoprstuv~",
   4: "il",
   5: "o",
   6: "_acdhnps",

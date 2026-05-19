@@ -1,5 +1,6 @@
 var _common_8h =
 [
+    [ "Zmogus", "class_zmogus.html", "class_zmogus" ],
     [ "Studentas", "class_studentas.html", "class_studentas" ],
     [ "atrinkimas", "_common_8h.html#ac1c67c33281b6ca35e3b8489356e94a7", null ],
     [ "atrinkimasAutomatiskas", "_common_8h.html#a319d1dc973d0247cf5fe694b0c393b47", null ],

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['studentas_0',['Studentas',['../class_studentas.html',1,'']]]
+  ['mano_5fvektorius_0',['mano_vektorius',['../classmano__vektorius.html',1,'']]]
 ];

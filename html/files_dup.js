@@ -19,5 +19,7 @@ var files_dup =
     [ "Main.cpp", "_main_8cpp.html", "_main_8cpp" ],
     [ "rule_of_5_tests.cpp", "rule__of__5__tests_8cpp.html", "rule__of__5__tests_8cpp" ],
     [ "Skaiciavimai.cpp", "_skaiciavimai_8cpp.html", "_skaiciavimai_8cpp" ],
-    [ "Skaiciavimai.h", "_skaiciavimai_8h.html", "_skaiciavimai_8h" ]
+    [ "Skaiciavimai.h", "_skaiciavimai_8h.html", "_skaiciavimai_8h" ],
+    [ "Vektoriaus testas.cpp", "_vektoriaus_01testas_8cpp.html", "_vektoriaus_01testas_8cpp" ],
+    [ "vektorius.h", "vektorius_8h.html", "vektorius_8h" ]
 ];

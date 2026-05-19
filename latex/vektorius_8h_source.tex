@@ -1,0 +1,288 @@
+\doxysection{vektorius.\+h}
+\hypertarget{vektorius_8h_source}{}\label{vektorius_8h_source}\doxymbox{\hyperlink{vektorius_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ VEKTORIUS\_H}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ VEKTORIUS\_H}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00009}00009\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00010}\doxymbox{\hyperlink{classmano__vektorius}{00010}}\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classmano__vektorius_a26d12f7a27c3763c5da33584cc779277}{mano\_vektorius}}\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00011}00011\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00012}00012\ \ \ \ \ T*\ duomenys\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00013}00013\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ dydis\_;\ \textcolor{comment}{//\ Faktinis\ elementų\ skaičius\ vektoriuje}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00014}00014\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ talpa\_;\ \textcolor{comment}{//\ Iš\ viso\ paskirstyta\ atmintis\ (kiek\ elementų\ gali\ tilpti)}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00016}00016\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00017}00017\ \textcolor{comment}{\ \ \ \ size\_t\ nes\ CPU\ gali\ būti\ 32\ ar\ 64\ bitų}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00018}00018\ \textcolor{comment}{\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00019}00019\ \textcolor{comment}{\ \ \ \ size\_t\ can\ store\ the\ maximum\ size\ of\ a\ theoretically\ possible\ object\ of\ any\ type\ (including\ array).}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00020}00020\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00021}00021\ \textcolor{comment}{\ \ \ \ size\_t\ is\ commonly\ used\ for\ array\ indexing\ and\ loop\ counting.\ Programs\ that\ use\ other\ types,\ such\ as\ unsigned\ int,\ for\ array\ indexing\ may\ fail\ on,\ e.g.\ 64-\/bit\ systems\ when\ the\ index\ exceeds\ UINT\_MAX\ or\ if\ it\ relies\ on\ 32-\/bit\ modular\ arithmetic.\ }}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00022}00022\ \textcolor{comment}{\ \ \ \ https://en.cppreference.com/c/types/size\_t}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00023}00023\ \textcolor{comment}{\ \ \ \ */}\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00025}00025\ \ \ \ \ \textcolor{comment}{//\ Pagalbinė\ funkcija\ atminčiai\ iš\ naujo\ paskirstyti\ pakitus\ vektoriaus\ dydžiui}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00026}00026\ \ \ \ \ \textcolor{keywordtype}{void}\ reallocate(\textcolor{keywordtype}{size\_t}\ nauja\_talpa)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nauja\_talpa\ <\ dydis\_)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ T*\ new\_data\ =\ \textcolor{keyword}{new}\ T[nauja\_talpa];}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ dydis\_;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ new\_data[i]\ =\ std::move(duomenys\_[i]);}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ duomenys\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ duomenys\_\ =\ new\_data;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ talpa\_\ =\ nauja\_talpa;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00038}00038\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00040}00040\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00041}00041\ \ \ \ \ \textcolor{comment}{//\ Numatytasis\ konstruktorius}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00042}\doxymbox{\hyperlink{classmano__vektorius_a26d12f7a27c3763c5da33584cc779277}{00042}}\ \ \ \ \ \doxymbox{\hyperlink{classmano__vektorius_a26d12f7a27c3763c5da33584cc779277}{mano\_vektorius}}()\ :\ duomenys\_(nullptr),\ dydis\_(0),\ talpa\_(0)\ \{\}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00044}00044\ \ \ \ \ \textcolor{comment}{//\ Konstruktorius\ su\ pradine\ talpa}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00045}\doxymbox{\hyperlink{classmano__vektorius_aaf38ef9e540cbafdbf4ae7e087ac104d}{00045}}\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{classmano__vektorius_aaf38ef9e540cbafdbf4ae7e087ac104d}{mano\_vektorius}}(\textcolor{keywordtype}{size\_t}\ initial\_capacity)}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00046}00046\ \ \ \ \ \ \ \ \ :\ dydis\_(0),\ talpa\_(initial\_capacity)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (initial\_capacity\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ duomenys\_\ =\ \textcolor{keyword}{new}\ T[initial\_capacity];}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00049}00049\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ duomenys\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00052}00052\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00054}00054\ \ \ \ \ \textcolor{comment}{//\ Konstruktorius\ su\ dydžiu\ ir\ numatytąja\ reikšme}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00055}\doxymbox{\hyperlink{classmano__vektorius_afdcbc48f664da3488d6e78d2eed9dfb6}{00055}}\ \ \ \ \ \doxymbox{\hyperlink{classmano__vektorius_afdcbc48f664da3488d6e78d2eed9dfb6}{mano\_vektorius}}(\textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{classmano__vektorius_aa73fb959aab0bdd5db7f02be3b06d56b}{size}},\ \textcolor{keyword}{const}\ T\&\ value)}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00056}00056\ \ \ \ \ \ \ \ \ :\ dydis\_(\doxymbox{\hyperlink{classmano__vektorius_aa73fb959aab0bdd5db7f02be3b06d56b}{size}}),\ talpa\_(\doxymbox{\hyperlink{classmano__vektorius_aa73fb959aab0bdd5db7f02be3b06d56b}{size}})\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{classmano__vektorius_aa73fb959aab0bdd5db7f02be3b06d56b}{size}}\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ duomenys\_\ =\ \textcolor{keyword}{new}\ T[\doxymbox{\hyperlink{classmano__vektorius_aa73fb959aab0bdd5db7f02be3b06d56b}{size}}];}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \doxymbox{\hyperlink{classmano__vektorius_aa73fb959aab0bdd5db7f02be3b06d56b}{size}};\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ duomenys\_[i]\ =\ value;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ duomenys\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00064}00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00065}00065\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00067}00067\ \ \ \ \ \textcolor{comment}{//\ Kopijuojantis\ konstruktorius}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00068}\doxymbox{\hyperlink{classmano__vektorius_a51fca66623375c542569e059966f17ca}{00068}}\ \ \ \ \ \doxymbox{\hyperlink{classmano__vektorius_a51fca66623375c542569e059966f17ca}{mano\_vektorius}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classmano__vektorius_a26d12f7a27c3763c5da33584cc779277}{mano\_vektorius}}\&\ other)}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00069}00069\ \ \ \ \ \ \ \ \ :\ dydis\_(other.dydis\_),\ talpa\_(other.talpa\_)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (talpa\_\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ duomenys\_\ =\ \textcolor{keyword}{new}\ T[talpa\_];}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ dydis\_;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ duomenys\_[i]\ =\ other.duomenys\_[i];}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00075}00075\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ duomenys\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00077}00077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00078}00078\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00080}00080\ \ \ \ \ \textcolor{comment}{//\ Perkėlimo\ konstruktorius}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00081}\doxymbox{\hyperlink{classmano__vektorius_a2fe933ff24aba3e5c7eb6e86ccb7bbb9}{00081}}\ \ \ \ \ \doxymbox{\hyperlink{classmano__vektorius_a2fe933ff24aba3e5c7eb6e86ccb7bbb9}{mano\_vektorius}}(\doxymbox{\hyperlink{classmano__vektorius_a26d12f7a27c3763c5da33584cc779277}{mano\_vektorius}}\&\&\ other)\ noexcept}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00082}00082\ \ \ \ \ \ \ \ \ :\ duomenys\_(other.duomenys\_),\ dydis\_(other.dydis\_),\ talpa\_(other.talpa\_)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00083}00083\ \ \ \ \ \ \ \ \ other.duomenys\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00084}00084\ \ \ \ \ \ \ \ \ other.dydis\_\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00085}00085\ \ \ \ \ \ \ \ \ other.talpa\_\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00086}00086\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00087}00087\ \ \ \ \ \textcolor{comment}{//\ Unified\ assignment\ operator\ (handles\ both\ copy\ and\ move\ through\ parameter\ passing)}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00088}\doxymbox{\hyperlink{classmano__vektorius_a3270d4c21ba69b5e1b67ae514e83aa8a}{00088}}\ \ \ \ \ \doxymbox{\hyperlink{classmano__vektorius_a26d12f7a27c3763c5da33584cc779277}{mano\_vektorius}}\&\ \doxymbox{\hyperlink{classmano__vektorius_a3270d4c21ba69b5e1b67ae514e83aa8a}{operator=}}(\doxymbox{\hyperlink{classmano__vektorius_a26d12f7a27c3763c5da33584cc779277}{mano\_vektorius}}\ other)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00089}00089\ \ \ \ \ \ \ \ \ std::swap(duomenys\_,\ other.duomenys\_);}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00090}00090\ \ \ \ \ \ \ \ \ std::swap(dydis\_,\ \ \ \ other.dydis\_);}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00091}00091\ \ \ \ \ \ \ \ \ std::swap(talpa\_,\ \ \ \ other.talpa\_);}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00093}00093\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00095}00095\ \ \ \ \ \textcolor{comment}{//\ Destruktorius}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00096}\doxymbox{\hyperlink{classmano__vektorius_a7a46597f925b955d4730fa17803aa66c}{00096}}\ \ \ \ \ \doxymbox{\hyperlink{classmano__vektorius_a7a46597f925b955d4730fa17803aa66c}{\string~mano\_vektorius}}()\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00097}00097\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ duomenys\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00098}00098\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00100}00100\ \ \ \ \ \textcolor{comment}{//\ Elemento\ prieiga}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00101}\doxymbox{\hyperlink{classmano__vektorius_a3483e2e15f7f4e921dbefa4c3a7a28d2}{00101}}\ \ \ \ \ T\&\ \doxymbox{\hyperlink{classmano__vektorius_a3483e2e15f7f4e921dbefa4c3a7a28d2}{operator[]}}(\textcolor{keywordtype}{size\_t}\ index)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ duomenys\_[index];}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00103}00103\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00105}\doxymbox{\hyperlink{classmano__vektorius_a9f62839d7efc5554ce248b132d6e1069}{00105}}\ \ \ \ \ \textcolor{keyword}{const}\ T\&\ \doxymbox{\hyperlink{classmano__vektorius_a9f62839d7efc5554ce248b132d6e1069}{operator[]}}(\textcolor{keywordtype}{size\_t}\ index)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00106}00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ duomenys\_[index];}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00107}00107\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00109}\doxymbox{\hyperlink{classmano__vektorius_a4ca23ae0ee11ba906b4beee2e06dc427}{00109}}\ \ \ \ \ T\&\ \doxymbox{\hyperlink{classmano__vektorius_a4ca23ae0ee11ba906b4beee2e06dc427}{at}}(\textcolor{keywordtype}{size\_t}\ index)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >=\ dydis\_)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}mano\_vektorius::at()\ indeksas\ yra\ ne\ šiose\ ribose"{}});}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00112}00112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ duomenys\_[index];}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00114}00114\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00116}\doxymbox{\hyperlink{classmano__vektorius_a7bdeffbe946db17617a2a8eda0f93339}{00116}}\ \ \ \ \ \textcolor{keyword}{const}\ T\&\ \doxymbox{\hyperlink{classmano__vektorius_a7bdeffbe946db17617a2a8eda0f93339}{at}}(\textcolor{keywordtype}{size\_t}\ index)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >=\ dydis\_)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}mano\_vektorius::at()\ indeksas\ yra\ ne\ šiose\ ribose"{}});}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00119}00119\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ duomenys\_[index];}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00121}00121\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00123}\doxymbox{\hyperlink{classmano__vektorius_ab77a847d6c384e9abcad1f359588760e}{00123}}\ \ \ \ \ T\&\ \doxymbox{\hyperlink{classmano__vektorius_ab77a847d6c384e9abcad1f359588760e}{front}}()\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00124}00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dydis\_\ ==\ 0)\ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}mano\_vektorius::front()\ vektorius\ yra\ tuščias"{}});}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00125}00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ duomenys\_[0];}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00126}00126\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00128}\doxymbox{\hyperlink{classmano__vektorius_ac9896973154537ae100aef56deebfc35}{00128}}\ \ \ \ \ \textcolor{keyword}{const}\ T\&\ \doxymbox{\hyperlink{classmano__vektorius_ac9896973154537ae100aef56deebfc35}{front}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00129}00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dydis\_\ ==\ 0)\ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}mano\_vektorius::front()\ vektorius\ yra\ tuščias"{}});}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00130}00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ duomenys\_[0];}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00131}00131\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00133}\doxymbox{\hyperlink{classmano__vektorius_ac5507300a069c18c5eb654f818801061}{00133}}\ \ \ \ \ T\&\ \doxymbox{\hyperlink{classmano__vektorius_ac5507300a069c18c5eb654f818801061}{back}}()\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dydis\_\ ==\ 0)\ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}mano\_vektorius::back()\ vektorius\ yra\ tuščias"{}});}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00135}00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ duomenys\_[dydis\_\ -\/\ 1];}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00136}00136\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00138}\doxymbox{\hyperlink{classmano__vektorius_aee2e7150790f3c5fc162cd44fbfa5ef6}{00138}}\ \ \ \ \ \textcolor{keyword}{const}\ T\&\ \doxymbox{\hyperlink{classmano__vektorius_aee2e7150790f3c5fc162cd44fbfa5ef6}{back}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00139}00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dydis\_\ ==\ 0)\ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}mano\_vektorius::back()\ vektorius\ yra\ tuščias"{}});}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00140}00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ duomenys\_[dydis\_\ -\/\ 1];}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00141}00141\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00143}00143\ \ \ \ \ \textcolor{comment}{//\ Talpa}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00144}\doxymbox{\hyperlink{classmano__vektorius_aa73fb959aab0bdd5db7f02be3b06d56b}{00144}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{classmano__vektorius_aa73fb959aab0bdd5db7f02be3b06d56b}{size}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00145}00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dydis\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00146}00146\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00148}\doxymbox{\hyperlink{classmano__vektorius_aa687005b2b036af8156996808b8c538b}{00148}}\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{classmano__vektorius_aa687005b2b036af8156996808b8c538b}{capacity}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00149}00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ talpa\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00150}00150\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00152}\doxymbox{\hyperlink{classmano__vektorius_a3c9e7ee838e644f1bec44d0465e89a42}{00152}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classmano__vektorius_a3c9e7ee838e644f1bec44d0465e89a42}{empty}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00153}00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dydis\_\ ==\ 0;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00154}00154\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00156}\doxymbox{\hyperlink{classmano__vektorius_a6746b4fac695e5154e32becec95c77e5}{00156}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classmano__vektorius_a6746b4fac695e5154e32becec95c77e5}{reserve}}(\textcolor{keywordtype}{size\_t}\ new\_capacity)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00157}00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (new\_capacity\ >\ talpa\_)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ reallocate(new\_capacity);}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00159}00159\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00160}00160\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00162}\doxymbox{\hyperlink{classmano__vektorius_a39a2666d2ac1e3a7f7656147e3628f46}{00162}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classmano__vektorius_a39a2666d2ac1e3a7f7656147e3628f46}{resize}}(\textcolor{keywordtype}{size\_t}\ new\_size)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00163}00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (new\_size\ >\ talpa\_)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ new\_capacity\ =\ (talpa\_\ ==\ 0)\ ?\ new\_size\ :\ std::max(new\_size,\ talpa\_\ *\ 2);}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ reallocate(new\_capacity);}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00166}00166\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00168}00168\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ new\ elements\ if\ expanding}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00169}00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (new\_size\ >\ dydis\_)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ dydis\_;\ i\ <\ new\_size;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ duomenys\_[i]\ =\ T\{\};}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00173}00173\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00174}00174\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Clear\ removed\ elements\ if\ shrinking}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00175}00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (new\_size\ <\ dydis\_)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ new\_size;\ i\ <\ dydis\_;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ duomenys\_[i]\ =\ T\{\};}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00179}00179\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00181}00181\ \ \ \ \ \ \ \ \ dydis\_\ =\ new\_size;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00182}00182\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00184}\doxymbox{\hyperlink{classmano__vektorius_a52d553b4027f83eafd187fc126a131ac}{00184}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classmano__vektorius_a52d553b4027f83eafd187fc126a131ac}{resize}}(\textcolor{keywordtype}{size\_t}\ new\_size,\ \textcolor{keyword}{const}\ T\&\ value)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00185}00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (new\_size\ >\ talpa\_)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ new\_capacity\ =\ (talpa\_\ ==\ 0)\ ?\ new\_size\ :\ std::max(new\_size,\ talpa\_\ *\ 2);}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ reallocate(new\_capacity);}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00188}00188\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00190}00190\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ naikink\ kas\ neieina\ į\ naują\ dydį}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00191}00191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ new\_size;\ i\ <\ dydis\_;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ duomenys\_[i]\ =\ T\{\};}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00193}00193\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00195}00195\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Inicializuoti\ naujus\ elementus}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00196}00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ dydis\_;\ i\ <\ new\_size;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ duomenys\_[i]\ =\ value;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00198}00198\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00200}00200\ \ \ \ \ \ \ \ \ dydis\_\ =\ new\_size;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00201}00201\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00203}\doxymbox{\hyperlink{classmano__vektorius_a8f8d8f01a44644e824ae549cb7345f72}{00203}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classmano__vektorius_a8f8d8f01a44644e824ae549cb7345f72}{clear}}()\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00204}00204\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ naikink\ visus\ elementus\ prieš\ nustatant\ nulinį\ dydį}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00205}00205\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ dydis\_;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ duomenys\_[i]\ =\ T\{\};}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00207}00207\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00208}00208\ \ \ \ \ \ \ \ \ dydis\_\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00209}00209\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00211}00211\ \ \ \ \ \textcolor{comment}{//\ Modifikatoriai}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00212}\doxymbox{\hyperlink{classmano__vektorius_af6cfd85bb9510af13182c068d97e2c3d}{00212}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classmano__vektorius_af6cfd85bb9510af13182c068d97e2c3d}{push\_back}}(\textcolor{keyword}{const}\ T\&\ value)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00213}00213\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dydis\_\ >=\ talpa\_)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ new\_capacity\ =\ (talpa\_\ ==\ 0)\ ?\ 1\ :\ talpa\_\ *\ 2;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ reallocate(new\_capacity);}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00216}00216\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00217}00217\ \ \ \ \ \ \ \ \ duomenys\_[dydis\_]\ =\ value;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00218}00218\ \ \ \ \ \ \ \ \ ++dydis\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00219}00219\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00221}\doxymbox{\hyperlink{classmano__vektorius_a87badf008952dc1a2f7f67bf997f1466}{00221}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classmano__vektorius_a87badf008952dc1a2f7f67bf997f1466}{push\_back}}(T\&\&\ value)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00222}00222\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dydis\_\ >=\ talpa\_)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ new\_capacity\ =\ (talpa\_\ ==\ 0)\ ?\ 1\ :\ talpa\_\ *\ 2;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ reallocate(new\_capacity);}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00225}00225\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00226}00226\ \ \ \ \ \ \ \ \ duomenys\_[dydis\_]\ =\ std::move(value);}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00227}00227\ \ \ \ \ \ \ \ \ ++dydis\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00228}00228\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00229}00229\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00230}\doxymbox{\hyperlink{classmano__vektorius_a86e1f3f78ecfbd2f9b1e809f4851c782}{00230}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classmano__vektorius_a86e1f3f78ecfbd2f9b1e809f4851c782}{pop\_back}}()\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00231}00231\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dydis\_\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/dydis\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00233}00233\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00234}00234\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00235}00235\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00236}00236\ \ \ \ \ \textcolor{comment}{//\ Sumažinti\ iki\ dydžio}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00237}\doxymbox{\hyperlink{classmano__vektorius_a6d1b0002d906e83b134cd2b97927305e}{00237}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classmano__vektorius_a6d1b0002d906e83b134cd2b97927305e}{shrink\_to\_fit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00238}00238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dydis\_\ <\ talpa\_)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dydis\_\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ duomenys\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ duomenys\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ talpa\_\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T*\ new\_data\ =\ \textcolor{keyword}{new}\ T[dydis\_];}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ dydis\_;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_data[i]\ =\ std::move(duomenys\_[i]);}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ duomenys\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ duomenys\_\ =\ new\_data;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ talpa\_\ =\ dydis\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00252}00252\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00253}00253\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00254}00254\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00255}00255\ \ \ \ \ \textcolor{comment}{//\ Iteratoriaus\ palaikymas}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00256}\doxymbox{\hyperlink{classmano__vektorius_aea07d20dacb6c183daf00e4b5b7ce57e}{00256}}\ \ \ \ \ T*\ \doxymbox{\hyperlink{classmano__vektorius_aea07d20dacb6c183daf00e4b5b7ce57e}{begin}}()\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00257}00257\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ duomenys\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00258}00258\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00260}\doxymbox{\hyperlink{classmano__vektorius_a41ed114f04889b4bc124904b7f5e5f8b}{00260}}\ \ \ \ \ \textcolor{keyword}{const}\ T*\ \doxymbox{\hyperlink{classmano__vektorius_a41ed114f04889b4bc124904b7f5e5f8b}{begin}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00261}00261\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ duomenys\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00262}00262\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00264}\doxymbox{\hyperlink{classmano__vektorius_acbaf64dda1c8bf8cf60956375b93e07e}{00264}}\ \ \ \ \ T*\ \doxymbox{\hyperlink{classmano__vektorius_acbaf64dda1c8bf8cf60956375b93e07e}{end}}()\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00265}00265\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ duomenys\_\ +\ dydis\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00266}00266\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00267}00267\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00268}\doxymbox{\hyperlink{classmano__vektorius_a246c4b607b7d3e4d019d5f675cac8b30}{00268}}\ \ \ \ \ \textcolor{keyword}{const}\ T*\ \doxymbox{\hyperlink{classmano__vektorius_a246c4b607b7d3e4d019d5f675cac8b30}{end}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00269}00269\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ duomenys\_\ +\ dydis\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00270}00270\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00272}00272\ \ \ \ \ \textcolor{comment}{//\ Duomenų\ prieiga}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00273}00273\ \ \ \ \ \textcolor{comment}{//\ https://en.cppreference.com/cpp/container/vector/data}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00274}\doxymbox{\hyperlink{classmano__vektorius_ab5a2c8209e558c18e51cda4a5de0f92e}{00274}}\ \ \ \ \ T*\ \doxymbox{\hyperlink{classmano__vektorius_ab5a2c8209e558c18e51cda4a5de0f92e}{data}}()\ \{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00275}00275\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ duomenys\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00276}00276\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00277}00277\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00278}\doxymbox{\hyperlink{classmano__vektorius_a6cd9abb4ca9de0219a501097bbeb3542}{00278}}\ \ \ \ \ \textcolor{keyword}{const}\ T*\ \doxymbox{\hyperlink{classmano__vektorius_a6cd9abb4ca9de0219a501097bbeb3542}{data}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00279}00279\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ duomenys\_;}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00280}00280\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00281}00281\ \};}
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00282}00282\ }
+\DoxyCodeLine{\Hypertarget{vektorius_8h_source_l00283}00283\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ VEKTORIUS\_H}}
+
+\end{DoxyCode}

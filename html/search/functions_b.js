@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['raides_0',['raides',['../_skaiciavimai_8h.html#a17560abdf761386ac0a6af68eb1937ed',1,'Skaiciavimai.h']]],
-  ['randompavarde_1',['randomPavarde',['../_isvestis_ivestis_8cpp.html#a10d7edf966495689e86da8c8c7ccbe5d',1,'randomPavarde(vector&lt; Studentas &gt; &amp;stud):&#160;IsvestisIvestis.cpp'],['../_isvestis_ivestis_8h.html#a10d7edf966495689e86da8c8c7ccbe5d',1,'randomPavarde(vector&lt; Studentas &gt; &amp;stud):&#160;IsvestisIvestis.cpp']]],
-  ['randomvardas_2',['randomVardas',['../_isvestis_ivestis_8cpp.html#a2f68c84a9df3158341619dea12429297',1,'randomVardas(vector&lt; Studentas &gt; &amp;stud):&#160;IsvestisIvestis.cpp'],['../_isvestis_ivestis_8h.html#a2f68c84a9df3158341619dea12429297',1,'randomVardas(vector&lt; Studentas &gt; &amp;stud):&#160;IsvestisIvestis.cpp']]],
-  ['readstudent_3',['readStudent',['../class_studentas.html#a975844a2893c2c5718cc83fcfc92e5c8',1,'Studentas']]],
-  ['reset_4',['Reset',['../class_laikas.html#a4e07dacd2920d2ae94afa3297c2bb038',1,'Laikas']]],
-  ['resizend_5',['resizeNd',['../class_studentas.html#af8311a8b3ed51fc88d9400eadd947634',1,'Studentas']]],
-  ['rikiavimas_6',['rikiavimas',['../_skaiciavimai_8h.html#a7a922bc1738ac6e482f8190aa4ceed71',1,'rikiavimas(vector&lt; Studentas &gt; &amp;stud):&#160;Skaiciavimai.h'],['../_skaiciavimai_8h.html#a607a7cf5a87906a9210ea5fe2b888baa',1,'rikiavimas(vector&lt; Studentas &gt; &amp;stud, int krit):&#160;Skaiciavimai.h']]],
-  ['runstudentsystem_7',['runStudentSystem',['../_main_8cpp.html#a5c658ec7ca655e7b7a876ad1d4ae3a4f',1,'Main.cpp']]]
+  ['pad_5futf8_0',['pad_utf8',['../_isvestis_ivestis_8cpp.html#a39b09334b58a7c3868e6364d3260d820',1,'pad_utf8(const string &amp;str, size_t width):&#160;IsvestisIvestis.cpp'],['../_isvestis_ivestis_8h.html#a39b09334b58a7c3868e6364d3260d820',1,'pad_utf8(const string &amp;str, size_t width):&#160;IsvestisIvestis.cpp']]],
+  ['pavarde_1',['pavarde',['../class_studentas.html#af80936870cf0e4d66ae5cab31461e8ec',1,'Studentas']]],
+  ['pavarderikiavimas_2',['PavardeRikiavimas',['../_skaiciavimai_8cpp.html#a566dfd8d2f8def32d1561e1c195a165b',1,'PavardeRikiavimas(const Studentas &amp;a, const Studentas &amp;b):&#160;Skaiciavimai.cpp'],['../_skaiciavimai_8h.html#a566dfd8d2f8def32d1561e1c195a165b',1,'PavardeRikiavimas(const Studentas &amp;a, const Studentas &amp;b):&#160;Skaiciavimai.cpp']]],
+  ['pop_5fback_3',['pop_back',['../classmano__vektorius.html#a86e1f3f78ecfbd2f9b1e809f4851c782',1,'mano_vektorius']]],
+  ['pradeklaikmati_4',['PradekLaikmati',['../class_laikas.html#a4dc6cc9c8b9ffaa264c67e472dd4e75d',1,'Laikas']]],
+  ['push_5fback_5',['push_back',['../classmano__vektorius.html#af6cfd85bb9510af13182c068d97e2c3d',1,'mano_vektorius::push_back(const T &amp;value)'],['../classmano__vektorius.html#a87badf008952dc1a2f7f67bf997f1466',1,'mano_vektorius::push_back(T &amp;&amp;value)']]]
 ];

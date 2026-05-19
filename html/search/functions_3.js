@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['egzaminas_0',['egzaminas',['../class_studentas.html#a64d09da390e433eb68d7ca43e414d570',1,'Studentas']]]
+  ['data_0',['data',['../classmano__vektorius.html#ab5a2c8209e558c18e51cda4a5de0f92e',1,'mano_vektorius::data()'],['../classmano__vektorius.html#a6cd9abb4ca9de0219a501097bbeb3542',1,'mano_vektorius::data() const']]]
 ];
