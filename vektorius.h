@@ -208,7 +208,84 @@ public:
         dydis_ = new_size;
     }
 
-    
+    void clear() {
+        // naikink visus elementus prieš nustatant nulinį dydį
+        for (size_t i = 0; i < dydis_; ++i) {
+            duomenys_[i] = T{};
+        }
+        dydis_ = 0;
+    }
+
+    // Modifikatoriai
+    void push_back(const T& value) {
+        if (dydis_ >= talpa_) {
+            size_t new_capacity = (talpa_ == 0) ? 1 : talpa_ * 2;
+            reallocate(new_capacity);
+        }
+        duomenys_[dydis_] = value;
+        ++dydis_;
+    }
+
+    void push_back(T&& value) {
+        if (dydis_ >= talpa_) {
+            size_t new_capacity = (talpa_ == 0) ? 1 : talpa_ * 2;
+            reallocate(new_capacity);
+        }
+        duomenys_[dydis_] = std::move(value);
+        ++dydis_;
+    }
+
+    void pop_back() {
+        if (dydis_ > 0) {
+            --dydis_;
+        }
+    }
+
+    // Sumažinti iki dydžio
+    void shrink_to_fit() {
+        if (dydis_ < talpa_) {
+            if (dydis_ == 0) {
+                delete[] duomenys_;
+                duomenys_ = nullptr;
+                talpa_ = 0;
+            } else {
+                T* new_data = new T[dydis_];
+                for (size_t i = 0; i < dydis_; ++i) {
+                    new_data[i] = std::move(duomenys_[i]);
+                }
+                delete[] duomenys_;
+                duomenys_ = new_data;
+                talpa_ = dydis_;
+            }
+        }
+    }
+
+    // Iteratoriaus palaikymas
+    T* begin() {
+        return duomenys_;
+    }
+
+    const T* begin() const {
+        return duomenys_;
+    }
+
+    T* end() {
+        return duomenys_ + dydis_;
+    }
+
+    const T* end() const {
+        return duomenys_ + dydis_;
+    }
+
+    // Duomenų prieiga
+    // https://en.cppreference.com/cpp/container/vector/data
+    T* data() {
+        return duomenys_;
+    }
+
+    const T* data() const {
+        return duomenys_;
+    }
 };
 
 #endif // VEKTORIUS_H
