@@ -18,6 +18,7 @@ add_executable(studentuSistema
         Skaiciavimai.h
         klaiduValdymas.cpp
         klaiduValdymas.h
+        vektorius.h
 )
 
 # Rule of 5 Tests
@@ -33,6 +34,7 @@ add_executable(rule_of_5_tests
         Skaiciavimai.h
         klaiduValdymas.cpp
         klaiduValdymas.h
+        vektorius.h
 )
 
 target_link_libraries(rule_of_5_tests gtest gtest_main)
