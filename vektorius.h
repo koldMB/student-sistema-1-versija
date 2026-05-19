@@ -41,6 +41,19 @@ public:
             duomenys_ = nullptr;
         }
     }
+
+    // Konstruktorius su dydžiu ir numatytąja reikšme
+    mano_vektorius(size_t size, const T& value)
+        : dydis_(size), talpa_(size) {
+        if (size > 0) {
+            duomenys_ = new T[size];
+            for (size_t i = 0; i < size; ++i) {
+                duomenys_[i] = value;
+            }
+        } else {
+            duomenys_ = nullptr;
+        }
+    }
 };
 
 #endif // VEKTORIUS_H
