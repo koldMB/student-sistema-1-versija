@@ -104,6 +104,15 @@ public:
         delete[] duomenys_;
     }
 
+    // Elemento prieiga
+    T& operator[](size_t index) {
+        return duomenys_[index];
+    }
+
+    const T& operator[](size_t index) const {
+        return duomenys_[index];
+    }
+
 };
 
 #endif // VEKTORIUS_H
