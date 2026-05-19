@@ -13,6 +13,15 @@ private:
     size_t dydis_; // Faktinis elementų skaičius vektoriuje
     size_t talpa_; // Iš viso paskirstyta atmintis (kiek elementų gali tilpti)
 
+    /*
+    size_t nes CPU gali būti 32 ar 64 bitų
+    
+    size_t can store the maximum size of a theoretically possible object of any type (including array).
+
+    size_t is commonly used for array indexing and loop counting. Programs that use other types, such as unsigned int, for array indexing may fail on, e.g. 64-bit systems when the index exceeds UINT_MAX or if it relies on 32-bit modular arithmetic. 
+    https://en.cppreference.com/c/types/size_t
+    */ 
+
     // Pagalbinė funkcija atminčiai iš naujo paskirstyti pakitus vektoriaus dydžiui
     void reallocate(size_t nauja_talpa) {
         if (nauja_talpa < dydis_) return;
@@ -136,6 +145,18 @@ public:
         if (dydis_ == 0) throw std::out_of_range("mano_vektorius::front() vektorius yra tuščias");
         return duomenys_[0];
     }
+
+    T& back() {
+        if (dydis_ == 0) throw std::out_of_range("mano_vektorius::back() vektorius yra tuščias");
+        return duomenys_[dydis_ - 1];
+    }
+
+    const T& back() const {
+        if (dydis_ == 0) throw std::out_of_range("mano_vektorius::back() vektorius yra tuščias");
+        return duomenys_[dydis_ - 1];
+    }
+
+    
 
 };
 
