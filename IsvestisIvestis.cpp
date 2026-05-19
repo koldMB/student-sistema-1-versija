@@ -198,10 +198,8 @@ void isvestis(const vector<Studentas> &stud, int &MaxPav, int &MaxVard)
     oss << pad_utf8("Vardas", MaxVard + 2) << pad_utf8("Pavardė", MaxPav + 2)
             << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     oss << string(MaxVard + MaxPav + 44, '-') << "\n";
-    for(auto &s : stud) {
-        oss << pad_utf8(s.vardas(), MaxVard + 2) << pad_utf8(s.pavarde(), MaxPav + 2)
-            << setw(20) << std::fixed << std::setprecision(2) << s.vidurkis()
-            << setw(20) << std::fixed << std::setprecision(2) << s.mediana() << "\n";
+    for(const auto &s : stud) {
+        oss << s << "\n";
     }
     cout << oss.str();
 }
@@ -219,9 +217,7 @@ void FailoIsvedimas(const vector<Studentas> &stud, const string& filename, int &
         << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     oss << string(MaxVard + MaxPav + 44, '-') << "\n";
     for(const auto &s : stud) {
-        oss << pad_utf8(s.vardas(), MaxVard + 2) << pad_utf8(s.pavarde(), MaxPav + 2)
-            << setw(20) << std::fixed << std::setprecision(2) << s.vidurkis()
-            << setw(20) << std::fixed << std::setprecision(2) << s.mediana() << "\n";
+        oss << s << "\n";
     }
     
     f << oss.str();
@@ -257,61 +253,13 @@ void FailoNuskaitymas(vector<Studentas> &stud, const string& filename) {
     }
     
     AllExceptionsHandler::CatchAll([&]() {
-
-        // Skip header line
-        f.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-        int nd_sk = -1; // pagal pirma eilute
-        string line;
-
-        while (std::getline(f, line)) {
-            if (line.empty()) continue;
-
-            // išskaido eilutę į žodžius
-            std::istringstream iss(line);
-            string token;
-            vector<string> tokens;
-            while (iss >> token) {
-                tokens.push_back(token);
-            }
-
-            // bent vienas namų darbas + egzaminas + vardas + pavardė
-            if (tokens.size() < 4) continue;
-
-            // nustato namų darbų skaičių pagal pirmą eilutę
-            if (nd_sk == -1) {
-                nd_sk = static_cast<int>(tokens.size()) - 3; // pirmi du žodžiai - vardas ir pavardė, paskutinis - egzaminas
-            }
-
-            Studentas temp;
-            auto vardas_opt = AllExceptionsHandler::TryAt(tokens, 0);
-            auto pavarde_opt = AllExceptionsHandler::TryAt(tokens, 1);
-            if (!vardas_opt.has_value() || !pavarde_opt.has_value()) continue;
-            temp.setVardas(vardas_opt.value());
-            temp.setPavarde(pavarde_opt.value());
-            temp.resizeNd(nd_sk);
-
-            // nuskaito namų darbų pažymius
-            for (int i = 0; i < nd_sk; i++) {
-                auto token_opt = AllExceptionsHandler::TryAt(tokens, 2 + i);
-                if (!token_opt.has_value()) continue;
-                auto nd_opt = AllExceptionsHandler::TryStoI(token_opt.value());
-                if (nd_opt.has_value()) {
-                    AllExceptionsHandler::TrySetAt(temp.ndRef(), i, static_cast<double>(nd_opt.value()));
-                }
-            }
-
-            // nuskaito egzamino pažymį
-            auto egz_token_opt = AllExceptionsHandler::TryAt(tokens, 2 + nd_sk);
-            if (egz_token_opt.has_value()) {
-                auto egz_opt = AllExceptionsHandler::TryStoI(egz_token_opt.value());
-                if (egz_opt.has_value()) {
-                    temp.setEgzaminas(static_cast<double>(egz_opt.value()));
-                }
-            }
-
+        Studentas temp;
+        
+        // Use operator>> to read each student from the file
+        while (f >> temp) {
             stud.push_back(temp);
         }
+        
         f.close();
     });
 }
@@ -331,18 +279,14 @@ void IsvestiGeriBlogiFailus(const vector<Studentas> &geri, const vector<Studenta
         << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     geri_failas << string(MaxVard + MaxPav + 44, '-') << "\n";
     for (const auto& s : geri) {
-        geri_failas << pad_utf8(s.vardas(), MaxVard + 2) << pad_utf8(s.pavarde(), MaxPav + 2)
-            << setw(20) << std::fixed << std::setprecision(2) << s.vidurkis()
-            << setw(20) << std::fixed << std::setprecision(2) << s.mediana() << "\n";
+        geri_failas << s << "\n";
     }
     // Blogi studentai
     blogi_failas << pad_utf8("Vardas", MaxVard + 2) << pad_utf8("Pavardė", MaxPav + 2)
         << setw(20) << "Galutinis (vid.)" << setw(20) << "Galutinis (med.)" << "\n";
     blogi_failas << string(MaxVard + MaxPav + 44, '-') << "\n";
     for (const auto& s : blogi) {
-        blogi_failas << pad_utf8(s.vardas(), MaxVard + 2) << pad_utf8(s.pavarde(), MaxPav + 2)
-            << setw(20) << std::fixed << std::setprecision(2) << s.vidurkis()
-            << setw(20) << std::fixed << std::setprecision(2) << s.mediana() << "\n";
+        blogi_failas << s << "\n";
     }
     geri_failas.close();
     blogi_failas.close();
