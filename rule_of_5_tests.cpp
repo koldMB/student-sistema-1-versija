@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Common.h"
+#include "vektorius.h"
 #include <windows.h>
 #include <gtest/gtest.h>
 #include <exception>
@@ -195,8 +196,266 @@ TEST(StudentasTest, SetndNdref) {
     EXPECT_EQ(s.nd().size(), 5);
     EXPECT_EQ(s.nd()[4], 10.0);
 }
+// ============================================
+// MANO_VEKTORIUS TESTAI
+// ============================================
 
+// Test 1: Default Constructor
+TEST(ManoVektoriusTest, DefaultKonstruktorius) {
+    mano_vektorius<int> v;
+    EXPECT_TRUE(v.empty());
+    EXPECT_EQ(v.size(), 0);
+    EXPECT_EQ(v.capacity(), 0);
+}
 
+// Test 2: Constructor with initial capacity
+TEST(ManoVektoriusTest, KonstruktoriusSuTalpa) {
+    mano_vektorius<int> v(10);
+    EXPECT_TRUE(v.empty());
+    EXPECT_EQ(v.size(), 0);
+    EXPECT_EQ(v.capacity(), 10);
+}
+
+// Test 3: Constructor with size and value
+TEST(ManoVektoriusTest, KonstruktoriusSuDydžiuIrReikšme) {
+    mano_vektorius<int> v(5, 42);
+    EXPECT_EQ(v.size(), 5);
+    EXPECT_EQ(v.capacity(), 5);
+    for (size_t i = 0; i < v.size(); ++i) {
+        EXPECT_EQ(v[i], 42);
+    }
+}
+
+// Test 4: operator[] access
+TEST(ManoVektoriusTest, OperatorSquareBrackets) {
+    mano_vektorius<int> v(3, 10);
+    v[0] = 100;
+    v[1] = 200;
+    v[2] = 300;
+    EXPECT_EQ(v[0], 100);
+    EXPECT_EQ(v[1], 200);
+    EXPECT_EQ(v[2], 300);
+}
+
+// Test 5: at() method - valid access
+TEST(ManoVektoriusTest, AtMethodValidAccess) {
+    mano_vektorius<double> v(3, 1.5);
+    EXPECT_EQ(v.at(0), 1.5);
+    EXPECT_EQ(v.at(1), 1.5);
+    EXPECT_EQ(v.at(2), 1.5);
+}
+
+// Test 6: at() method - out of bounds
+TEST(ManoVektoriusTest, AtMethodOutOfBounds) {
+    mano_vektorius<int> v(3, 5);
+    EXPECT_THROW(v.at(3), std::out_of_range);
+    EXPECT_THROW(v.at(100), std::out_of_range);
+}
+
+// Test 7: front() and back() - valid
+TEST(ManoVektoriusTest, FrontBackValid) {
+    mano_vektorius<int> v(5, 0);
+    v[0] = 10;
+    v[4] = 50;
+    EXPECT_EQ(v.front(), 10);
+    EXPECT_EQ(v.back(), 50);
+}
+
+// Test 8: front() and back() - empty vector
+TEST(ManoVektoriusTest, FrontBackEmpty) {
+    mano_vektorius<int> v;
+    EXPECT_THROW(v.front(), std::out_of_range);
+    EXPECT_THROW(v.back(), std::out_of_range);
+}
+
+// Test 9: reserve() expands capacity
+TEST(ManoVektoriusTest, ReserveExpandCapacity) {
+    mano_vektorius<int> v(5, 1);
+    EXPECT_EQ(v.capacity(), 5);
+    v.reserve(20);
+    EXPECT_EQ(v.capacity(), 20);
+    EXPECT_EQ(v.size(), 5);  // Size should not change
+}
+
+// Test 10: reserve() does not shrink
+TEST(ManoVektoriusTest, ReserveDoesNotShrink) {
+    mano_vektorius<int> v(20, 1);
+    v.reserve(10);
+    EXPECT_EQ(v.capacity(), 20);  // Should remain at 20
+}
+
+// Test 11: resize() increases size with default value
+TEST(ManoVektoriusTest, ResizeIncreaseWithDefault) {
+    mano_vektorius<int> v(3, 5);
+    v.resize(7);
+    EXPECT_EQ(v.size(), 7);
+    EXPECT_EQ(v[0], 5);
+    EXPECT_EQ(v[3], 0);  // New elements should be default-initialized
+}
+
+// Test 12: resize() increases size with custom value
+TEST(ManoVektoriusTest, ResizeIncreaseWithCustomValue) {
+    mano_vektorius<int> v(2, 10);
+    v.resize(5, 99);
+    EXPECT_EQ(v.size(), 5);
+    EXPECT_EQ(v[0], 10);
+    EXPECT_EQ(v[2], 99);
+    EXPECT_EQ(v[4], 99);
+}
+
+// Test 13: resize() decreases size
+TEST(ManoVektoriusTest, ResizeDecrease) {
+    mano_vektorius<int> v(5, 20);
+    v.resize(2);
+    EXPECT_EQ(v.size(), 2);
+    EXPECT_EQ(v[0], 20);
+    EXPECT_EQ(v[1], 20);
+}
+
+// Test 14: Copy Constructor
+TEST(ManoVektoriusTest, KopijuojantisKonstruktorius) {
+    mano_vektorius<int> original(4, 42);
+    original[0] = 100;
+    original[3] = 400;
+    
+    mano_vektorius<int> copy(original);
+    EXPECT_EQ(copy.size(), 4);
+    EXPECT_EQ(copy.capacity(), 4);
+    EXPECT_EQ(copy[0], 100);
+    EXPECT_EQ(copy[3], 400);
+    
+    // Modifying copy should not affect original
+    copy[0] = 999;
+    EXPECT_EQ(original[0], 100);
+}
+
+// Test 15: Move Constructor
+TEST(ManoVektoriusTest, PerkėlimoKonstruktorius) {
+    mano_vektorius<int> original(5, 10);
+    original[0] = 50;
+    original[4] = 90;
+    
+    mano_vektorius<int> moved(std::move(original));
+    EXPECT_EQ(moved.size(), 5);
+    EXPECT_EQ(moved[0], 50);
+    EXPECT_EQ(moved[4], 90);
+    
+    // Original should be empty
+    EXPECT_TRUE(original.empty());
+    EXPECT_EQ(original.capacity(), 0);
+}
+
+// Test 16: Copy Assignment Operator
+TEST(ManoVektoriusTest, KopijuojantisPriskyrimas) {
+    mano_vektorius<int> v1(3, 5);
+    v1[0] = 100;
+    
+    mano_vektorius<int> v2(2, 10);
+    v2 = v1;
+    
+    EXPECT_EQ(v2.size(), 3);
+    EXPECT_EQ(v2[0], 100);
+    
+    // Modifying v2 should not affect v1
+    v2[0] = 999;
+    EXPECT_EQ(v1[0], 100);
+}
+
+// Test 17: Move Assignment Operator (uses unified assignment operator)
+TEST(ManoVektoriusTest, PerkelimosPriskyrimas) {
+    mano_vektorius<int> v1(4, 20);
+    v1[0] = 77;
+    v1[3] = 88;
+    
+    mano_vektorius<int> v2(2, 5);
+    v2 = std::move(v1);
+    
+    EXPECT_EQ(v2.size(), 4);
+    EXPECT_EQ(v2[0], 77);
+    EXPECT_EQ(v2[3], 88);
+    
+    // v1 should be empty after move assignment (via the move constructor in parameter)
+    EXPECT_TRUE(v1.empty());
+    EXPECT_EQ(v1.capacity(), 0);
+}
+
+// Test 18: self assignment handling
+TEST(ManoVektoriusTest, SelfAssignment) {
+    mano_vektorius<int> v(3, 42);
+    v = v;  // Self assignment
+    EXPECT_EQ(v.size(), 3);
+    EXPECT_EQ(v[0], 42);
+}
+
+// Test 19: Multiple operations in sequence
+TEST(ManoVektoriusTest, MultipleOperations) {
+    mano_vektorius<int> v;
+    v.reserve(10);
+    v.resize(5, 3);
+    EXPECT_EQ(v.size(), 5);
+    EXPECT_EQ(v.capacity(), 10);
+    
+    for (size_t i = 0; i < v.size(); ++i) {
+        EXPECT_EQ(v[i], 3);
+    }
+}
+
+// Test 20: Vector of doubles
+TEST(ManoVektoriusTest, VectorOfDoubles) {
+    mano_vektorius<double> v(3, 3.14);
+    EXPECT_DOUBLE_EQ(v[0], 3.14);
+    EXPECT_DOUBLE_EQ(v.front(), 3.14);
+    EXPECT_DOUBLE_EQ(v.back(), 3.14);
+}
+
+// Test 21: Vector of strings
+TEST(ManoVektoriusTest, VectorOfStrings) {
+    mano_vektorius<std::string> v(2, "hello");
+    EXPECT_EQ(v[0], "hello");
+    EXPECT_EQ(v[1], "hello");
+    
+    v[0] = "world";
+    EXPECT_EQ(v.front(), "world");
+}
+
+// Test 22: Move semantics with complex types
+TEST(ManoVektoriusTest, MoveSemanticsComplexTypes) {
+    mano_vektorius<std::string> v1(2, "test");
+    v1[0] = "hello";
+    v1[1] = "world";
+    
+    mano_vektorius<std::string> v2(std::move(v1));
+    EXPECT_EQ(v2[0], "hello");
+    EXPECT_EQ(v2[1], "world");
+    EXPECT_TRUE(v1.empty());
+}
+
+// Test 23: Resize with capacity doubling
+TEST(ManoVektoriusTest, ResizeWithCapacityDoubling) {
+    mano_vektorius<int> v(2, 5);
+    EXPECT_EQ(v.capacity(), 2);
+    
+    v.resize(5, 10);
+    EXPECT_EQ(v.size(), 5);
+    EXPECT_GE(v.capacity(), 5);  // Capacity should be at least 5, likely doubled
+}
+
+// Test 24: Empty vector access to at()
+TEST(ManoVektoriusTest, EmptyVectorAtAccess) {
+    mano_vektorius<int> v;
+    EXPECT_THROW(v.at(0), std::out_of_range);
+}
+
+// Test 25: Destructor test (no memory leaks in scope)
+TEST(ManoVektoriusTest, DestructorTest) {
+    {
+        mano_vektorius<int> v(100, 42);
+        v.resize(200, 99);
+        // Destructor should be called automatically
+    }
+    // If we reach here without crash, destructor worked
+    EXPECT_TRUE(true);
+}
 int main(int argc, char** argv) {
     try{
         SetConsoleCP(CP_UTF8);

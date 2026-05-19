@@ -21,7 +21,7 @@ add_executable(studentuSistema
         vektorius.h
 )
 
-# Rule of 5 Tests
+# Rule of 5 Tests ir google testai
 add_executable(rule_of_5_tests
         rule_of_5_tests.cpp
         Laikas.cpp

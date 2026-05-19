@@ -84,27 +84,11 @@ public:
         other.dydis_ = 0;
         other.talpa_ = 0;
     }
-    // Kopijavimo priskyrimo operatorius
+    // Unified assignment operator (handles both copy and move through parameter passing)
     mano_vektorius& operator=(mano_vektorius other) noexcept {
         std::swap(duomenys_, other.duomenys_);
         std::swap(dydis_,    other.dydis_);
         std::swap(talpa_,    other.talpa_);
-        return *this;
-    }
-
-    // Perkėlimo priskyrimo operatorius
-    mano_vektorius& operator=(mano_vektorius&& other) noexcept {
-        if (this != &other) {
-            delete[] duomenys_;
-
-            duomenys_ = other.duomenys_;
-            dydis_ = other.dydis_;
-            talpa_ = other.talpa_;
-
-            other.duomenys_ = nullptr;
-            other.dydis_ = 0;
-            other.talpa_ = 0;
-        }
         return *this;
     }
 
@@ -181,9 +165,17 @@ public:
             reallocate(new_capacity);
         }
 
-        // naikink kas neieina į naują dydį
-        for (size_t i = new_size; i < dydis_; ++i) {
-            duomenys_[i] = T{};
+        // Initialize new elements if expanding
+        if (new_size > dydis_) {
+            for (size_t i = dydis_; i < new_size; ++i) {
+                duomenys_[i] = T{};
+            }
+        }
+        // Clear removed elements if shrinking
+        else if (new_size < dydis_) {
+            for (size_t i = new_size; i < dydis_; ++i) {
+                duomenys_[i] = T{};
+            }
         }
 
         dydis_ = new_size;
