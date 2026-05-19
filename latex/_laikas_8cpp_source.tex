@@ -1,0 +1,36 @@
+\doxysection{Laikas.\+cpp}
+\hypertarget{_laikas_8cpp_source}{}\label{_laikas_8cpp_source}\doxymbox{\hyperlink{_laikas_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_laikas_8h}{Laikas.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00006}\doxymbox{\hyperlink{_laikas_8cpp_a2ddb476b9212b8d8f699a8a027f2a5e4}{00006}}\ std::vector<double>\ \doxymbox{\hyperlink{_laikas_8cpp_a2ddb476b9212b8d8f699a8a027f2a5e4}{LaikoVektorius}};}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00008}\doxymbox{\hyperlink{class_laikas_a4dc6cc9c8b9ffaa264c67e472dd4e75d}{00008}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_laikas_a4dc6cc9c8b9ffaa264c67e472dd4e75d}{Laikas::PradekLaikmati}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00009}00009\ \ \ \ \ start\ =\ std::chrono::high\_resolution\_clock::now();}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00010}00010\ \}}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00012}\doxymbox{\hyperlink{class_laikas_a09584e32459c2548d4c8e86475992ffb}{00012}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_laikas_a09584e32459c2548d4c8e86475992ffb}{Laikas::BaigtiLaikmati}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00013}00013\ \ \ \ \ \textcolor{keyword}{auto}\ end\ =\ std::chrono::high\_resolution\_clock::now();}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00014}00014\ \ \ \ \ \textcolor{keywordtype}{double}\ duration\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ std::chrono::duration\_cast<std::chrono::milliseconds>(end\ -\/\ start).count()}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00016}00016\ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00018}00018\ \ \ \ \ \doxymbox{\hyperlink{_laikas_8h_a2ddb476b9212b8d8f699a8a027f2a5e4}{LaikoVektorius}}.push\_back(duration);}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00019}00019\ \}}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00021}\doxymbox{\hyperlink{class_laikas_a4e07dacd2920d2ae94afa3297c2bb038}{00021}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_laikas_a4e07dacd2920d2ae94afa3297c2bb038}{Laikas::Reset}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00022}00022\ \ \ \ \ \doxymbox{\hyperlink{_laikas_8h_a2ddb476b9212b8d8f699a8a027f2a5e4}{LaikoVektorius}}.clear();}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00023}00023\ \}}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00025}\doxymbox{\hyperlink{class_laikas_ae7c579a749ec1b9ee8df05dcd8bd3efe}{00025}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_laikas_ae7c579a749ec1b9ee8df05dcd8bd3efe}{Laikas::Isvesk}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00026}00026\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \doxymbox{\hyperlink{_laikas_8h_a2ddb476b9212b8d8f699a8a027f2a5e4}{LaikoVektorius}}.size();\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ std::cout\ <<\ \doxymbox{\hyperlink{_laikas_8h_a2ddb476b9212b8d8f699a8a027f2a5e4}{LaikoVektorius}}.at(i)\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00028}00028\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00029}00029\ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00030}00030\ \ \ \ \ \doxymbox{\hyperlink{class_laikas_a4e07dacd2920d2ae94afa3297c2bb038}{Laikas::Reset}}();}
+\DoxyCodeLine{\Hypertarget{_laikas_8cpp_source_l00031}00031\ \}}
+
+\end{DoxyCode}

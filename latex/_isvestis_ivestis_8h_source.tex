@@ -1,0 +1,45 @@
+\doxysection{Isvestis\+Ivestis.\+h}
+\hypertarget{_isvestis_ivestis_8h_source}{}\label{_isvestis_ivestis_8h_source}\doxymbox{\hyperlink{_isvestis_ivestis_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ STUDENTU\_SISTEMA\_ISVESTISIVESTIS\_H}}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ STUDENTU\_SISTEMA\_ISVESTISIVESTIS\_H}}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <iomanip>}}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_common_8h}{Common.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{klaidu_valdymas_8h}{klaiduValdymas.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00016}00016\ \textcolor{keyword}{using\ }std::string;}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00017}00017\ \textcolor{keyword}{using\ }std::vector;}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00018}00018\ \textcolor{keyword}{using\ }std::cout;}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00019}00019\ \textcolor{keyword}{using\ }std::cerr;}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00020}00020\ \textcolor{keyword}{using\ }std::cin;}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00022}00022\ \textcolor{comment}{//\ Forward\ declarations}}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00023}00023\ \textcolor{keywordtype}{string}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a39b09334b58a7c3868e6364d3260d820}{pad\_utf8}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ str,\ \textcolor{keywordtype}{size\_t}\ width);}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00024}00024\ \textcolor{keywordtype}{string}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a2f68c84a9df3158341619dea12429297}{randomVardas}}(vector<Studentas>\ \&stud);}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00025}00025\ \textcolor{keywordtype}{string}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a10d7edf966495689e86da8c8c7ccbe5d}{randomPavarde}}(vector<Studentas>\ \&stud);}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00027}00027\ \textcolor{comment}{//\ Function\ declarations\ -\/\ all\ using\ vector<Studentas>\ only}}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00028}00028\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a576d13a4a5f610c3ab56ed6ed3398502}{skaitymas}}(vector<Studentas>\ \&stud);}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00029}00029\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a576d13a4a5f610c3ab56ed6ed3398502}{skaitymas}}(vector<Studentas>\ \&stud,\ \textcolor{keywordtype}{int}\ \&n,\ \textcolor{keywordtype}{int}\ nd\_sk);}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00030}00030\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a576d13a4a5f610c3ab56ed6ed3398502}{skaitymas}}(vector<Studentas>\ \&stud,\ \textcolor{keywordtype}{int}\ \&n,\ \textcolor{keywordtype}{int}\ nd\_sk,\ \textcolor{keywordtype}{int}\ VardPavSk);}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00031}00031\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a99db211788b3aee4c64f62553edfc921}{FailoNuskaitymas}}(vector<Studentas>\ \&stud,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ filename);}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00032}00032\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a6db975ee02b095fffe8d884d666e5eb4}{FailoIsvedimas}}(\textcolor{keyword}{const}\ vector<Studentas>\ \&stud,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ filename,\ \textcolor{keywordtype}{int}\ \&MaxPav,\ \textcolor{keywordtype}{int}\ \&MaxVard);}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00033}00033\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_ac83fbc3f7ce715ebc9aba9f61476e3b6}{TermArFailas}}(\textcolor{keyword}{const}\ vector<Studentas>\ \&stud,\ \textcolor{keywordtype}{int}\ \&MaxPav,\ \textcolor{keywordtype}{int}\ \&MaxVard);}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00034}00034\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a71e36bc2b9c1c376e707fb82ea227dfb}{isvestis}}(\textcolor{keyword}{const}\ vector<Studentas>\ \&stud,\ \textcolor{keywordtype}{int}\ \&MaxPav,\ \textcolor{keywordtype}{int}\ \&MaxVard);}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00035}00035\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a43616e30de5c14d52edfc15e7dde176b}{IsvestiGeriBlogiFailus}}(\textcolor{keyword}{const}\ vector<Studentas>\ \&geri,\ \textcolor{keyword}{const}\ vector<Studentas>\ \&blogi,\ \textcolor{keywordtype}{int}\ MaxPav,\ \textcolor{keywordtype}{int}\ MaxVard);}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00036}00036\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a40c0e3c9464fd3d30548d7fc6b93d745}{IsvestiBlogusGerusFailus}}(\textcolor{keyword}{const}\ vector<Studentas>\ \&geri,\ \textcolor{keyword}{const}\ vector<Studentas>\ \&blogi,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ basename,\ \textcolor{keywordtype}{int}\ MaxPav,\ \textcolor{keywordtype}{int}\ MaxVard);}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00037}00037\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{_isvestis_ivestis_8h_a051df042cbfd64f3d73f975e58266161}{GeneruotiStudentuFaila}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ filename,\ \textcolor{keywordtype}{int}\ student\_count,\ \textcolor{keywordtype}{int}\ nd\_sk);}
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_isvestis_ivestis_8h_source_l00040}00040\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//STUDENTU\_SISTEMA\_ISVESTISIVESTIS\_H}}
+
+\end{DoxyCode}

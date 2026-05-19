@@ -1,0 +1,101 @@
+\doxysection{klaidu\+Valdymas.\+h}
+\hypertarget{klaidu_valdymas_8h_source}{}\label{klaidu_valdymas_8h_source}\doxymbox{\hyperlink{klaidu_valdymas_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ STUDENTU\_SISTEMA\_KLAIDUVALDYMAS\_H}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ STUDENTU\_SISTEMA\_KLAIDUVALDYMAS\_H}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <future>}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <optional>}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00011}00011\ \textcolor{keyword}{using\ }std::cerr;}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00013}\doxymbox{\hyperlink{class_all_exceptions_handler}{00013}}\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_all_exceptions_handler}{AllExceptionsHandler}}\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00014}00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00015}00015\ \ \ \ \ \textcolor{comment}{//\ Run\ a\ function\ and\ catch\ all\ standard\ exceptions\ with\ default\ messages}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00016}00016\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ Func>}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00017}\doxymbox{\hyperlink{class_all_exceptions_handler_a508d457727c766fcf18621661ad5b853}{00017}}\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_all_exceptions_handler_a508d457727c766fcf18621661ad5b853}{CatchAll}}(Func\ \&\&func)\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ func();}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::bad\_alloc\ \&)\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}bad\_alloc:\ atminties\ paskirstymas\ nepavyko"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ cerr.flush();}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ exit(-\/1);}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::ios\_base::failure\ \&)\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}ios\_base::failure:\ įvesties/išvesties\ operacija\ nepavyko"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ cerr.flush();}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ exit(-\/2);}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::system\_error\ \&)\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}system\_error:\ sistemos\ kvietimas\ nepavyko"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ cerr.flush();}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ exit(-\/3);}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00032}00032\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::future\_error\ \&)\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}future\_error:\ klaida\ su\ future/promise"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ cerr.flush();}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ exit(-\/4);}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::logic\_error\ \&)\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}logic\_error:\ logikos\ pažeidimas"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ cerr.flush();}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ exit(-\/5);}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::runtime\_error\ \&e)\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}runtime\_error:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ cerr.flush();}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ exit(-\/6);}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00044}00044\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}std::exception:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ cerr.flush();}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ exit(-\/7);}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (...)\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Nežinoma\ klaida"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ cerr.flush();}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ exit(-\/8);}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00052}00052\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00053}00053\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00055}00055\ \ \ \ \ \textcolor{comment}{//\ Try\ to\ convert\ string\ to\ int,\ returns\ std::optional}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00056}00056\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T\ =\ \textcolor{keywordtype}{int}>}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00057}\doxymbox{\hyperlink{class_all_exceptions_handler_a03c4b117906f208319b4bf08755d26e4}{00057}}\ \ \ \ \ \textcolor{keyword}{static}\ std::optional<T>\ \doxymbox{\hyperlink{class_all_exceptions_handler_a03c4b117906f208319b4bf08755d26e4}{TryStoI}}(\textcolor{keyword}{const}\ std::string\ \&s)\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::stoi(s);}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00060}00060\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::invalid\_argument\ \&)\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::out\_of\_range\ \&)\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00064}00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00065}00065\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00067}00067\ \ \ \ \ \textcolor{comment}{//\ Throw\ a\ runtime\_error\ with\ default\ message}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00068}\doxymbox{\hyperlink{class_all_exceptions_handler_aabc100a5f18956a3d235a7716a22cbdd}{00068}}\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_all_exceptions_handler_aabc100a5f18956a3d235a7716a22cbdd}{ThrowRuntimeError}}()\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}runtime\_error:\ vykdymo\ klaida"{}});}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00070}00070\ \ \ \ \ \ \ \ \ exit(-\/6);}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00071}00071\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00073}00073\ \ \ \ \ \textcolor{comment}{//\ Safe\ vector\ access\ -\/\ returns\ std::optional}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00074}00074\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00075}\doxymbox{\hyperlink{class_all_exceptions_handler_a44019e0d367320053c4ba89f5fe579b2}{00075}}\ \ \ \ \ \textcolor{keyword}{static}\ std::optional<T>\ \doxymbox{\hyperlink{class_all_exceptions_handler_a44019e0d367320053c4ba89f5fe579b2}{TryAt}}(\textcolor{keyword}{const}\ std::vector<T>\ \&vec,\ \textcolor{keywordtype}{size\_t}\ index)\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00076}00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vec.at(index);}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00078}00078\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::out\_of\_range\ \&)\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::nullopt;}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00080}00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00081}00081\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00083}00083\ \ \ \ \ \textcolor{comment}{//\ Safe\ vector\ element\ set\ -\/\ returns\ true\ if\ successful}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00084}00084\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00085}\doxymbox{\hyperlink{class_all_exceptions_handler_a55a4476b03027cca88d4db21a63b2ddb}{00085}}\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_all_exceptions_handler_a55a4476b03027cca88d4db21a63b2ddb}{TrySetAt}}(std::vector<T>\ \&vec,\ \textcolor{keywordtype}{size\_t}\ index,\ \textcolor{keyword}{const}\ T\ \&value)\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ vec.at(index)\ =\ value;}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00089}00089\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::out\_of\_range\ \&)\ \{}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}out\_of\_range:\ vektoriaus\ indeksas\ "{}}\ <<\ index\ <<\ \textcolor{stringliteral}{"{}\ yra\ už\ ribų"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00092}00092\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00093}00093\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00094}00094\ \};}
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{klaidu_valdymas_8h_source_l00096}00096\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//STUDENTU\_SISTEMA\_KLAIDUVALDYMAS\_H}}
+
+\end{DoxyCode}

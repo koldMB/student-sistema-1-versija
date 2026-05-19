@@ -65,6 +65,113 @@ GPU 1
 	GPU Memory	0,6/8,9 GB
 
 
+# Studentu Sistema - Klasės Dokumentacija
+
+## Studentas Klase - Perdengi Metodai
+
+### Konstruktoriai (Perkrautas Inicializacijos Metodai)
+
+Studentas klasė turi kelis konstruktorius, kurie leidžia sukurti objektus skirtingais būdais:
+
+1. **Numatytasis konstruktorius:**
+   ```cpp
+   Studentas()
+   ```
+   Sukuria tuščią studentą su nulinėmis reikšmėmis.
+
+2. **Konstruktorius su vardais:**
+   ```cpp
+   Studentas(std::string v, std::string p)
+   ```
+   Sukuria studentą nurodant vardą ir pavardę.
+
+3. **Pilnas konstruktorius:**
+   ```cpp
+   Studentas(std::string v, std::string p, double egz, double med, double vid, std::vector<double> n)
+   ```
+   Sukuria studentą su visais duomenimis: vardu, pavarde, egzamino balu, mediana, vidurkiu ir namų darbų pažymiais.
+
+### Duomenų Įvestis - Perkrauti `addNd()` Metodai
+
+Pažymiai gali būti pridėti dviem būdais:
+
+1. **Vienas pažymys vienu metu:**
+   ```cpp
+   studentas.addNd(7.5);  // Prideda vieną pažymį
+   ```
+
+2. **Keletas pažymių iš kartų:**
+   ```cpp
+   std::vector<double> pazymiai = {7.0, 8.5, 9.0};
+   studentas.addNd(pazymiai);  // Prideda visus pažymius iš vektoriaus
+   ```
+
+### Duomenų Šaltiniai ir Metodai
+
+#### 1. **Rankinė Įvestis**
+```cpp
+Studentas studentas;
+studentas.setVardas("Jonas");
+studentas.setPavarde("Jonaitis");
+studentas.setEgzaminas(8.5);
+studentas.addNd(7.0);
+studentas.addNd(8.0);
+studentas.addNd(9.0);
+```
+
+#### 2. **Automatinė Įvestis (Iš Failų)**
+```cpp
+Studentas studentas;
+std::ifstream failas("studentai.txt");
+studentas.readStudent(failas);  // Skaito studentą iš failo
+```
+
+### Duomenų Išvestis
+
+#### 1. **Išvestis į Ekraną**
+```cpp
+std::cout << "Vardas: " << studentas.vardas() << std::endl;
+std::cout << "Pavardė: " << studentas.pavarde() << std::endl;
+std::cout << "Egzaminas: " << studentas.egzaminas() << std::endl;
+std::cout << "Mediana: " << studentas.mediana() << std::endl;
+std::cout << "Vidurkis: " << studentas.vidurkis() << std::endl;
+```
+
+#### 2. **Išvestis į Failą**
+```cpp
+std::ofstream failas("rezultatai.txt");
+// Funkcijos atrinkimas() ir atrinkimasAutomatiskas() rašo duomenis į failą
+atrinkimas(studentai, geri_studentai, blogi_studentai);
+```
+
+### Perkrauti Setter Metodai
+
+Duomenys gali būti nustatyti dviem būdais:
+
+1. **Atskirai (Individual setters):**
+   ```cpp
+   studentas.setVardas("Marija");
+   studentas.setPavarde("Marijanauskaite");
+   studentas.setEgzaminas(8.0);
+   ```
+
+2. **Iš Karto (Overloaded setters - multiple at once):**
+   ```cpp
+   studentas.setVardaPavarde("Marija", "Marijanauskaite");
+   studentas.setRez(8.0, 7.5, 7.75);  // Nustatytika egzaminą, medianą ir vidurkį
+   ```
+
+### Rule of 5 - Specialus Metodai
+
+1. **Default konstruktorius**
+2. **Copy konstruktorius**
+3. **Copy assignment operatorius** 
+4. **Move konstruktorius**
+5. **Move assignment operatorius**
+6. **Destruktorius** 
+
+---
+
 # Laiko efektyvumo testai v0.4
 
 _Čia žiurėkite tik į failų generavimo testą, duomenų apdorojimas yra man kai generavau failus_
